@@ -1,0 +1,1 @@
+// Aqui la copa de oro (agregar un display none modificable desde el google sheets)

@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    background-color: #e6e8e6;
+}
+
+body{
+    background-color: black;
+}
+
+
+.none{
+    display: none !important;
+}
