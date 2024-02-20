@@ -16,6 +16,21 @@ body{
 }
 
 
+
+@font-face {
+    font-family: "roboto-medium";
+    src: url(/public/fonts/Roboto-Medium.ttf);
+    font-display: swap;
+}
+
+
+
+a{
+    color: white !important;
+    text-decoration: none !important;
+}
+
+
 .none{
     display: none !important;
 }

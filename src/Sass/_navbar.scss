@@ -1,4 +1,4 @@
-.header{
+.header {
     padding: 0 3rem;
     display: flex;
     justify-content: space-between;
@@ -11,8 +11,92 @@
     background-size: cover;
 
 
-    .redes{
+    .redes {
         display: flex;
         justify-content: center;
+        align-items: center;
+
     }
+}
+
+.navbar {
+    background: var(--Negro, #000) !important;
+    height: 6.5rem;
+    width: 100% !important;
+
+    .navbar-nav {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-around !important;
+    }
+
+    .nacionales {
+        width: 400%;
+    }
+
+    .internacionales {
+        width: 300%;
+    }
+
+    .dropdown-menu {
+        background: var(--Negro, #000) !important;
+        padding: 2rem 4rem;
+    }
+
+    .nav-item {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .nav-link {
+            color: white !important;
+            font-family: roboto-medium;
+            font-size: 1.8rem;
+        }
+
+        .nav-link:hover {
+            color: #FFEE00 !important;
+        }
+
+        .dropdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h2 {
+                font-size: 1.5rem;
+                color: #FFEE00;
+            }
+        }
+
+
+        .nav-section {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+
+            .dropdown-item {
+                width: 30rem;
+                height: 9rem;
+                border-right: 1px solid #FE0;
+                border-bottom: 1px solid #FE0;
+            }
+
+
+            .tc {
+                display: flex;
+                width: 30rem;
+                height: 18rem;
+                border-right: 1px solid #FE0;
+                border-bottom: 1px solid #FE0;
+            }
+
+
+        }
+
+
+
+    }
+
+
 }
