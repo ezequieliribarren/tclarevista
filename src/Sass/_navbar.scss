@@ -17,6 +17,54 @@
         align-items: center;
 
     }
+
+    .radio {
+        width: 15rem;
+        height: 4rem;
+        border: 1px solid var(--Amarillo, #FE0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        audio {
+            width: 18rem;
+            color: #000 !important;
+
+        }
+
+        audio::-webkit-media-controls-panel {
+            background-color: #FFEE00;
+            /* Cambia el color de fondo de los controles */
+            color: #000;
+            /* Cambia el color del texto de los controles */
+        }
+
+        audio::-webkit-media-controls-play-button {
+            color: #ff0000;
+            /* Cambia el color del botón de reproducción */
+        }
+
+        audio::-webkit-media-controls-volume-slider {
+            background-color: #ff0000;
+            /* Cambia el color del control deslizante de volumen */
+        }
+
+        .content-radio {
+            display: flex;
+
+            h3 {
+                font-size: 1.35rem;
+                font-family: roboto-bold;
+                color: white;
+            }
+        }
+
+        .span-radio {
+            margin-right: 1rem;
+        }
+
+    }
 }
 
 .navbar {
@@ -24,18 +72,13 @@
     height: 6.5rem;
     width: 100% !important;
 
+    position: relative;
+
     .navbar-nav {
         width: 100% !important;
-        display: flex !important;
-        justify-content: space-around !important;
-    }
-
-    .nacionales {
-        width: 400%;
-    }
-
-    .internacionales {
-        width: 300%;
+        display: flex;
+        justify-content: space-around;
+        position: relative;
     }
 
     .dropdown-menu {
@@ -43,8 +86,10 @@
         padding: 2rem 4rem;
     }
 
+
+
     .nav-item {
-        width: 100%;
+        width: 100% !important;
         display: flex;
         justify-content: center;
 
@@ -58,45 +103,69 @@
             color: #FFEE00 !important;
         }
 
-        .dropdown-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .cat {
+            .dropdown-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                padding-top: 2rem;
 
-            h2 {
-                font-size: 1.5rem;
-                color: #FFEE00;
+                h2 {
+                    font-size: 1.5rem;
+                    color: #FFEE00;
+                }
             }
+
+            height: 9rem;
+            border-right: 1px solid #FE0;
+            border-bottom: 1px solid #FE0;
+
         }
 
 
-        .nav-section {
+        .tc {
             display: flex;
-            flex-wrap: wrap;
-            width: 100%;
+            align-items: center;
+            border-right: 1px solid #FE0;
+            border-bottom: 1px solid #FE0;
 
             .dropdown-item {
-                width: 30rem;
-                height: 9rem;
-                border-right: 1px solid #FE0;
-                border-bottom: 1px solid #FE0;
-            }
-
-
-            .tc {
+                border-right: solid transparent;
+                border-bottom: solid transparent;
                 display: flex;
-                width: 30rem;
-                height: 18rem;
-                border-right: 1px solid #FE0;
-                border-bottom: 1px solid #FE0;
+                align-items: center;
+                justify-content: space-around;
+
+                h2 {
+                    font-size: 1.5rem;
+                    color: #FFEE00;
+                }
             }
-
-
         }
+
 
 
 
     }
 
 
+}
+
+.nacionales {
+    width: 400%;
+}
+
+.internacionales {
+    width: 400%;
+    /* Establece el ancho al 400% */
+    position: absolute !important;
+    /* Posiciona de forma absoluta */
+    left: -100% !important;
+    /* Alinea desde el borde izquierdo */
+    top: 0;
+    /* Asegura que esté alineado desde la parte superior */
+    margin-top: 0;
+    /* Ajusta el margen superior */
+    padding-left: 0;
+    /* Ajusta el padding izquierdo */
 }

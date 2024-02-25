@@ -1,0 +1,27 @@
+.slider-publicidad-horizontal{
+width: 100%;
+}
+
+.publicidad-horizontal {
+    margin: 3rem 0;
+    padding: 0 0.2rem;
+    img {
+        width: 95%;
+        height: 100%;
+    }
+}
+
+#publicidad-vertical{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.slider-publicidad-vertical{
+    width: 16rem;
+    }
+    
+    .publicidad-vertical {
+        img {
+            width: 100%;
+        }
+    }

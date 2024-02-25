@@ -9,13 +9,49 @@ html {
     font-size: 62.5%;
     scroll-behavior: smooth;
     background-color: #e6e8e6;
+
+    h2 {
+        color: white;
+        font-size: 4rem;
+        font-family: goldman-bold;
+    }
+
+    h3 {
+        color: white;
+        font-size: 2rem;
+        font-family: roboto-medium;
+    }
+
 }
 
-body{
+body {
     background-color: black;
 }
 
+main {
+    background: var(--gris-oscuro-fondo, #323232);
+}
 
+
+
+
+@font-face {
+    font-family: "goldman-regular";
+    src: url(/public/fonts/Goldman-Regular.ttf);
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "goldman-bold";
+    src: url(/public/fonts/Goldman-Bold.ttf);
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "roboto-regular";
+    src: url(/public/fonts/Roboto-Regular.ttf);
+    font-display: swap;
+}
 
 @font-face {
     font-family: "roboto-medium";
@@ -23,14 +59,20 @@ body{
     font-display: swap;
 }
 
+@font-face {
+    font-family: "roboto-bold";
+    src: url(/public/fonts/Roboto-Bold.ttf);
+    font-display: swap;
+}
 
 
-a{
+
+a {
     color: white !important;
     text-decoration: none !important;
 }
 
 
-.none{
+.none {
     display: none !important;
 }

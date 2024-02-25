@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="footer-up">
           <div className="footer-1">
             <div>
-              <div><img src="images/logo.png" alt="Logo Tc La Revista" /></div>
+              <div><Link to='/'><img src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
             </div>
             <div className='redes-footer'>
               <div><a href=""> <img src="images/redes/x.png" alt="Twitter Tc La Revista" /> @tclarevista</a>

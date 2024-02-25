@@ -53,6 +53,7 @@ export const NewsProvider = ({ children }) => {
   );
 };
 
+
 // CONTEXT CAMPEONATOS
 const CampeonatoContext = createContext();
 export const useCampeonatoContext = () => useContext(CampeonatoContext);

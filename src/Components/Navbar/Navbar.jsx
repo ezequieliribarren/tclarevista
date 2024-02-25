@@ -21,7 +21,7 @@ const Navbar = () => {
           <div><a href=""><img src="images/redes/youtube.png" alt="Youtube de Tc La Revista" /></a></div>
           <div><a href=""><img src="images/redes/mail.png" alt="Mail de Tc La Revista" /></a></div>
         </div>
-        <div classNameName='logo'><img src="images/logo.png" alt="Logo de Tc La Revista" /></div>
+        <div classNameName='logo'> <Link to='/'><img src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
         <div classNameName='radio'>
           <Radio url={radioUrl} />
         </div>
@@ -37,81 +37,105 @@ const Navbar = () => {
                 Nacionales
               </a>
               <ul className="dropdown-menu nacionales">
-                <div className='nav-section'>
-                  <Link className="dropdown-item tc">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>   <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col-xl-3 tc">
+                      <Link to='/tc' className="dropdown-item tc">
+                        <div><img src="images/categorias/tn.png" alt="" /></div>
+                        <div><h2>Turismo<br />Carretera</h2></div>
+                        <div><img src="images/mayor.png" alt="" /></div>
+                      </Link>
+                    </div>
+                    <div className="col-xl-9">
+                      <div className="row">
+                        <div className="col cat"> <Link to='/tn' className="dropdown-item">
+                          <div> <img src="images/categorias/tn.png" alt="" /></div>
+                          <div> <h2>Turismo<br />Nacional</h2></div>
+                          <div> <img src="images/mayor.png" alt="" /></div>
+                        </Link></div>
+                        <div className="col cat">    <Link to='/tcpk' className="dropdown-item">
+                          <div> <img src="images/categorias/tn.png" alt="" /></div>
+                          <div> <h2>TC Pickup</h2></div>
+                          <div> <img src="images/mayor.png" alt="" /></div>
+                        </Link></div>
+                        <div className="col cat">    <Link to='/tcp' className="dropdown-item">
+                          <div> <img src="images/categorias/tn.png" alt="" /></div>
+                          <div> <h2>TC Pista</h2></div>
+                          <div> <img src="images/mayor.png" alt="" /></div>
+                        </Link></div>
+                      </div>
+                      <div className="row">
+                        <div className="col cat">
+                          <Link to='/tcm' className="dropdown-item">
+                            <div> <img src="images/categorias/tn.png" alt="" /></div>
+                            <div> <h2>TC Mouras</h2></div>
+                            <div> <img src="images/mayor.png" alt="" /></div>
+                          </Link>
+                        </div>
+                        <div className="col cat">
+                          <Link to='/tcpm' className="dropdown-item">
+                            <div> <img src="images/categorias/tn.png" alt="" /></div>
+                            <div> <h2>TC Pista<br />Mouras</h2></div>
+                            <div> <img src="images/mayor.png" alt="" /></div>
+                          </Link>
+                        </div>
+                        <div className="col cat">
+                          <Link to='/tcppk' className="dropdown-item">
+                            <div> <img src="images/categorias/tn.png" alt="" /></div>
+                            <div> <h2>TC Pista<br />Pickup</h2></div>
+                            <div> <img src="images/mayor.png" alt="" /></div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-3 cat">
+                      <Link to='/f2-nacional' className="dropdown-item">
+                        <div> <img src="images/categorias/tn.png" alt="" /></div>
+                        <div> <h2>Fórmula 2<br />Nacional</h2></div>
+                        <div> <img src="images/mayor.png" alt="" /></div>
+                      </Link>
+                    </div>
+                    <div className="col-3 cat">
+                      <Link to='/tc2000' className="dropdown-item">
+                        <div> <img src="images/categorias/tn.png" alt="" /></div>
+                        <div> <h2>TC 2000</h2></div>
+                        <div> <img src="images/mayor.png" alt="" /></div>
+                      </Link></div>
+                    <div className="col-3 cat">   <Link to='/tc2000-series' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>TC 2000<br />Series</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link></div>
+                    <div className="col-3 cat"><Link to='/tr' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Top Race</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link></div>
+
+                  </div>
+                  <div className="row">
+                    <div className="col-3 cat">  <Link to='/tr-series' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Top Race<br />Series</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link></div>
+                    <div className="col-3 cat">
+                      <Link to='/rally-argentino' className="dropdown-item">
+                        <div> <img src="images/categorias/tn.png" alt="" /></div>
+                        <div> <h2>Rally<br />Argentino</h2></div>
+                        <div> <img src="images/mayor.png" alt="" /></div>
+                      </Link>
+                    </div>
+                    <div className="col-3 cat">
+                      <Link to='/tp' className="dropdown-item">
+                        <div> <img src="images/categorias/tn.png" alt="" /></div>
+                        <div> <h2>Turismo Pista</h2></div>
+                        <div> <img src="images/mayor.png" alt="" /></div>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </ul>
             </li>
@@ -120,93 +144,83 @@ const Navbar = () => {
                 Internacionales
               </a>
               <ul className="dropdown-menu internacionales">
-              <div className='nav-section'>
-                  <Link className="dropdown-item">
+                <div className="row">
+                  <div className="col-3 cat">
+                    <Link to='/f2-nacional' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Fórmula 2<br />Nacional</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link>
+                  </div>
+                  <div className="col-3 cat">
+                    <Link to='/tc2000' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>TC 2000</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link></div>
+                  <div className="col-3 cat">   <Link to='/tc2000-series' className="dropdown-item">
                     <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
+                    <div> <h2>TC 2000<br />Series</h2></div>
                     <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>   <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
-                  <Link className="dropdown-item">
-                    <div> <img src="images/categorias/tn.png" alt="" /></div>
-                    <div> <h2>Turismo<br />Nacional</h2></div>
-                    <div> <img src="images/mayor.png" alt="" /></div>
-                  </Link>
+                  </Link></div>
+                  <div className="col-3 cat">
+                    <Link to='/tr' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Top Race</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-3 cat">
+                    <Link to='/tr-series' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Top Race<br />Series</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link>
+                  </div>
+                  <div className="col-3 cat">
+                    <Link to='/rally-argentino' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Rally<br />Argentino</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link>
+                  </div>
+                  <div className="col-3 cat">
+                    <Link to='/tp' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Turismo Pista</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link>
+                  </div>
+                  <div className="col-3 cat">
+                    <Link to='/tp' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Turismo Pista</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-3 cat">
+                    <Link to='/tr-series' className="dropdown-item">
+                      <div> <img src="images/categorias/tn.png" alt="" /></div>
+                      <div> <h2>Top Race<br />Series</h2></div>
+                      <div> <img src="images/mayor.png" alt="" /></div>
+                    </Link>
+                  </div>
                 </div>
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <Link to='/nosotros' className="nav-link">
                 Nosotros
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <Link to='/contacto' className="nav-link">
                 Contacto
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

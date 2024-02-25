@@ -1,0 +1,69 @@
+#call-action-videos {
+    margin: 4rem 0;
+
+    .slider-videos {
+        background: linear-gradient(90deg, rgba(50, 50, 50, 0.00)0%, rgba(74, 74, 74, 0) 100%);
+        width: 100%;
+    }
+
+    .video-container {
+        position: relative;
+
+        .video-overlay {
+            display: flex;
+            justify-content: end;
+
+            img {
+                padding-right: 1.7rem;
+                margin-top: 1rem;
+            }
+        }
+
+        .card-video {
+            padding: 0 2rem;
+
+
+            .description-video {
+                width: 35rem;
+                height: 11rem;
+                background-color: black;
+                border-bottom: 1px solid var(--Amarillo, #FE0);
+                padding: 0 1rem;
+
+                h3 {
+                    font-family: goldman-bold;
+                    font-size: 2rem;
+                    width: 100%;
+                }
+
+                h4 {
+                    padding-top: 0.5rem;
+                    font-family: roboto-regular;
+                    font-size: 1.5rem;
+                    color: white;
+                }
+
+            }
+
+            iframe {
+                width: 34rem;
+                height: 100%;
+                background-color: transparent !important;
+            }
+
+        }
+
+    }
+
+
+
+    .video-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+    }
+
+}

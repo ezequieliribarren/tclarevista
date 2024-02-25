@@ -1,0 +1,31 @@
+.header-categoria{
+    width: 100%;
+    height: 24rem;
+}
+
+.nav-categoria{
+    background: var(--Negro, #000) !important;
+    height: 6rem;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+
+    .navbar-brand{
+        width: 27rem;
+        height: 9rem;
+        margin-bottom: 5rem;
+        border-radius: 0px 40px 0px 0px;
+        border-top: 1px solid var(--Amarillo, #FE0);
+        border-right: 1px solid var(--Amarillo, #FE0);
+        border-bottom: 1px solid var(--Amarillo, #FE0);
+        background: var(--Negro, #000);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .navbar-nav{
+      
+    }
+}

@@ -1,0 +1,204 @@
+#principales {
+    margin-top: 4rem;
+}
+
+.card-primarias,
+.card-secundarias,
+.card-terciarias {
+    h3 {
+        font-family: goldman-bold;
+        font-size: 2rem;
+        padding: 0.1rem;
+
+    }
+
+    h4 {
+        color: white;
+        font-family: roboto-regular;
+        font-size: 1.6rem;
+        width: 10rem;
+    }
+}
+
+.card-primarias {
+    height: 56rem;
+    border-bottom: 1px solid var(--Amarillo, #FE0);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+        width: 15rem;
+        font-family: roboto-medium;
+        font-size: 2rem;
+    }
+
+    .category {
+        height: 6.5rem !important;
+    }
+
+}
+
+.card-secundarias,
+.card-terciarias {
+    height: 27.5rem;
+    border-bottom: 1px solid var(--Amarillo, #FE0);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3{
+        width: 100%;
+    }
+
+    .title-subtitle {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        padding-left: 1rem;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.70) 100%);
+        width: 100%;
+        height: 50%;
+        padding-left: 2rem;
+        padding-bottom: 0.5rem;
+    }
+    .news-video {
+        width: 90%;
+        height: 50%;
+        display: flex;
+        align-items: end;
+        padding-top: 1rem !important;
+    }
+    
+}
+
+.news-video {
+    width: 95%;
+    height: 70%;
+    display: flex;
+    align-items: end;
+    padding-top: 3rem;
+    position: relative;
+}
+
+.title-subtitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.70) 100%);
+    width: 100%;
+    height: 30%;
+    padding-left: 2rem;
+    padding-bottom: 0.5rem;
+
+    h2 {
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+}
+
+.container-primarias:hover {
+z-index: 11111 !important;
+ background: rgba(255, 255, 255, 0.106) !important;
+}
+
+.container-secundarias:hover {
+    .card-secundarias {
+        background: rgba(255, 255, 255, 0.106) !important;
+    }
+}
+
+.container-terciarias:hover {
+
+    .card-terciarias {
+        background: rgba(255, 255, 255, 0.106) !important;
+    }
+
+}
+
+.video-link {
+    position: absolute; /* Posición absoluta para estar encima del vídeo */
+    top: 0; /* Colocar en la parte superior */
+    left: 0; /* Colocar en la parte izquierda */
+    width: 100%; /* Ocupar todo el ancho del contenedor */
+    height: 100%; /* Ocupar toda la altura del contenedor */
+    z-index: 1; /* Asegurar que esté encima del vídeo */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre él */
+}
+
+
+
+
+#generales {
+    .card-general {
+        height: 28rem;
+        background-color: black;
+        display: flex;
+        position: relative;
+
+        .card-general-img {
+            width: 45%;
+            height: 100%;
+            padding: 0.9rem;
+            box-shadow: 0px 5px 10px rgba(58, 58, 58, 0.103);
+
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top;
+
+            }
+        }
+
+        .description {
+            width: 55%;
+            padding: 0 0.3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+        }
+
+        .title-subtitle {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+
+            h2 {
+                font-size: 2.8rem;
+            }
+
+            h3 {
+                font-size: 1.7rem;
+            }
+        }
+    }
+}
+
+
+.category {
+    display: flex;
+    justify-content: end;
+    margin: 1rem !important;
+
+    .h4-category {
+        padding: 0.4rem;
+        background: rgba(255, 255, 255, 0.80);
+    }
+
+    h4 {
+        text-align: end !important;
+        font-size: 1.8rem !important;
+        font-family: goldman-regular !important;
+        color: var(--Rojo, #FE0000) !important;
+    }
+}

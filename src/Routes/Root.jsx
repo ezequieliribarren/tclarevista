@@ -1,14 +1,56 @@
 import React from 'react'
 import Layout from '../Layout/Layout'
-import ResEnVivo from '../Components/ResEnVivo/ResEnVivo'
+import PubliHorizontal from '../Components/PubliHorizontal/PubliHorizontal'
+import BannerRadio from '../Components/BannerRadio/BannerRadio'
+import PublicidadVertical from '../Components/PublicidadVertical/PublicidadVertical'
+import Principales from '../Components/Principales/Principales'
+import Generales from '../Components/Generales/Generales'
+import CallActionVideos from '../Components/CallActionVideos/CallActionVideos'
 
 const Root = () => {
   return (
     <>
-<Layout>
-<ResEnVivo/>
+      <Layout>
+        <main className='p-3'>
+          <div className="container-fluid vivo">
+            <div className="row">
+              {/* RESULTADOS EN VIVO */}
+            </div>
+            <div className="row">
+              {/* PODIO EN VIVO */}
+            </div>
+          </div>
+          <div className="container-fluid">
+            <div className="row">
+              {/* VINCULAR */}
+            </div>
+            <Principales />
+            <div className="row">
+              <div className="col-md-8">
+                <Generales />
+              </div>
+              <div className="col-md-4">
+                <div className="row">
+                  {/* PROXIMAS CARRERAS */}
+                </div>
+                <div className="row">
+                  <PublicidadVertical />
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <BannerRadio />
+            </div>
+            <div className="row">
+<CallActionVideos/>
+            </div>
+            <div className="row">
+              <PubliHorizontal />
+            </div>
+          </div>
 
-</Layout>
+        </main>
+      </Layout>
     </>
   )
 }
