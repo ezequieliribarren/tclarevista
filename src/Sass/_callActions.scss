@@ -1,0 +1,26 @@
+.tabla-carreras {
+    width: 100%;
+
+    .title-table-carreras {
+        width: 100%;
+        background-color: black;
+        height: 4.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h3 {
+            font-family: goldman-regular;
+            color: #FE0;
+        }
+    }
+
+    .description-table-carreras{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .description-table-left{
+        display: flex;
+    }
+}

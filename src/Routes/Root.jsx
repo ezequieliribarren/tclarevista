@@ -6,6 +6,7 @@ import PublicidadVertical from '../Components/PublicidadVertical/PublicidadVerti
 import Principales from '../Components/Principales/Principales'
 import Generales from '../Components/Generales/Generales'
 import CallActionVideos from '../Components/CallActionVideos/CallActionVideos'
+import CallActionCarreras from '../Components/CallActionCarreras/CallActionCarreras'
 
 const Root = () => {
   return (
@@ -31,7 +32,7 @@ const Root = () => {
               </div>
               <div className="col-md-4">
                 <div className="row">
-                  {/* PROXIMAS CARRERAS */}
+                  <CallActionCarreras />
                 </div>
                 <div className="row">
                   <PublicidadVertical />
@@ -42,7 +43,7 @@ const Root = () => {
               <BannerRadio />
             </div>
             <div className="row">
-<CallActionVideos/>
+              <CallActionVideos />
             </div>
             <div className="row">
               <PubliHorizontal />
