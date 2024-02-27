@@ -1,5 +1,13 @@
 .tabla-carreras {
     width: 100%;
+margin-top: 1rem;
+margin-bottom: 4rem;
+
+    .table-carrera {
+        margin: 1rem 0;
+        border-bottom: 1px solid var(--Negro, #000);
+        background: var(--gris-oscuro-fondo, #323232);
+    }
 
     .title-table-carreras {
         width: 100%;
@@ -15,12 +23,66 @@
         }
     }
 
-    .description-table-carreras{
+    .description-table-carreras {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 0.8rem;
     }
 
-    .description-table-left{
+    .description-table-left {
         display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .h4-fecha {
+            font-family: goldman-regular;
+            font-size: 2.4rem;
+            color: #FE0;
+            margin: 0 0.5rem;
+            width: 5rem;
+
+        }
+
+        img {
+            margin: 0 1rem;
+        }
+
+        .h4-circuito {
+            font-family: roboto-regular;
+            font-size: 1.8rem;
+            color: white;
+            margin: 0 1rem;
+        }
+
+        .span-table-carreras {
+
+            margin: 0 1rem;
+        }
+
     }
-}
+
+
+
+.play-carreras{
+        padding-right: 1.2rem;
+    }
+}    
+
+    .ver-mas {
+        border: 1px solid #FE0;
+        background: var(--gris-oscuro-fondo, #323232);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3.9rem;
+        margin: 1rem 0;
+
+        button {
+            font-family: roboto-bold;
+            color: #FE0;
+            font-size: 1.5rem;
+            width: 100%;
+            background: var(--gris-oscuro-fondo, #323232);
+            height: 100%;
+        }
+    }

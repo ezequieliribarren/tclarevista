@@ -35,10 +35,11 @@ const Principales = () => {
                             backgroundImage: `url(http://localhost:5000/${noticia.image})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
+                            backgroundPosition: "center",
                             color: 'white',
                         }}
                     >
-                        <Link to={`/noticia/${noticia.id}`} className='video-link'></Link>
+                        {/* <Link to={`/noticia/${noticia.id}`} className='video-link'></Link> */}
                         <div className='news-video'>
                             {noticia.video ? (
                                 <iframe
@@ -69,10 +70,11 @@ const Principales = () => {
                                 backgroundImage: `url(http://localhost:5000/${noticia.image})`,
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
+                                backgroundPosition: "center",
                                 color: 'white', // Color del texto para que sea visible en la imagen de fondo
                             }}
                         >
-                            <Link to={`/noticia/${noticia.id}`} className='video-link'></Link>
+                            {/* <Link to={`/noticia/${noticia.id}`} className='video-link'></Link> */}
                             <div className='news-video'>
                                 {noticia.video ? (
                                     <iframe
@@ -103,10 +105,11 @@ const Principales = () => {
                                 backgroundImage: `url(http://localhost:5000/${noticia.image})`,
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
+                                backgroundPosition: "center",
                                 color: 'white',
                             }}
                         >
-                            <Link to={`/noticia/${noticia.id}`} className='video-link'></Link>
+                            {/* <Link to={`/noticia/${noticia.id}`} className='video-link'></Link> */}
                             <div className='news-video'>
                                 {noticia.video ? (
                                     <iframe

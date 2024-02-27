@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
-import { useNewsContext } from '../../../Context/Context';
+import React, { useEffect, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 
-const Generales = () => {
-    const { news } = useNewsContext();
-    const [shownNewsCount, setShownNewsCount] = useState(7);
+const GeneralesCategoria = ({ cat }) => {
+    const [noticias, setNoticias] = useState([]);
+    const [shownNewsCount, setShownNewsCount] = useState(7); // Contador para mostrar las noticias
 
-    // Verificar si 'news' está definido y si 'general' está presente
-    const generales = news && news.general ? news.general.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, shownNewsCount) : [];
+    useEffect(() => {
+        const fetchNoticiasCat = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api-categorias/${cat}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    // Ordenar las noticias por fecha de forma descendente
+                    const sortedNoticias = sortNoticiasByDate(data);
+                    setNoticias(sortedNoticias);
+                } else {
+                    throw new Error('Error al obtener las noticias');
+                }
+            } catch (error) {
+                console.error('Error al obtener las noticias:', error);
+            }
+        };
+
+        fetchNoticiasCat();
+    }, [cat]); // Agregar 'cat' como dependencia para que el useEffect se ejecute cuando cambie la categoría
+
+    // Función para ordenar las noticias por fecha de forma descendente
+    const sortNoticiasByDate = (noticias) => {
+        return noticias.sort((a, b) => new Date(b.date) - new Date(a.date));
+    };
 
     // Función para formatear la fecha
     const formatDate = (dateString) => {
@@ -19,12 +40,12 @@ const Generales = () => {
     };
 
     const handleLoadMore = () => {
-        setShownNewsCount(prevCount => prevCount + 7);
+        setShownNewsCount(prevCount => prevCount + 7); // Aumentar el contador para mostrar más noticias
     };
 
     return (
-        <section id='generales'>
-            {generales.map((noticia, index) => (
+        <section>
+            {noticias.slice(3, shownNewsCount + 3).map((noticia, index) => (
                 <Link to={`/noticia/${noticia.id}`} key={index}>
                     <div className="card-general mb-3">
                         <div className='card-general-img'>
@@ -53,11 +74,11 @@ const Generales = () => {
                     </div>
                 </Link>
             ))}
-            {news && news.general && shownNewsCount < news.general.length &&
-                <div className='ver-mas'><button onClick={handleLoadMore}>VER MÁS NOTICIAS</button></div>
+            {noticias.length > shownNewsCount && 
+              <div className='ver-mas'><button onClick={handleLoadMore}>VER MÁS NOTICIAS</button></div> 
             }
-        </section>
+        </section> 
     );
 };
 
-export default Generales;
+export default GeneralesCategoria;

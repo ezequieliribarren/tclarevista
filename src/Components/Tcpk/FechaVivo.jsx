@@ -1,1 +1,0 @@
-// Aqui la fecha que se genera todos los fines de semana a traves de la ip proviniente de la hoja de calculo. En la semana debe tener un display none. Quizas deberia estar dentro del array de Fechas como una fecha mas y que tenga un display none que dependa de si la celda esta vacia o llena con la ip, de la cual se consume la informacion. 
