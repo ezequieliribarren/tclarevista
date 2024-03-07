@@ -24,13 +24,10 @@ html {
 
 }
 
-body {
-    background-color: black;
+body, main {
+    background-color: var(--gris-oscuro-fondo, #323232) !important;
 }
 
-main {
-    background: var(--gris-oscuro-fondo, #323232);
-}
 
 
 
@@ -75,4 +72,8 @@ a {
 
 .none {
     display: none !important;
+}
+
+main{
+    
 }

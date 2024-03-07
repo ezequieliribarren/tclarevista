@@ -1,10 +1,12 @@
 footer {
     width: 100%;
     background: var(--Negro, #000) !important;
+    padding: 0 4rem;
 
     .footer-up {
         display: flex;
         justify-content: space-between;
+        padding-top: 3rem;
 
         .footer-1 {
             display: flex;
@@ -20,6 +22,9 @@ footer {
                     display: flex;
                     align-items: center;
                     margin: 1rem;
+                    color: #FE0 !important;
+                    font-size: 1.5rem;
+                    font-family: roboto-regular;
                 }
 
                 img{
@@ -33,14 +38,28 @@ footer {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
+            .link-footer{
+                font-family: roboto-medium;
+                font-size: 1.8rem;
+                margin: 0.5rem 0;
+            }
      
         }
     }
 
 .footer-down{
-    margin-top: 3rem;
-    display: flex;
-    justify-content: space-around;
+    margin: 2rem 0;
+    border-top: 1px solid #fe0;
+    h4{
+        color: #FFEE00;
+        font-family: roboto-medium;
+        font-size: 1.8rem;
+    }
+
+    .footer-nacionales, .footer-internacionales{
+        margin-top: 2rem;
+    }
 }
 
 .link-footer{
@@ -48,6 +67,34 @@ footer {
     font-family: roboto-medium;
 }
 
-
-
+.categorias-footer{
+    display: flex;
+    align-items: start;
+    div{
+        display: flex;
+        flex-direction: column;
+        margin-right: 2rem;
+        a{
+            font-size: 1.5rem;
+            font-family: roboto-regular;
+        }
+    }
+}
+.copy{
+    display: flex;
+    justify-content: center;
+    border-top: white solid 1px;
+    h4{
+        color: white;
+        font-family: roboto-regular;
+        font-size: 1.5rem;
+        margin: 2rem 0;
+    }
+    a{
+        color: white;
+        border-bottom: white 1px solid;
+        font-family: roboto-medium;
+        font-size: 1.5rem;
+    }
+}
 }

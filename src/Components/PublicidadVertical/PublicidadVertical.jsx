@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const PublicidadVertical = () => {
+const PublicidadVertical = ({none}) => {
     const [publicidades, setPublicidades] = useState([]);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const PublicidadVertical = () => {
 
     return (
         <aside id='publicidad-vertical'>
-            <Slider {...settings} className='slider-publicidad-vertical'>
+            <Slider {...settings} className={`slider-publicidad-vertical ${none ? 'none' : ''}`}>
                 {publicidades.map((publicidad, index) => (
                     <div key={index} className='publicidad-vertical'>
                         <a href={publicidad.link} target="_blank" rel="noopener noreferrer">

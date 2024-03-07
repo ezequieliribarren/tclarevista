@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './index.scss'
 import Root from './Routes/Root';
-import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider } from '../Context/Context';
+import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider } from '../Context/Context';
 import Nosotros from './Routes/Nosotros';
 import Contacto from './Routes/Contacto';
 import DetailCarrerasCat from './Components/DetailCarrerasCat/DetailCarrerasCat';
@@ -11,6 +11,7 @@ import DetailVideosCat from './Components/DetailVideosCat/DetailVideosCat';
 import DetailCampeonatoCat from './Components/DetailCampeonatoCat/DetailCampeonatoCat';
 import Categoria from './Components/Categoria/Categoria';
 import NoticiaDetail from './Components/NoticiaDetail/NoticiaDetail';
+import DetailFecha from './Components/DetailFecha/DetailFecha';
 
 
 const router = createHashRouter([
@@ -33,7 +34,7 @@ const router = createHashRouter([
       </NewsProvider>
     ),
   },
-  
+
   {
     path: "/nosotros",
     element: (
@@ -59,7 +60,19 @@ const router = createHashRouter([
     path: '/:categoria/videos',
     element: (
       <NewsProvider>
-        <DetailVideosCat />
+        <TcpmProvider>
+          <TcProvider>
+            <TcmProvider>
+              <TcpkProvider>
+                <TcppkProvider>
+                  <TcpProvider>
+                    <DetailVideosCat />
+                  </TcpProvider>
+                </TcppkProvider>
+              </TcpkProvider>
+            </TcmProvider>
+          </TcProvider>
+        </TcpmProvider>
       </NewsProvider>
     ),
   },
@@ -75,7 +88,19 @@ const router = createHashRouter([
     path: '/:categoria/carreras',
     element: (
       <NewsProvider>
-        <DetailCarrerasCat />
+        <TcpmProvider>
+          <TcProvider>
+            <TcmProvider>
+              <TcpkProvider>
+                <TcppkProvider>
+                  <TcpProvider>
+                    <DetailCarrerasCat />
+                  </TcpProvider>
+                </TcppkProvider>
+              </TcpkProvider>
+            </TcmProvider>
+          </TcProvider>
+        </TcpmProvider>
       </NewsProvider>
     ),
   },
@@ -84,11 +109,43 @@ const router = createHashRouter([
     path: "/noticia/:id",
     element: (
       <NewsProvider>
-        <NoticiaDetail />
+        <TcpmProvider>
+          <TcProvider>
+            <TcmProvider>
+              <TcpkProvider>
+                <TcppkProvider>
+                  <TcpProvider>
+                    <NoticiaDetail />
+                  </TcpProvider>
+                </TcppkProvider>
+              </TcpkProvider>
+            </TcmProvider>
+          </TcProvider>
+        </TcpmProvider>
       </NewsProvider>
     ),
   },
 
+  {
+    path: '/:categoria/carreras/:id',
+    element: (
+      <NewsProvider>
+        <TcpmProvider>
+          <TcProvider>
+            <TcmProvider>
+              <TcpkProvider>
+                <TcppkProvider>
+                  <TcpProvider>
+                    <DetailFecha />
+                  </TcpProvider>
+                </TcppkProvider>
+              </TcpkProvider>
+            </TcmProvider>
+          </TcProvider>
+        </TcpmProvider>
+      </NewsProvider>
+    ),
+  },
 
 ]);
 

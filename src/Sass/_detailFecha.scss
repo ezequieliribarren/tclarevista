@@ -1,0 +1,42 @@
+.table-carreras{
+    width: 100%;
+    th{
+        h4{
+            font-family: goldman-regular;
+            font-size: 2.4rem;
+            color: white;
+            text-align: center;
+        }   
+        }
+
+ .pos-carreras{
+            h4{
+              color: #FE0 !important;
+            text-align: center !important;  
+            }
+
+
+        .piloto-carreras, .marca-carreras, .vueltas-carreras, .tiempos-carreras, .dif-carreras{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+
+}
+
+.pos-carreras-td{
+    h4 {
+        background: var(--Amarillo, #FE0);
+        font-family: goldman-regular;
+        font-size: 2.4rem;
+        width: 9rem;
+        height: 6.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        color: black;
+    }
+    }
+   
+}

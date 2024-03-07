@@ -6,7 +6,8 @@ import GeneralesCategoria from '../GeneralesCategoria/GeneralesCategoria';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 
 const Categoria = () => {
-    const { categoria } = useParams(); // Obtiene el valor del parámetro de la URL
+    const { categoria } = useParams(); 
+    console.log (categoria)
 
     return (
         <Layout background={categoria} logo={categoria} >

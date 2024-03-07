@@ -29,7 +29,7 @@ const CallActionCarreras = () => {
         <h4 className='h4-fecha'>{new Date(carrera.c[6].v).getDate()}/{new Date(carrera.c[6].v).getMonth() + 1}</h4>
     )}
                                     <span className='span-table-carreras'><img src="images/separator.png" alt="" /></span>
-                                    {carrera.c[5]?.v && <img src={carrera.c[5]?.v} alt="" />}
+                                    {carrera.c[9]?.v && <img src={carrera.c[9]?.v} alt="" />}
                                     {carrera.c[7]?.v && <h4 className='h4-circuito'>{carrera.c[7]?.v}</h4>}
                                 </div>
                                 <div>
