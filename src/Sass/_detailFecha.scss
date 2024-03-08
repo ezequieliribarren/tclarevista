@@ -1,42 +1,127 @@
-.table-carreras{
+.table-carreras {
     width: 100%;
-    th{
-        h4{
+
+    th {
+        h4 {
             font-family: goldman-regular;
             font-size: 2.4rem;
             color: white;
             text-align: center;
-        }   
+        }
+    }
+
+    .pos-carreras {
+        h4 {
+            color: #FE0 !important;
+            text-align: center !important;
         }
 
- .pos-carreras{
-            h4{
-              color: #FE0 !important;
-            text-align: center !important;  
-            }
 
-
-        .piloto-carreras, .marca-carreras, .vueltas-carreras, .tiempos-carreras, .dif-carreras{
+        .piloto-carreras,
+        .marca-carreras,
+        .vueltas-carreras,
+        .tiempos-carreras,
+        .dif-carreras {
             display: flex;
             justify-content: center;
             text-align: center;
         }
 
-}
+    }
 
-.pos-carreras-td{
-    h4 {
-        background: var(--Amarillo, #FE0);
-        font-family: goldman-regular;
-        font-size: 2.4rem;
-        width: 9rem;
-        height: 6.5rem;
+
+
+    .pos-carreras-td {
+        h4 {
+            background: var(--Amarillo, #FE0);
+            font-family: goldman-regular;
+            font-size: 2.4rem;
+            width: 9rem;
+            height: 6.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            color: black;
+            border-bottom: white 1px solid;
+        }
+    }
+
+    .piloto-carreras-td {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0;
-        color: black;
+        border-bottom: white 1px solid;
+
+        h4 {
+            font-family: goldman-regular;
+            color: #FE0;
+            font-size: 2.4rem;
+        }
     }
+
+    .vueltas-carreras-td {
+        h4 {
+            font-family: roboto-medium;
+        }
     }
-   
+
+    .marca-carreras-td,
+    .vueltas-carreras-td,
+    .tiempo-carreras-td,
+    .dif-carreras-td {
+        border-bottom: white 1px solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+
+        h4 {
+            font-family: roboto-medium;
+            font-size: 2.4rem;
+        }
+    }
+
+
+}
+
+.button-tanda{
+    width: 21rem ;
+    height: 4rem ;
+    border: 1px solid var(--Amarillo, #FE0);
+background: var(--Negro, #000);
+color: white
+
+}
+.descripcion-carreras{
+    padding: 3rem 0 ;
+    border-bottom: 1px solid var(--Amarillo, #FE0);
+background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);
+h2{
+    color: var(--Amarillo, #FE0);
+font-family: goldman-bold;
+font-size: 2.8rem;
+}
+h3{
+    font-family: goldman-regular;
+    font-size: 2rem;
+}
+}
+
+.select-tandas-carreras{
+    background: var(--Negro, #000);
+   .buttons-up-carreras, .buttons-down-carreras{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+
+}
+.day-carreras{
+    width: 6.5rem;
+    height: 4rem;
+    background: var(--Gris-claro, #C4C4C4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
 }
