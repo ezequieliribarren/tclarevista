@@ -68,7 +68,7 @@ const DetailCarrerasCat = () => {
                 >
                   <div className="col-md-4 fecha-detail-carreras">
                     <h4>{item.c[0]?.v}</h4>
-                    <h3>{item.c[2]?.v && formatDate(item.c[2].v)}</h3> {/* Formatear la fecha aquí */}
+                    <h3>{item.c[2]?.v && formatDate(item.c[2].v)}</h3> 
                   </div>
                   <div className="col-md-4 lugar-detail-carreras">
                     <div>

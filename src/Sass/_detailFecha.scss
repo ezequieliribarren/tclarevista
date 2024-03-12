@@ -1,5 +1,16 @@
 .table-carreras {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 4rem;
+
+
+    .row {
+        display: flex;
+        justify-content: center;
+    }
+
 
     th {
         h4 {
@@ -9,6 +20,14 @@
             text-align: center;
         }
     }
+
+    // thead {
+    //     background-color: black;
+    //     height: 4rem;
+    //     padding: 0.5rem;
+    // }
+
+
 
     .pos-carreras {
         h4 {
@@ -30,13 +49,12 @@
     }
 
 
-
     .pos-carreras-td {
         h4 {
             background: var(--Amarillo, #FE0);
             font-family: goldman-regular;
             font-size: 2.4rem;
-            width: 9rem;
+
             height: 6.5rem;
             display: flex;
             justify-content: center;
@@ -83,45 +101,187 @@
     }
 
 
+    .evento-carreras-td {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--Negro, #000);
+        width: 100% !important;
+        
+
+        h4 {
+            color: #FE0 !important;
+            font-family: goldman-regular;
+            font-size: 2.4rem;
+            text-align: center;
+        }
+    }
+
+    .horario-carreras-td {
+        border-bottom: 1px solid var(--Blanco, #FFF);
+        background: var(--Amarillo, #FE0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h4 {
+            font-family: goldman-regular;
+            color: #000;
+            font-size: 2.4rem;
+        }
+
+    }
+
+    .categoria-carreras-td{
+        border-bottom: 1px solid var(--Blanco, #FFF);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h4 {
+            font-family: goldman-regular;
+            color: #FE0;
+            font-size: 2.4rem;
+        }
+    }
+
+    .tipo-carreras-td{
+        border-bottom: 1px solid var(--Blanco, #FFF);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h4 {
+            font-family: roboto-regular;
+            color: white;
+            font-size: 2.4rem;
+            text-align: center;
+        }
+    }
+
+
+
+    .grupo-carreras-td{
+        border-bottom: 1px solid var(--Blanco, #FFF);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+        h4 {
+            text-align: center;
+            font-family: roboto-regular;
+            color: white;
+            font-size: 2.4rem;
+        }
+    }
+
+
+
 }
 
-.button-tanda{
-    width: 21rem ;
-    height: 4rem ;
+.button-tanda {
+    width: 21rem;
+    height: 4rem;
     border: 1px solid var(--Amarillo, #FE0);
-background: var(--Negro, #000);
-color: white
-
-}
-.descripcion-carreras{
-    padding: 3rem 0 ;
-    border-bottom: 1px solid var(--Amarillo, #FE0);
-background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);
-h2{
+    background: var(--Negro, #000);
     color: var(--Amarillo, #FE0);
-font-family: goldman-bold;
-font-size: 2.8rem;
-}
-h3{
     font-family: goldman-regular;
     font-size: 2rem;
-}
+    padding: 0.3rem;
 }
 
-.select-tandas-carreras{
+.button-pilotos,
+.button-horarios {
+    border: 1px solid var(--Blanco, #FFF);
     background: var(--Negro, #000);
-   .buttons-up-carreras, .buttons-down-carreras{
-    display: flex;
-    justify-content: start;
-    align-items: start;
-
-}
-.day-carreras{
-    width: 6.5rem;
+    width: 21rem;
     height: 4rem;
-    background: var(--Gris-claro, #C4C4C4);
+    color: white;
+    font-family: goldman-regular;
+    font-size: 2rem;
+    padding: 0.3rem;
+    margin-top: 0.5rem;
+}
+
+
+
+.contenedor-descripcion-carreras {
+    margin: 2rem 0 !important;
     display: flex;
     justify-content: center;
     align-items: center;
-} 
+
+
+    .descripcion-carreras {
+        margin: 2rem 0;
+        width: 95%;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);
+        padding: 2rem 0;
+
+        h2 {
+            color: var(--Amarillo, #FE0);
+            font-family: goldman-bold;
+            font-size: 2.8rem;
+        }
+
+        h3 {
+            font-family: goldman-regular;
+            font-size: 2rem;
+        }
+    }
+
+    .up-descripcion-carreras {
+        height: 50%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .select-tandas-carreras {
+        background: var(--Negro, #000);
+        padding-top: 2rem;
+        height: 50%;
+
+        .buttons-up-carreras,
+        .buttons-down-carreras {
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            margin: 1rem 0;
+
+        }
+
+        .selected-button {
+            background-color: yellow;
+            color: black;
+            /* Agrega aquí cualquier otro estilo que desees */
+        }
+
+        .day-carreras {
+            width: 6.5rem;
+            height: 4rem;
+            background: var(--Gris-claro, #C4C4C4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--Amarillo, #FE0);
+
+            h4 {
+                font-family: goldman-bold;
+                font-size: 2rem;
+            }
+
+        }
+    }
+}
+
+.contenedor-table-carreras {
+    .spinner-carreras {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    h3 {
+        padding-left: 4.5rem;
+    }
 }

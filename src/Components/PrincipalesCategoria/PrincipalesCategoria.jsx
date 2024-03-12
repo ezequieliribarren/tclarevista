@@ -106,7 +106,7 @@ const PrincipalesCategoria = ({ cat }) => {
                     ))}
                 </div>
                 <div className="container-terciarias">
-                    {noticias.slice(3).map((noticia, index) => (
+                {noticias.slice(2, 3).map((noticia, index) => (
                         <Link to={`/noticia/${noticia.id}`} key={index + 3}>
                             <div
                                 className="card-terciarias mb-3"
