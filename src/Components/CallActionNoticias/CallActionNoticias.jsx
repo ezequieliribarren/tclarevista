@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { useNewsContext } from '../../../Context/Context';
 import { HashLink as Link } from 'react-router-hash-link';
 
-const CallActionNoticias = ({ filterDate }) => {
+const CallActionNoticias = ({ filterDate, category }) => {
   const { news } = useNewsContext();
   const [shownNewsCount, setShownNewsCount] = useState(5);
   const [loading, setLoading] = useState(false);
@@ -33,6 +33,14 @@ const CallActionNoticias = ({ filterDate }) => {
     setLoading(false);
   };
 
+  const filterCategory = (noticias, category) => {
+    if (category) {
+      return noticias.filter(noticia => noticia.param.trim().toLowerCase() === category.trim().toLowerCase());
+    }
+    return noticias;
+  };
+  
+
   // Verificar si 'news' está definido y si hay noticias disponibles
   let noticias = news && news.general ? news.general : [];
 
@@ -49,7 +57,10 @@ const CallActionNoticias = ({ filterDate }) => {
     });
   }
 
-  noticias = noticias.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, shownNewsCount);
+  noticias = filterCategory(noticias, category)
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .slice(0, shownNewsCount);
+
 
   const lastNewsElementRefCallback = useCallback(
     (node) => {
@@ -65,6 +76,7 @@ const CallActionNoticias = ({ filterDate }) => {
     },
     [loading]
   );
+
   
   return (
     <aside id='call-action-noticias'>

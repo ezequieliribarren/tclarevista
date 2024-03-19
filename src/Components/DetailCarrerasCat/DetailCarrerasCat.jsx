@@ -2,12 +2,13 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../../LayoutCategoria/LayoutCategoria';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
-import { useTc } from '../../../Context/Context';
+import { useF1, useMgp, useTc } from '../../../Context/Context';
 import { useTcp } from '../../../Context/Context';
 import { useTcm } from '../../../Context/Context';
 import { useTcpm } from '../../../Context/Context';
 import { useTcpk } from '../../../Context/Context';
 import { useTcppk } from '../../../Context/Context';
+import { useRally } from '../../../Context/Context';
 import { HashLink as Link } from 'react-router-hash-link';
 
 import DetailFecha from '../DetailFecha/DetailFecha';
@@ -48,6 +49,15 @@ const DetailCarrerasCat = () => {
     case 'tcppk':
       context = useTcppk();
       break;
+    case 'rally-argentino':
+      context = useRally();
+      break;
+    case 'f1':
+      context = useF1();
+      break;
+    case 'moto-gp':
+      context = useMgp();
+      break;
     default:
       context = [];
   }
@@ -68,7 +78,7 @@ const DetailCarrerasCat = () => {
                 >
                   <div className="col-md-4 fecha-detail-carreras">
                     <h4>{item.c[0]?.v}</h4>
-                    <h3>{item.c[2]?.v && formatDate(item.c[2].v)}</h3> 
+                    <h3>{item.c[2]?.v && formatDate(item.c[2].v)}</h3>
                   </div>
                   <div className="col-md-4 lugar-detail-carreras">
                     <div>

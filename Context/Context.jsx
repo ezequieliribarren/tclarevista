@@ -29,6 +29,17 @@ function tcpk() {
 function tcppk() {
   return generarEnlaceConParametros("1112076324");
 } 
+function rally() {
+  return generarEnlaceConParametros("934475876");
+} 
+function f1() {
+  return generarEnlaceConParametros("1870545693");
+} 
+function motogp() {
+  return generarEnlaceConParametros("1456952227");
+} 
+
+
 
 
 // CONTEXT DE NOTICIAS
@@ -372,6 +383,122 @@ export const TcppkProvider = ({ children }) => {
 export const useTcppk = () => {
   return useContext(TcppkContext);
 };
+
+
+// RALLY-ARGENTINO
+
+const RallyContext = createContext();
+export const RallyProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = rally();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <RallyContext.Provider value={data}>
+      {children}
+    </RallyContext.Provider>
+  );
+};
+
+export const useRally = () => {
+  return useContext(RallyContext);
+};
+
+
+
+
+
+// FORMULA 1
+
+const F1Context = createContext();
+export const F1Provider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = f1();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <F1Context.Provider value={data}>
+      {children}
+    </F1Context.Provider>
+  );
+};
+
+export const useF1 = () => {
+  return useContext(F1Context);
+};
+
+
+
+// MOTO-GP
+
+const MgpContext = createContext();
+export const MgpProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = motogp();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <MgpContext.Provider value={data}>
+      {children}
+    </MgpContext.Provider>
+  );
+};
+
+export const useMgp = () => {
+  return useContext(MgpContext);
+};
+
+
+
+
 
 
 

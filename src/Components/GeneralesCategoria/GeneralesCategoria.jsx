@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 
 const GeneralesCategoria = ({ cat }) => {
     const [noticias, setNoticias] = useState([]);
-    const [shownNewsCount, setShownNewsCount] = useState(7); // Contador para mostrar las noticias
+    const [loading, setLoading] = useState(false);
+    const [shownNewsCount, setShownNewsCount] = useState(7);
+    const observer = useRef();
 
     useEffect(() => {
         const fetchNoticiasCat = async () => {
@@ -11,7 +13,6 @@ const GeneralesCategoria = ({ cat }) => {
                 const response = await fetch(`http://localhost:5000/api-categorias/${cat}`);
                 if (response.ok) {
                     const data = await response.json();
-                    // Ordenar las noticias por fecha de forma descendente
                     const sortedNoticias = sortNoticiasByDate(data);
                     setNoticias(sortedNoticias);
                 } else {
@@ -23,31 +24,43 @@ const GeneralesCategoria = ({ cat }) => {
         };
 
         fetchNoticiasCat();
-    }, [cat]); // Agregar 'cat' como dependencia para que el useEffect se ejecute cuando cambie la categoría
+    }, [cat]);
 
-    // Función para ordenar las noticias por fecha de forma descendente
     const sortNoticiasByDate = (noticias) => {
         return noticias.sort((a, b) => new Date(b.date) - new Date(a.date));
     };
 
-    // Función para formatear la fecha
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = date.getDate();
-        const month = date.getMonth() + 1; // Los meses comienzan desde 0
+        const month = date.getMonth() + 1;
         const year = date.getFullYear();
         return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
     };
 
-    const handleLoadMore = () => {
-        setShownNewsCount(prevCount => prevCount + 7); // Aumentar el contador para mostrar más noticias
-    };
+    const handleObserver = useCallback((node) => {
+        if (loading) return;
+
+        if (observer.current) observer.current.disconnect();
+
+        observer.current = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && noticias.length > shownNewsCount) {
+                setLoading(true);
+                setTimeout(() => {
+                    setShownNewsCount((prevCount) => prevCount + 7);
+                    setLoading(false);
+                }, 1000); // Simulando un tiempo de carga
+            }
+        });
+
+        if (node) observer.current.observe(node);
+    }, [loading, shownNewsCount, noticias]);
 
     return (
         <section>
-            {noticias.slice(3, shownNewsCount + 3).map((noticia, index) => (
+            {noticias.slice(-shownNewsCount - 3, -3).map((noticia, index) => (
                 <Link to={`/noticia/${noticia.id}`} key={index}>
-                    <div className="card-general mb-3">
+                    <div className="card-general mb-3" ref={index === noticias.length - 4 ? handleObserver : null}>
                         <div className='card-general-img'>
                             {noticia.video ? (
                                 <iframe
@@ -64,7 +77,7 @@ const GeneralesCategoria = ({ cat }) => {
                         </div>
                         <div className='description'>
                             <div className='category'>
-                                <div className='h4-category'> <h4>{noticia.categoria}</h4></div>
+                                <div className='h4-category'><h4>{noticia.categoria}</h4></div>
                             </div>
                             <div className='title-subtitle'>
                                 <h2>{noticia.title}</h2>
@@ -74,10 +87,12 @@ const GeneralesCategoria = ({ cat }) => {
                     </div>
                 </Link>
             ))}
-            {noticias.length > shownNewsCount && 
-              <div className='ver-mas'><button onClick={handleLoadMore}>VER MÁS NOTICIAS</button></div> 
-            }
-        </section> 
+            {loading && (
+                <div className="cargando-mas-noticias">
+                    <div className="spinner-border spinner-xl" style={{ color: '#FF0' }} role="status"></div>
+                </div>
+            )}
+        </section>
     );
 };
 

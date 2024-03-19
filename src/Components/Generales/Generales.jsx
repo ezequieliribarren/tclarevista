@@ -21,27 +21,11 @@ const Generales = () => {
         return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
     };
 
-    const handleLoadMore = () => {
-        setLoading(true);
-        setShownNewsCount(prevCount => prevCount + 7);
-        setLoading(false);
-    };
-
-    const lastNewsElementRefCallback = useCallback(node => {
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                handleLoadMore();
-            }
-        });
-        if (node) observer.current.observe(node);
-    }, []);
-
     return (
         <section id='generales'>
             {generales.map((noticia, index) => (
                 <Link to={`/noticia/${noticia.id}`} key={index}>
-                    <div className="card-general mb-3" ref={index === generales.length - 1 ? lastNewsElementRefCallback : null}>
+                    <div className="card-general mb-3">
                         <div className='card-general-img'>
                             {noticia.video ? (
                                 <iframe
@@ -68,12 +52,6 @@ const Generales = () => {
                     </div>
                 </Link>
             ))}
-            {loading && (
-                <div className="cargando-mas-noticias">
-                    <div className="spinner-border spinner-xl" style={{ color: '#FE0' }} role="status"></div>
-                </div>
-            )}
-            <div ref={lastNewsElementRef}></div>
         </section>
     );
 };

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './index.scss'
 import Root from './Routes/Root';
-import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider } from '../Context/Context';
+import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider, RallyProvider, F1Provider, MgpProvider } from '../Context/Context';
 import Nosotros from './Routes/Nosotros';
 import Contacto from './Routes/Contacto';
 import DetailCarrerasCat from './Components/DetailCarrerasCat/DetailCarrerasCat';
@@ -66,7 +66,13 @@ const router = createHashRouter([
               <TcpkProvider>
                 <TcppkProvider>
                   <TcpProvider>
-                    <DetailVideosCat />
+                    <RallyProvider>
+                      <F1Provider>
+                        <MgpProvider>
+                          <DetailVideosCat />
+                        </MgpProvider>
+                      </F1Provider>
+                    </RallyProvider>
                   </TcpProvider>
                 </TcppkProvider>
               </TcpkProvider>
@@ -94,7 +100,13 @@ const router = createHashRouter([
               <TcpkProvider>
                 <TcppkProvider>
                   <TcpProvider>
-                    <DetailCarrerasCat />
+                    <RallyProvider>
+                      <F1Provider>
+                        <MgpProvider>
+                          <DetailCarrerasCat />
+                        </MgpProvider>
+                      </F1Provider>
+                    </RallyProvider>
                   </TcpProvider>
                 </TcppkProvider>
               </TcpkProvider>
@@ -115,7 +127,13 @@ const router = createHashRouter([
               <TcpkProvider>
                 <TcppkProvider>
                   <TcpProvider>
-                    <NoticiaDetail />
+                    <RallyProvider>
+                      <F1Provider>
+                        <MgpProvider>
+                          <NoticiaDetail />
+                        </MgpProvider>
+                      </F1Provider>
+                    </RallyProvider>
                   </TcpProvider>
                 </TcppkProvider>
               </TcpkProvider>
@@ -136,7 +154,13 @@ const router = createHashRouter([
               <TcpkProvider>
                 <TcppkProvider>
                   <TcpProvider>
-                    <DetailFecha />
+                    <RallyProvider>
+                      <F1Provider>
+                        <MgpProvider>
+                          <DetailFecha />
+                        </MgpProvider>
+                      </F1Provider>
+                    </RallyProvider>
                   </TcpProvider>
                 </TcppkProvider>
               </TcpkProvider>
