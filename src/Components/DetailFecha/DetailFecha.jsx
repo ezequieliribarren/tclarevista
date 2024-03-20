@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { CircleLoader } from 'react-spinners';
@@ -114,6 +114,12 @@ const DetailFecha = ({ rowData }) => {
     case 'moto-gp':
       context = useMgp();
       break;
+    case 'indycar-series':
+      context = useIndy();
+      break;
+    case 'nascar':
+      context = useNas();
+      break;
     default:
       context = [];
   }
@@ -145,27 +151,6 @@ const DetailFecha = ({ rowData }) => {
     return null; // Devuelve "Desconocida" si no se encuentra ninguna marca conocida
   };
 
-  // const handleButtonFetch = async (endpoint, buttonText) => {
-  //   setSelectedButton(endpoint); // Actualizar el estado del botón seleccionado
-  //   setSelectedButtonText(buttonText); // Actualizar el texto del botón seleccionado
-  //   setLoading(true); // Iniciar la carga
-
-  //   try {
-  //     const response = await fetch(`http://localhost:5000/${categoria}/${endpoint}/${id}`);
-  //     if (response.ok) {
-  //       const jsonData = await response.json();
-  //       setRaceData([{ url: endpoint, results: jsonData }]);
-  //     } else {
-  //       console.error(`Error al obtener los datos de ${endpoint}`);
-  //       setRaceData([]);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error al realizar la solicitud:', error);
-  //     setRaceData([]);
-  //   } finally {
-  //     setLoading(false); // Finalizar la carga
-  //   }
-  // };
 
   // FUNCIONES PARA MOSTRAR TABLAS 
   useEffect(() => {
@@ -377,7 +362,7 @@ const DetailFecha = ({ rowData }) => {
                 </div>
                 <div className="col-12 select-tandas-carreras">
                   <div className='buttons-up-carreras'>
-                    {categoria !== 'f1' && categoria !== 'moto-gp' && (
+                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && (
                       <div className='day-carreras'>
                         <h4>Sáb.</h4>
                       </div>
@@ -407,6 +392,14 @@ const DetailFecha = ({ rowData }) => {
                           >
                             PR
                           </button>
+                        ) : categoria === 'indycar-series' ? (
+                          <button
+                            value={context[id]?.c[13]?.v}
+                            className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
+                            onClick={() => handleButtonClick('en6', 'Q1 G1')}
+                          >
+                            Q1 G1
+                          </button>
                         ) : (
                           <button
                             value={context[id]?.c[13]?.v}
@@ -419,46 +412,63 @@ const DetailFecha = ({ rowData }) => {
                       }
 
 
-{
-  context[id]?.c[14]?.v && (
-    categoria === 'moto-gp' ? (
-      <button 
-        value={context[id]?.c[14]?.v} 
-        className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`} 
-        onClick={() => handleButtonClick('clasificacion', 'Q1')}
-      >
-        Q1
-      </button>
-    ) : (
-      <button 
-        value={context[id]?.c[14]?.v} 
-        className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`} 
-        onClick={() => handleButtonClick('clasificacion', 'Clasificacion')}
-      >
-        Clasificación
-      </button>
-    )
-  )
-}
+                      {
+                        context[id]?.c[14]?.v && (
+                          categoria === 'moto-gp' ? (
+                            <button
+                              value={context[id]?.c[14]?.v}
+                              className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('clasificacion', 'Q1')}
+                            >
+                              Q1
+                            </button>
+                          ) : categoria === 'indycar-series' ? (
+                            <button
+                              value={context[id]?.c[14]?.v}
+                              className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('clasificacion', 'Q1 G2')}
+                            >
+                              Q1 G2
+                            </button>
+                          ) : (
+                            <button
+                              value={context[id]?.c[14]?.v}
+                              className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('clasificacion', 'Clasificacion')}
+                            >
+                              Clasificación
+                            </button>
+                          )
+                        )
+                      }
 
                     </div>
                   </div>
                   <div className='buttons-down-carreras'>
-                    {categoria !== 'f1' && categoria !== 'moto-gp' && (
+                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && (
                       <div className='day-carreras'>
                         <h4>Dom.</h4>
                       </div>
                     )}
-                      <div>
-                        {
-                          context[id]?.c[15]?.v && (
-                            categoria === 'moto-gp' ? (
+                    <div>
+                      {
+                        context[id]?.c[15]?.v && (
+                          categoria === 'moto-gp' || categoria === 'indycar-series' ? (
+                            <button
+                              value={context[id]?.c[15]?.v}
+                              className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie1', categoria === 'moto-gp' ? 'Q2' : 'Q2 G2')}
+                            >
+                              {categoria === 'moto-gp' ? 'Q2' : 'Q2 G2'}
+                            </button>
+                          ) : (
+                            categoria === 'nascar' ? (
                               <button
                                 value={context[id]?.c[15]?.v}
                                 className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
-                                onClick={() => handleButtonClick('serie1', 'Q2')}
+                                onClick={() => handleButtonClick('serie1', 'QA')}
                               >
-                                Q1
+                                QA
                               </button>
                             ) : (
                               <button
@@ -470,49 +480,77 @@ const DetailFecha = ({ rowData }) => {
                               </button>
                             )
                           )
-                        }
+                        )
+                      }
                       {
-                          context[id]?.c[16]?.v && (
-                            categoria === 'moto-gp' ? (
-                              <button
-                                value={context[id]?.c[16]?.v}
-                                className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                                onClick={() => handleButtonClick('serie2', 'SPRINT')}
-                              >
-                                SPRINT
-                              </button>
-                            ) : (
-                              <button
-                                value={context[id]?.c[16]?.v}
-                                className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                                onClick={() => handleButtonClick('serie2', 'Serie 2')}
-                              >
-                                Serie 2
-                              </button>
-                            )
+                        context[id]?.c[16]?.v && (
+                          categoria === 'moto-gp' ? (
+                            <button
+                              value={context[id]?.c[16]?.v}
+                              className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie2', 'SPRINT')}
+                            >
+                              SPRINT
+                            </button>
+                          ) : categoria === 'indycar-series' ? (
+                            <button
+                              value={context[id]?.c[16]?.v}
+                              className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie2', 'Q3')}
+                            >
+                              Q3
+                            </button>
+                          ) : categoria === 'nascar' ? (
+                            <button
+                              value={context[id]?.c[16]?.v}
+                              className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie2', 'QB')}
+                            >
+                              QB
+                            </button>
+                          ) : (
+                            <button
+                              value={context[id]?.c[16]?.v}
+                              className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie2', 'Serie 2')}
+                            >
+                              Serie 2
+                            </button>
                           )
-                        }
-                       {
-                          context[id]?.c[17]?.v && (
-                            categoria === 'moto-gp' ? (
-                              <button
-                                value={context[id]?.c[17]?.v}
-                                className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
-                                onClick={() => handleButtonClick('serie3', 'WUP')}
-                              >
-                                WUP
-                              </button>
-                            ) : (
-                              <button
-                                value={context[id]?.c[17]?.v}
-                                className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
-                                onClick={() => handleButtonClick('serie3', 'Serie 3')}
-                              >
-                                Serie 3
-                              </button>
-                            )
+                        )
+                      }
+
+
+                      {
+                        context[id]?.c[17]?.v && (
+                          categoria === 'moto-gp' || categoria === 'indycar-series' ? (
+                            <button
+                              value={context[id]?.c[17]?.v}
+                              className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie3', 'WUP')}
+                            >
+                              Calentamiento
+                            </button>
+                          ) : categoria === 'nascar' ? (
+                            <button
+                              value={context[id]?.c[17]?.v}
+                              className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie3', 'QF')}
+                            >
+                              QF
+                            </button>
+                          ) : (
+                            <button
+                              value={context[id]?.c[17]?.v}
+                              className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie3', 'Serie 3')}
+                            >
+                              Serie 3
+                            </button>
                           )
-                        }
+                        )
+                      }
+
                       {context[id]?.c[18]?.v && (
                         <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('final', 'Final')}>Final</button>
                       )}

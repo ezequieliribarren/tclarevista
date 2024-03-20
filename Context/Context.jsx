@@ -38,7 +38,12 @@ function f1() {
 function motogp() {
   return generarEnlaceConParametros("1456952227");
 } 
-
+function indycar() {
+  return generarEnlaceConParametros("239413181");
+} 
+function nascar() {
+  return generarEnlaceConParametros("287281711");
+} 
 
 
 
@@ -422,8 +427,6 @@ export const useRally = () => {
 
 
 
-
-
 // FORMULA 1
 
 const F1Context = createContext();
@@ -460,7 +463,6 @@ export const useF1 = () => {
 };
 
 
-
 // MOTO-GP
 
 const MgpContext = createContext();
@@ -494,6 +496,78 @@ export const MgpProvider = ({ children }) => {
 
 export const useMgp = () => {
   return useContext(MgpContext);
+};
+
+
+// INDYCAR
+
+const IndyContext = createContext();
+export const IndyProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = indycar();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <IndyContext.Provider value={data}>
+      {children}
+    </IndyContext.Provider>
+  );
+};
+
+export const useIndy = () => {
+  return useContext(IndyContext);
+};
+
+
+// NASCAR
+
+const NasContext = createContext();
+export const NasProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = nascar();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <NasContext.Provider value={data}>
+      {children}
+    </NasContext.Provider>
+  );
+};
+
+export const useNas = () => {
+  return useContext(NasContext);
 };
 
 
