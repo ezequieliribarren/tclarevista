@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { CircleLoader } from 'react-spinners';
@@ -37,6 +37,18 @@ const DetailFecha = ({ rowData }) => {
     return availableButtons[availableButtons.length - 1];
   };
 
+  const getLastButtonRallyArgentino = (contextData) => {
+    const buttons = [
+      'shake', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15', 'p16', 'p17', 'p18', 'p19', 'p20', 'p21', 'p22', 'p23', 'p24', 'p25', 'p26', 'p27', 'p28', 'p29', 'p30', 'final'
+    ];
+
+    // Filtrar los botones disponibles según el contexto
+    const availableButtons = buttons.filter(button => contextData?.c[buttons.indexOf(button) + 8]?.v);
+
+    // Devolver el último botón disponible
+    return availableButtons[availableButtons.length - 1];
+  };
+
   // FUNCION DEL FETCH
   const fetchSpecificData = async (endpoint) => {
     setLoading(true); // Iniciar la carga
@@ -63,7 +75,12 @@ const DetailFecha = ({ rowData }) => {
     const fetchLastButtonData = async () => {
       setLoading(true);
       try {
-        const lastButton = getLastButton();
+        let lastButton;
+        if (categoria === 'rally-argentino') {
+          lastButton = getLastButtonRallyArgentino(context[id]);
+        } else {
+          lastButton = getLastButton();
+        }
         const response = await fetch(`http://localhost:5000/${categoria}/${lastButton}/${id}`);
         if (response.ok) {
           const jsonData = await response.json();
@@ -120,6 +137,9 @@ const DetailFecha = ({ rowData }) => {
     case 'nascar':
       context = useNas();
       break;
+    case 'rally-mundial':
+      context = useRmun();
+      break;
     default:
       context = [];
   }
@@ -174,7 +194,7 @@ const DetailFecha = ({ rowData }) => {
   return (
     <Layout>
       {/* RALLY ARGENTINO */}
-      {categoria === 'rally-argentino' ? (
+      {categoria === 'rally-argentino' || categoria === 'rally-mundial' ? (
         <div className='container-fluid'>
           <div className="row contenedor-descripcion-carreras">
             <div className="row descripcion-carreras">
@@ -194,62 +214,168 @@ const DetailFecha = ({ rowData }) => {
                       <button value={context[id]?.c[8]?.v} className={`button-tanda ${selectedButton === 'shake' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('shake', 'Shake')}>Shake</button>
                     )}
                     {context[id]?.c[9]?.v && (
-                      <button value={context[id]?.c[9]?.v} className={`button-tanda ${selectedButton === 'p1' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p1', 'P.E 1')}>P.E 1</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[10]?.v : context[id]?.c[9]?.v}
+                        className={`button-tanda ${selectedButton === 'p1' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p1', categoria === 'rally-mundial' ? 'SS1' : 'P.E 1')}>
+                        {categoria === 'rally-mundial' ? 'SS1' : 'P.E 1'}
+                      </button>
                     )}
+
                     {context[id]?.c[10]?.v && (
-                      <button value={context[id]?.c[10]?.v} className={`button-tanda ${selectedButton === 'p2' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p2', 'P.E 2')}>P.E 2</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[12]?.v : context[id]?.c[10]?.v}
+                        className={`button-tanda ${selectedButton === 'p2' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p2', categoria === 'rally-mundial' ? 'SS2' : 'P.E 2')}>
+                        {categoria === 'rally-mundial' ? 'SS2' : 'P.E 2'}
+                      </button>
                     )}
+
                     {context[id]?.c[11]?.v && (
-                      <button value={context[id]?.c[11]?.v} className={`button-tanda ${selectedButton === 'p3' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p3', 'P.E 3')}>P.E 3</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[14]?.v : context[id]?.c[11]?.v}
+                        className={`button-tanda ${selectedButton === 'p3' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p3', categoria === 'rally-mundial' ? 'SS3' : 'P.E 3')}>
+                        {categoria === 'rally-mundial' ? 'SS3' : 'P.E 3'}
+                      </button>
                     )}
                     {context[id]?.c[12]?.v && (
-                      <button value={context[id]?.c[12]?.v} className={`button-tanda ${selectedButton === 'p4' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p4', 'P.E 4')}>P.E 4</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[14]?.v : context[id]?.c[12]?.v}
+                        className={`button-tanda ${selectedButton === 'p4' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p4', categoria === 'rally-mundial' ? 'SS4' : 'P.E 4')}>
+                        {categoria === 'rally-mundial' ? 'SS4' : 'P.E 4'}
+                      </button>
                     )}
+
                     {context[id]?.c[13]?.v && (
-                      <button value={context[id]?.c[13]?.v} className={`button-tanda ${selectedButton === 'p5' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p5', 'P.E 5')}>P.E 5</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[16]?.v : context[id]?.c[13]?.v}
+                        className={`button-tanda ${selectedButton === 'p5' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p5', categoria === 'rally-mundial' ? 'SS5' : 'P.E 5')}>
+                        {categoria === 'rally-mundial' ? 'SS5' : 'P.E 5'}
+                      </button>
                     )}
+
                     {context[id]?.c[14]?.v && (
-                      <button value={context[id]?.c[14]?.v} className={`button-tanda ${selectedButton === 'p6' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p6', 'P.E 6')}>P.E 6</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[18]?.v : context[id]?.c[14]?.v}
+                        className={`button-tanda ${selectedButton === 'p6' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p6', categoria === 'rally-mundial' ? 'SS6' : 'P.E 6')}>
+                        {categoria === 'rally-mundial' ? 'SS6' : 'P.E 6'}
+                      </button>
                     )}
                     {context[id]?.c[15]?.v && (
-                      <button value={context[id]?.c[15]?.v} className={`button-tanda ${selectedButton === 'p7' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p7', 'P.E 7')}>P.E 7</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[20]?.v : context[id]?.c[15]?.v}
+                        className={`button-tanda ${selectedButton === 'p7' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p7', categoria === 'rally-mundial' ? 'SS7' : 'P.E 7')}>
+                        {categoria === 'rally-mundial' ? 'SS7' : 'P.E 7'}
+                      </button>
                     )}
+
                     {context[id]?.c[16]?.v && (
-                      <button value={context[id]?.c[16]?.v} className={`button-tanda ${selectedButton === 'p8' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p8', 'P.E 8')}>P.E 8</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[22]?.v : context[id]?.c[16]?.v}
+                        className={`button-tanda ${selectedButton === 'p8' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p8', categoria === 'rally-mundial' ? 'SS8' : 'P.E 8')}>
+                        {categoria === 'rally-mundial' ? 'SS8' : 'P.E 8'}
+                      </button>
                     )}
+
                     {context[id]?.c[17]?.v && (
-                      <button value={context[id]?.c[17]?.v} className={`button-tanda ${selectedButton === 'p9' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p9', 'P.E 9')}>P.E 9</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[24]?.v : context[id]?.c[17]?.v}
+                        className={`button-tanda ${selectedButton === 'p9' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p9', categoria === 'rally-mundial' ? 'SS9' : 'P.E 9')}>
+                        {categoria === 'rally-mundial' ? 'SS9' : 'P.E 9'}
+                      </button>
                     )}
                     {context[id]?.c[18]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'p10' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p10', 'P.E 10')}>P.E 10</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[26]?.v : context[id]?.c[18]?.v}
+                        className={`button-tanda ${selectedButton === 'p10' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p10', categoria === 'rally-mundial' ? 'SS10' : 'P.E 10')}>
+                        {categoria === 'rally-mundial' ? 'SS10' : 'P.E 10'}
+                      </button>
                     )}
+
                     {context[id]?.c[19]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'p11' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p11', 'P.E 11')}>P.E 11</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[28]?.v : context[id]?.c[19]?.v}
+                        className={`button-tanda ${selectedButton === 'p11' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p11', categoria === 'rally-mundial' ? 'SS11' : 'P.E 11')}>
+                        {categoria === 'rally-mundial' ? 'SS11' : 'P.E 11'}
+                      </button>
                     )}
+
                     {context[id]?.c[20]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'p12' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p12', 'P.E 12')}>P.E 12</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[30]?.v : context[id]?.c[20]?.v}
+                        className={`button-tanda ${selectedButton === 'p12' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p12', categoria === 'rally-mundial' ? 'SS12' : 'P.E 12')}>
+                        {categoria === 'rally-mundial' ? 'SS12' : 'P.E 12'}
+                      </button>
                     )}
+
                     {context[id]?.c[21]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'p13' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p13', 'P.E 13')}>P.E 13</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[32]?.v : context[id]?.c[21]?.v}
+                        className={`button-tanda ${selectedButton === 'p13' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p13', categoria === 'rally-mundial' ? 'SS13' : 'P.E 13')}>
+                        {categoria === 'rally-mundial' ? 'SS13' : 'P.E 13'}
+                      </button>
                     )}
+
                     {context[id]?.c[22]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'p14' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p14', 'P.E 14')}>P.E 14</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[34]?.v : context[id]?.c[22]?.v}
+                        className={`button-tanda ${selectedButton === 'p14' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p14', categoria === 'rally-mundial' ? 'SS14' : 'P.E 14')}>
+                        {categoria === 'rally-mundial' ? 'SS14' : 'P.E 14'}
+                      </button>
                     )}
+
                     {context[id]?.c[23]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'p15' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p15', 'P.E 15')}>P.E 15</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[36]?.v : context[id]?.c[23]?.v}
+                        className={`button-tanda ${selectedButton === 'p15' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p15', categoria === 'rally-mundial' ? 'SS15' : 'P.E 15')}>
+                        {categoria === 'rally-mundial' ? 'SS15' : 'P.E 15'}
+                      </button>
                     )}
+
                     {context[id]?.c[24]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'p16' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('p16', 'P.E 16')}>P.E 16</button>
+                      <button
+                        value={categoria === 'rally-mundial' ? context[id]?.c[38]?.v : context[id]?.c[24]?.v}
+                        className={`button-tanda ${selectedButton === 'p16' ? 'selected-button' : ''}`}
+                        onClick={() => handleButtonClick('p16', categoria === 'rally-mundial' ? 'SS16' : 'P.E 16')}>
+                        {categoria === 'rally-mundial' ? 'SS16' : 'P.E 16'}
+                      </button>
                     )}
+
                   </div>
                 </div>
                 <div className="buttons-pilotos-horarios">
                   <div className="buttons-pilotos-horarios">
-                    {context[id]?.c[7]?.v && (
-                      <a href={context[id]?.c[7]?.v} className={`button-pilotos ${selectedButton === 'pilotos' ? 'selected-button' : ''}`}>Pilotos</a>
-                    )}
-                    {context[id]?.c[6]?.v && (
-                      <a href={context[id]?.c[6]?.v} className={`button-horarios ${selectedButton === 'horarios' ? 'selected-button' : ''}`}>Horarios</a>
+                    {categoria === 'rally-mundial' ? (
+                      <>
+                        {context[id]?.c[8]?.v && (
+                          <a href={context[id]?.c[8]?.v} className={`button-pilotos ${selectedButton === 'pilotos' ? 'selected-button' : ''}`}>Pilotos</a>
+                        )}
+                        {context[id]?.c[7]?.v && (
+                          <a href={context[id]?.c[7]?.v} className={`button-horarios ${selectedButton === 'horarios' ? 'selected-button' : ''}`}>Horarios</a>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {context[id]?.c[7]?.v && (
+                          <a href={context[id]?.c[7]?.v} className={`button-pilotos ${selectedButton === 'pilotos' ? 'selected-button' : ''}`}>Pilotos</a>
+                        )}
+                        {context[id]?.c[6]?.v && (
+                          <a href={context[id]?.c[6]?.v} className={`button-horarios ${selectedButton === 'horarios' ? 'selected-button' : ''}`}>Horarios</a>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
@@ -266,10 +392,10 @@ const DetailFecha = ({ rowData }) => {
               </div>
 
               {loading ? (
-                <div className="col-md-9 spinner-carreras">
-                  <CircleLoader color="#36D7B7" size={80} />
-                </div>
-              ) : (
+  <div className="col-md-9 spinner-carreras">
+    <CircleLoader color="#36D7B7" size={80} />
+  </div>
+) : (
                 <div className="contenedor-table-carreras">
 
                   <table className={`table-carreras ${showTramoTable ? '' : 'none'}`}>

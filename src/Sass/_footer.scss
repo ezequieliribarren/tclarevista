@@ -3,18 +3,16 @@ footer {
     background: var(--Negro, #000) !important;
     padding: 0 4rem;
 
-    .footer-up {
-        display: flex;
-        justify-content: space-between;
         padding-top: 3rem;
 
         .footer-1 {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
         
 
             .redes-footer {
-                margin-left: 2rem;
                 display: flex;
                 align-items: center;
 
@@ -46,7 +44,6 @@ footer {
             }
      
         }
-    }
 
 .footer-down{
     margin: 2rem 0;
@@ -97,4 +94,27 @@ footer {
         font-size: 1.5rem;
     }
 }
+}
+
+@media (max-width: 768px) {
+    .logo-footer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 3rem 0;
+    }
+    .redes-footer{
+        justify-content: center;
+        margin: 3rem 0;
+    }
+
+    .footer-nacionales, .footer-internacionales{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h4{
+            margin: 1rem 0;
+        }
+    }
 }

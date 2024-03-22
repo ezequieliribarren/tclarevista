@@ -22,7 +22,7 @@ const Principales = () => {
 
     return (
         <section className='row' id='principales'>
-            <div className="col-md-8 container-primarias">
+            <div className="col-lg-8 container-primarias">
                 {prioridad.primaria && prioridad.primaria.map((noticia, index) => (
                     <Link to={`/noticia/${noticia.id}`} key={index}>
                         <div
@@ -59,7 +59,7 @@ const Principales = () => {
 
                 ))}
             </div>
-            <div className="col-md-4">
+            <div className="col-lg-4">
                 <div className="container-secundarias">
                     {secundarias.map((noticia, index) => (
                         <Link to={`/noticia/${noticia.id}`} key={index}>

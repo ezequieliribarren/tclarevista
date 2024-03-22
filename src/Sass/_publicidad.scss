@@ -1,27 +1,48 @@
-.slider-publicidad-horizontal{
-width: 100%;
+.slider-publicidad-horizontal {
+    width: 100%;
 }
 
 .publicidad-horizontal {
     margin: 3rem 0;
     padding: 0 0.2rem;
+
     img {
         width: 95%;
         height: 100%;
     }
 }
 
-#publicidad-vertical{
+#publicidad-vertical {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.slider-publicidad-vertical{
+
+.slider-publicidad-vertical {
     width: 23rem;
+}
+
+.publicidad-vertical {
+    img {
+        width: 100%;
     }
-    
-    .publicidad-vertical {
-        img {
-            width: 100%;
-        }
+}
+
+@media (max-width: 1450px) {
+
+    .slider-publicidad-vertical {
+        width: 16rem;
     }
+}
+
+@media (max-width: 1000px) {
+    .slider-publicidad-vertical {
+        width: 13rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    #publicidad-vertical {
+        display: none;
+    }
+}

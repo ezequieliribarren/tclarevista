@@ -14,17 +14,17 @@ const Navbar = () => {
 
   return (
     <>
-      <header className='header'>
-        <div className='redes'>
-          <div><a href=""><img src="images/redes/insta.png" alt="Intagram de Tc La Revista" /></a></div>
-          <div><a href=""><img src="images/redes/x.png" alt="Twitter de Tc La Revista" /></a></div>
-          <div><a href=""><img src="images/redes/youtube.png" alt="Youtube de Tc La Revista" /></a></div>
-          <div><a href=""><img src="images/redes/mail.png" alt="Mail de Tc La Revista" /></a></div>
-        </div>
-        <div classNameName='logo'> <Link to='/'><img src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
-        <div classNameName='radio'>
-          <Radio url={radioUrl} />
-        </div>
+      <header className='header container-fluid'>
+          <div className='redes'>
+            <div><a href=""><img src="images/redes/insta.png" alt="Intagram de Tc La Revista" /></a></div>
+            <div><a href=""><img src="images/redes/x.png" alt="Twitter de Tc La Revista" /></a></div>
+            <div><a href=""><img src="images/redes/youtube.png" alt="Youtube de Tc La Revista" /></a></div>
+            <div><a href=""><img src="images/redes/mail.png" alt="Mail de Tc La Revista" /></a></div>
+          </div>
+          <div classNameName='logo'> <Link to='/'><img className='img-fluid' src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
+          <div classNameName='radio'>
+            <Radio url={radioUrl} />
+          </div>
       </header>
       <nav className="navbar navbar-expand-lg">
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

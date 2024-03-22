@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './index.scss'
 import Root from './Routes/Root';
-import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider, RallyProvider, F1Provider, MgpProvider, IndyProvider, NasProvider } from '../Context/Context';
+import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider, RallyProvider, F1Provider, MgpProvider, IndyProvider, NasProvider, RmunProvider } from '../Context/Context';
 import Nosotros from './Routes/Nosotros';
 import Contacto from './Routes/Contacto';
 import DetailCarrerasCat from './Components/DetailCarrerasCat/DetailCarrerasCat';
@@ -39,7 +39,7 @@ const router = createHashRouter([
     path: "/nosotros",
     element: (
       <NewsProvider>
-          <Nosotros />
+        <Nosotros />
       </NewsProvider>
     ),
   },
@@ -47,7 +47,7 @@ const router = createHashRouter([
     path: "/contacto",
     element: (
       <NewsProvider>
-          <Contacto />
+        <Contacto />
       </NewsProvider>
     ),
   },
@@ -65,11 +65,13 @@ const router = createHashRouter([
                     <RallyProvider>
                       <F1Provider>
                         <MgpProvider>
-                        <IndyProvider>
-                        <NasProvider>
-                             <DetailVideosCat />
-                        </NasProvider>
-                        </IndyProvider>
+                          <IndyProvider>
+                            <NasProvider>
+                              <RmunProvider>
+                                <DetailVideosCat />
+                              </RmunProvider>
+                            </NasProvider>
+                          </IndyProvider>
                         </MgpProvider>
                       </F1Provider>
                     </RallyProvider>
@@ -105,7 +107,9 @@ const router = createHashRouter([
                         <MgpProvider>
                           <IndyProvider>
                             <NasProvider>
-                             <DetailCarrerasCat /> 
+                            <RmunProvider>
+                               <DetailCarrerasCat />
+                            </RmunProvider>
                             </NasProvider>
                           </IndyProvider>
                         </MgpProvider>
@@ -135,9 +139,11 @@ const router = createHashRouter([
                       <F1Provider>
                         <MgpProvider>
                           <IndyProvider>
-                          <NasProvider>
-                             <NoticiaDetail />
-                          </NasProvider>
+                            <NasProvider>
+                            <RmunProvider>
+                               <NoticiaDetail />
+                            </RmunProvider>
+                            </NasProvider>
                           </IndyProvider>
                         </MgpProvider>
                       </F1Provider>
@@ -166,9 +172,11 @@ const router = createHashRouter([
                       <F1Provider>
                         <MgpProvider>
                           <IndyProvider>
-                          <NasProvider>
-                           <DetailFecha />  
-                          </NasProvider>
+                            <NasProvider>
+                            <RmunProvider>
+                              <DetailFecha />
+                            </RmunProvider>
+                            </NasProvider>
                           </IndyProvider>
                         </MgpProvider>
                       </F1Provider>

@@ -27,10 +27,10 @@ const Root = () => {
             </div>
             <Principales />
             <div className="row">
-              <div className="col-md-8">
+              <div className="col-lg-8">
                 <Generales />
               </div>
-              <div className="col-md-4">
+              <div className="col-lg-4">
                 <div className="row">
                   <CallActionCarreras />
                 </div>

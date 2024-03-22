@@ -44,6 +44,9 @@ function indycar() {
 function nascar() {
   return generarEnlaceConParametros("287281711");
 } 
+function rmun() {
+  return generarEnlaceConParametros("1226827878");
+} 
 
 
 
@@ -569,6 +572,48 @@ export const NasProvider = ({ children }) => {
 export const useNas = () => {
   return useContext(NasContext);
 };
+
+
+// RALLY - MUNDIAL
+
+const RmunContext = createContext();
+export const RmunProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = rmun();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <RmunContext.Provider value={data}>
+      {children}
+    </RmunContext.Provider>
+  );
+};
+
+export const useRmun = () => {
+  return useContext(RmunContext);
+};
+
+
+
+
+
+
 
 
 

@@ -43,7 +43,7 @@ const PublicidadVertical = ({none}) => {
                 {publicidades.map((publicidad, index) => (
                     <div key={index} className='publicidad-vertical'>
                         <a href={publicidad.link} target="_blank" rel="noopener noreferrer">
-                            <img src={`http://localhost:5000/${publicidad.image}`} alt={`Imagen ${index + 1}`} />
+                            <img className='img-fluid' src={`http://localhost:5000/${publicidad.image}`} alt={`Imagen ${index + 1}`} />
                         </a>
                     </div>
                 ))}
@@ -52,7 +52,7 @@ const PublicidadVertical = ({none}) => {
                 {publicidades.map((publicidad, index) => (
                     <div key={index} className='publicidad-vertical'>
                         <a href={publicidad.link} target="_blank" rel="noopener noreferrer">
-                            <img src={`http://localhost:5000/${publicidad.image}`} alt={`Imagen ${index + 1}`} />
+                            <img className='img-fluid' src={`http://localhost:5000/${publicidad.image}`} alt={`Imagen ${index + 1}`} />
                         </a>
                     </div>
                 ))}

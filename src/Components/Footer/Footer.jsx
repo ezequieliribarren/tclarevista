@@ -4,13 +4,12 @@ import { HashLink as Link } from 'react-router-hash-link'
 const Footer = () => {
   return (
     <>
-      <footer>
-        <div className="footer-up">
-          <div className="footer-1">
-            <div>
+      <footer className='container-fluid'>
+          <div className="footer-1 row">
+            <div className='col-md-4 logo-footer'>
               <div><Link to='/'><img src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
             </div>
-            <div className='redes-footer'>
+            <div className='redes-footer col-md-4' >
               <div>
                 <a href="https://twitter.com/tclarevista"><img src="images/redes/x.png" alt="Twitter Tc La Revista" /> @tclarevista</a>
                 <a href=""> <img src="images/redes/mail.png" alt="Mail de Tc La revista" /> info@tclarevista.com</a>
@@ -19,13 +18,14 @@ const Footer = () => {
                 <a href="https://www.instagram.com/tclarevista/"><img src="images/redes/insta.png" alt="Instagram de Tc La revista" /> @tclarevista</a>
                 <a href="https://www.youtube.com/tcrevista"><img src="images/redes/youtube.png" alt="Youtube de Tc La revista" /> @tclarevista</a>
               </div>
-            </div>
-          </div>
-          <div className="footer-2">
+            </div>    
+            <div className="footer-2 col-md-4">
             <Link className='link-footer'>Nosotros</Link>
             <Link className='link-footer'>Contacto</Link>
           </div>
-        </div>
+          </div>
+      
+
         <div className="footer-down row">
           <div className="footer-nacionales col-md-6">
             <h4>Nacionales</h4>
