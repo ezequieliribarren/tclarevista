@@ -4,6 +4,8 @@ import Layout from '../../LayoutCategoria/LayoutCategoria';
 import PrincipalesCategoria from '../PrincipalesCategoria/PrincipalesCategoria';
 import GeneralesCategoria from '../GeneralesCategoria/GeneralesCategoria';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
+import CallActionCarrerasCat from '../CallActionCarrerasCat/CallActionCarrerasCat';
+import CallActionCampeonato from '../CallActionCampeonato/CallActionCampeonato';
 
 const Categoria = () => {
     const { categoria } = useParams(); 
@@ -13,6 +15,9 @@ const Categoria = () => {
         <Layout background={categoria} logo={categoria} >
             <main>
                 <div className="container-fluid">
+                    <div className='row'>
+                        <CallActionCampeonato/>
+                    </div>
                     <div className="row">
                         <PrincipalesCategoria cat={categoria} />
                     </div>
@@ -23,6 +28,7 @@ const Categoria = () => {
                         </div>
 
                         <div className="col-md-4">
+                            <CallActionCarrerasCat/>
                             <PublicidadVertical />
                         </div>
                     </div>

@@ -1,0 +1,22 @@
+[
+    {
+      "nombre": "José Luis Barraza",
+      "rol": "FUNDADOR",
+      "img": "images/equipo/joseLuis.png"
+    },
+    {
+      "nombre": "Lucas Gabriel Barraza",
+      "rol": "DIRECTOR",
+      "img": "images/equipo/lucas.png"
+    },
+    {
+      "nombre": "Tomás Guido",
+      "rol": "CORRESPSONSAL",
+      "img": "images/equipo/lucas.png"
+    },
+    {
+      "nombre": "Elías Lopez",
+      "rol": "REDACCION",
+      "img": "images/equipo/lucas.png"
+    }
+  ]

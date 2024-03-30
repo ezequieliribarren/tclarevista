@@ -87,12 +87,14 @@
         display: flex;
         justify-content: space-around;
         position: relative;
+        z-index: 111;
 
     }
 
     .dropdown-menu {
         background: var(--Negro, #000) !important;
         padding: 2rem 4rem;
+        z-index: 11111 !important;
     }
 
 
@@ -160,8 +162,13 @@
 
 }
 
+.nav-categoria{
+    z-index: 1 !important;
+}
+
 .nacionales {
     width: 400%;
+
 }
 
 .internacionales {
@@ -177,6 +184,7 @@
     /* Ajusta el margen superior */
     padding-left: 0;
     /* Ajusta el padding izquierdo */
+
 }
 
 

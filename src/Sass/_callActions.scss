@@ -1,7 +1,7 @@
 .tabla-carreras {
     width: 100%;
-margin-top: 1rem;
-margin-bottom: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
 
     .table-carrera {
         margin: 1rem 0;
@@ -63,26 +63,83 @@ margin-bottom: 4rem;
 
 
 
-.play-carreras{
+    .play-carreras {
         padding-right: 1.2rem;
     }
-}    
+}
 
-    .ver-mas {
-        border: 1px solid #FE0;
+.ver-mas {
+    border: 1px solid #FE0;
+    background: var(--gris-oscuro-fondo, #323232);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.9rem;
+    margin: 1rem 0;
+
+    button {
+        font-family: roboto-bold;
+        color: #FE0;
+        font-size: 1.5rem;
+        width: 100%;
         background: var(--gris-oscuro-fondo, #323232);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 3.9rem;
-        margin: 1rem 0;
+        height: 100%;
+    }
+}
 
-        button {
-            font-family: roboto-bold;
+
+// CALL ACTION CAMPEONATO
+.call-action-campeonato {
+    h2 {
+        font-size: 2.8rem;
+        color: #FE0;
+        font-family: goldman-bold;
+    }
+
+    padding: 0 3rem !important;
+    margin: 2.5rem 0;
+
+    .card-call-action-campeonato {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border-right: 1px solid var(--Amarillo, #FE0);
+        border-bottom: 1px solid var(--Amarillo, #FE0);
+        padding: 15px 16px;
+
+
+        .h4-pos-campeonato {
             color: #FE0;
-            font-size: 1.5rem;
-            width: 100%;
-            background: var(--gris-oscuro-fondo, #323232);
-            height: 100%;
+            font-size: 3.5rem !important;
+            font-family: goldman-bold;
+            margin-right: 0.5rem;
+        }
+
+        .h4-piloto {
+            font-family: goldman-regular;
+            font-size: 16px;
+            color: white;
+            width: 11rem;
+            margin-right: 0 1rem;
+
+        }
+
+
+    }
+
+    .ver-tabla-completa {
+
+
+        h4 {
+            span {
+                margin-right: 1.2rem;
+            }
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 15rem !important;
         }
     }
+
+}

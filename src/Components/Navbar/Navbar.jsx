@@ -203,9 +203,9 @@ const Navbar = () => {
                 </div>
                 <div className="row">
                   <div className="col-3 cat">
-                    <Link to='/rally-cross-country' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//rally-cross-country.png" alt="" /></div>
-                      <div> <h2>Rally Cross<br />Country</h2></div>
+                    <Link to='/arg-mundo' className="dropdown-item">
+                      <div> <img src="images/banderas/arg.png" alt="" /></div>
+                      <div> <h2>Argentinos por el<br />Mundo</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link>
                   </div>

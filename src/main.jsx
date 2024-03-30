@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './index.scss'
 import Root from './Routes/Root';
-import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider, RallyProvider, F1Provider, MgpProvider, IndyProvider, NasProvider, RmunProvider } from '../Context/Context';
+import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider, RallyProvider, F1Provider, MgpProvider, IndyProvider, NasProvider, RmunProvider, FeProvider, TablaCampeonatoProvider } from '../Context/Context';
 import Nosotros from './Routes/Nosotros';
 import Contacto from './Routes/Contacto';
 import DetailCarrerasCat from './Components/DetailCarrerasCat/DetailCarrerasCat';
@@ -12,6 +12,7 @@ import DetailCampeonatoCat from './Components/DetailCampeonatoCat/DetailCampeona
 import Categoria from './Components/Categoria/Categoria';
 import NoticiaDetail from './Components/NoticiaDetail/NoticiaDetail';
 import DetailFecha from './Components/DetailFecha/DetailFecha';
+import DetailNoticiasCat from './Components/DetailNoticiasCat/DetailNoticiasCat';
 
 
 const router = createHashRouter([
@@ -30,8 +31,34 @@ const router = createHashRouter([
     path: "/:categoria", // Utiliza un parámetro para la categoría
     element: (
       <NewsProvider>
-        <Categoria />
-      </NewsProvider>
+      <TcpmProvider>
+        <TcProvider>
+          <TcmProvider>
+            <TcpkProvider>
+              <TcppkProvider>
+                <TcpProvider>
+                  <RallyProvider>
+                    <F1Provider>
+                      <MgpProvider>
+                        <IndyProvider>
+                          <NasProvider>
+                            <RmunProvider>
+                              <FeProvider>
+                                <Categoria />
+                              </FeProvider>
+                            </RmunProvider>
+                          </NasProvider>
+                        </IndyProvider>
+                      </MgpProvider>
+                    </F1Provider>
+                  </RallyProvider>
+                </TcpProvider>
+              </TcppkProvider>
+            </TcpkProvider>
+          </TcmProvider>
+        </TcProvider>
+      </TcpmProvider>
+    </NewsProvider>
     ),
   },
 
@@ -53,42 +80,30 @@ const router = createHashRouter([
   },
 
   {
-    path: '/:categoria/videos',
+    path: '/:categoria/noticias',
     element: (
       <NewsProvider>
-        <TcpmProvider>
-          <TcProvider>
-            <TcmProvider>
-              <TcpkProvider>
-                <TcppkProvider>
-                  <TcpProvider>
-                    <RallyProvider>
-                      <F1Provider>
-                        <MgpProvider>
-                          <IndyProvider>
-                            <NasProvider>
-                              <RmunProvider>
-                                <DetailVideosCat />
-                              </RmunProvider>
-                            </NasProvider>
-                          </IndyProvider>
-                        </MgpProvider>
-                      </F1Provider>
-                    </RallyProvider>
-                  </TcpProvider>
-                </TcppkProvider>
-              </TcpkProvider>
-            </TcmProvider>
-          </TcProvider>
-        </TcpmProvider>
+                                  <DetailNoticiasCat />
       </NewsProvider>
+    ),
+  },
+
+  {
+    path: '/:categoria/videos',
+    element: (
+
+        <DetailVideosCat />
+
     ),
   },
   {
     path: '/:categoria/campeonato',
     element: (
       <NewsProvider>
-        <DetailCampeonatoCat />
+        <TablaCampeonatoProvider>
+           <DetailCampeonatoCat />
+        </TablaCampeonatoProvider>
+       
       </NewsProvider>
     ),
   },
@@ -107,9 +122,11 @@ const router = createHashRouter([
                         <MgpProvider>
                           <IndyProvider>
                             <NasProvider>
-                            <RmunProvider>
-                               <DetailCarrerasCat />
-                            </RmunProvider>
+                              <RmunProvider>
+                                <FeProvider>
+                                  <DetailCarrerasCat />
+                                </FeProvider>
+                              </RmunProvider>
                             </NasProvider>
                           </IndyProvider>
                         </MgpProvider>
@@ -140,9 +157,11 @@ const router = createHashRouter([
                         <MgpProvider>
                           <IndyProvider>
                             <NasProvider>
-                            <RmunProvider>
-                               <NoticiaDetail />
-                            </RmunProvider>
+                              <RmunProvider>
+                                <FeProvider>
+                                  <NoticiaDetail />
+                                </FeProvider>
+                              </RmunProvider>
                             </NasProvider>
                           </IndyProvider>
                         </MgpProvider>
@@ -173,9 +192,11 @@ const router = createHashRouter([
                         <MgpProvider>
                           <IndyProvider>
                             <NasProvider>
-                            <RmunProvider>
-                              <DetailFecha />
-                            </RmunProvider>
+                              <RmunProvider>
+                                <FeProvider>
+                                  <DetailFecha />
+                                </FeProvider>
+                              </RmunProvider>
                             </NasProvider>
                           </IndyProvider>
                         </MgpProvider>

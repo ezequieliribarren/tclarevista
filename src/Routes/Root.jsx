@@ -10,7 +10,6 @@ import CallActionCarreras from '../Components/CallActionCarreras/CallActionCarre
 
 const Root = () => {
   return (
-    <>
       <Layout>
         <main className='p-3'>
           <div className="container-fluid vivo">
@@ -52,7 +51,6 @@ const Root = () => {
 
         </main>
       </Layout>
-    </>
   )
 }
 

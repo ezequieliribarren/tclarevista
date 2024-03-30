@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { CircleLoader } from 'react-spinners';
@@ -16,6 +16,8 @@ const DetailFecha = ({ rowData }) => {
   const [buttonVisibility, setButtonVisibility] = useState([]); // Cambiado a un array para manejar la visibilidad de los botones
   const [showTramoTable, setShowTramoTable] = useState(false);
   const [showClasificacionTable, setShowClasificacionTable] = useState(false);
+  const [showShakeTable, setShowShakeTable] = useState(false);
+
 
 
   const handleButtonClick = (endpoint, buttonText) => {
@@ -140,6 +142,9 @@ const DetailFecha = ({ rowData }) => {
     case 'rally-mundial':
       context = useRmun();
       break;
+    case 'formula-e':
+      context = useFe();
+      break;
     default:
       context = [];
   }
@@ -190,6 +195,11 @@ const DetailFecha = ({ rowData }) => {
     setShowClasificacionTable(true);
   };
 
+  const handleShowShakeTable = () => {
+    setShowShakeTable(true); // Establecer showShakeTable en true cuando se hace clic en el botón "Shake"
+    setShowClasificacionTable(false); // Asegúrate de ocultar la tabla de clasificación si estaba mostrada
+    setShowTramoTable(false); // Asegúrate de ocultar la tabla de tramo si estaba mostrada
+  };
 
   return (
     <Layout>
@@ -382,47 +392,80 @@ const DetailFecha = ({ rowData }) => {
               </div>
             </div>
             <div className='buttons-up-carreras'>
-              <button className={`button-tanda ${showTramoTable ? 'selected-button' : ''} ${showTramoTable ? 'clicked-button' : ''}`} onClick={handleShowTramoTable}>Tramo</button>
-              <button className={`button-tanda ${showClasificacionTable ? 'selected-button' : ''} ${showClasificacionTable ? 'clicked-button' : ''}`} onClick={handleShowClasificacionTable}>Clasificación</button>
+              {selectedButton !== "shake" && ( // Mostrar los botones solo si no es "shake"
+                <div className='buttons-up-carreras'>
+                  <button className={`button-tanda ${showTramoTable ? 'selected-button' : ''} ${showTramoTable ? 'clicked-button' : ''}`} onClick={handleShowTramoTable}>Tramo</button>
+                  <button className={`button-tanda ${showClasificacionTable ? 'selected-button' : ''} ${showClasificacionTable ? 'clicked-button' : ''}`} onClick={handleShowClasificacionTable}>Clasificación</button>
+                </div>
+              )}
+
+              {selectedButton === "shake" && (
+                <table className={`table-carreras ${showShakeTable ? '' : ''}`}>
+                  <thead className='container-fluid'>
+                    <tr className='row'>
+                      <td className='evento-carreras-td col-md-12'><h4>Tabla de Todos los Pilotos</h4></td>
+                    </tr>
+                    <tr className='row'>
+                      <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
+                      <th className='piloto-carreras col-md-5'><h4>Piloto / Navegante</h4></th>
+                      <th className='tiempo-carreras col-md-2'><h4>Vuelta 1</h4></th>
+                      <th className='dif-carreras col-md-2'><h4>Vuelta 2</h4></th>
+                      <th className='dif-carreras col-md-2'><h4>Vuelta 3</h4></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {raceData[0]?.results && Array.isArray(raceData[0].results) && raceData[0].results.map((item, idx) => (
+                      <tr className='row' key={idx}>
+                        <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
+                        <td className='piloto-carreras-td col-md-5'><h4>{item.piloto}</h4></td>
+                        <td className='tiempo-carreras-td col-md-2'><h4>{item.tramo1}</h4></td>
+                        <td className='dif-carreras-td col-md-2'><h4>{item.tramo2}</h4></td>
+                        <td className='dif-carreras-td col-md-2'><h4>{item.tramo3}</h4></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+
             </div>
           </div>
-          <div className="row contenedor-table-carreras">
+          <div className="row">
             <div className="contenedor-table-carreras col-md-9">
               <div>
               </div>
 
               {loading ? (
-  <div className="col-md-9 spinner-carreras">
-    <CircleLoader color="#36D7B7" size={80} />
-  </div>
-) : (
+                <div className="col-md-9 spinner-carreras">
+                  <CircleLoader color="#36D7B7" size={80} />
+                </div>
+              ) : (
                 <div className="contenedor-table-carreras">
-
-                  <table className={`table-carreras ${showTramoTable ? '' : 'none'}`}>
-                    <thead className='container-fluid'>
-                      <tr className='row'>
-                        <td className='evento-carreras-td col-md-12'><h4>Posiciones en el tramo</h4></td>
-                      </tr>
-                      <tr className='row'>
-                        <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
-                        <th className='piloto-carreras col-md-7'><h4>Piloto / Navegante</h4></th>
-                        <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
-                        <th className='dif-carreras col-md-2'><h4>Diferencia</h4></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {raceData[0]?.results && Array.isArray(raceData[0].results) && raceData[0].results.slice(2).map((item, idx) => (
-                        idx % 2 === 0 && // Check for even indices
-                        <tr className='row' key={idx}>
-                          <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
-                          <td className='piloto-carreras-td col-md-7'><h4>{item.piloto}</h4></td>
-                          <td className='tiempo-carreras-td col-md-2'><h4>{item.tiempo}</h4></td>
-                          <td className='dif-carreras-td col-md-2'><h4>{item.dif}</h4></td>
+                  {selectedButton !== "shake" && (
+                    <table className={`table-carreras ${showTramoTable ? '' : 'none'}`}>
+                      <thead className='container-fluid'>
+                        <tr className='row'>
+                          <td className='evento-carreras-td col-md-12'><h4>Posiciones en el tramo</h4></td>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-
+                        <tr className='row'>
+                          <th className='pos-carreras col-md-1'><h4>Pos.</h4></th>
+                          <th className='piloto-carreras col-md-7'><h4>Piloto / Navegante</h4></th>
+                          <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
+                          <th className='dif-carreras col-md-2'><h4>Diferencia</h4></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {raceData[0]?.results && Array.isArray(raceData[0].results) && raceData[0].results.slice(2).map((item, idx) => (
+                          idx % 2 === 0 && // Check for even indices
+                          <tr className='row' key={idx}>
+                            <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
+                            <td className='piloto-carreras-td col-md-7'><h4>{item.piloto}</h4></td>
+                            <td className='tiempo-carreras-td col-md-2'><h4>{item.tiempo}</h4></td>
+                            <td className='dif-carreras-td col-md-2'><h4>{item.dif}</h4></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                   <table className={`table-carreras ${showClasificacionTable ? '' : 'none'}`}>
 
                     <thead className='container-fluid'>
@@ -456,9 +499,38 @@ const DetailFecha = ({ rowData }) => {
                     </tbody>
                   </table>
 
+                  {selectedButton !== "shake" && (
+                    <>
+                      <table className={`table-carreras ${showTramoTable ? '' : 'none'}`}>
+                        <thead className='container-fluid'>
+                          <tr className='row'>
+                            <td className='evento-carreras-td col-md-12'><h4>Posiciones en el tramo</h4></td>
+                          </tr>
+                          <tr className='row'>
+                            <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
+                            <th className='piloto-carreras col-md-7'><h4>Piloto / Navegante</h4></th>
+                            <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
+                            <th className='dif-carreras col-md-2'><h4>Diferencia</h4></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {raceData[0]?.results && Array.isArray(raceData[0].results) && raceData[0].results.map((item, idx) => (
+                            <tr className='row' key={idx}>
+                              <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
+                              <td className='piloto-carreras-td col-md-7'><h4>{item.piloto}</h4></td>
+                              <td className='tiempo-carreras-td col-md-2'><h4>{item.tiempo}</h4></td>
+                              <td className='dif-carreras-td col-md-2'><h4>{item.dif}</h4></td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </>
+                  )}
 
                 </div>
               )}
+
+
             </div>
             <div className="col-md-3">
               <CallActionNoticias filterDate={new Date(context[id]?.c[2]?.v)} category={categoria} />
@@ -488,7 +560,7 @@ const DetailFecha = ({ rowData }) => {
                 </div>
                 <div className="col-12 select-tandas-carreras">
                   <div className='buttons-up-carreras'>
-                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && (
+                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (
                       <div className='day-carreras'>
                         <h4>Sáb.</h4>
                       </div>
@@ -571,7 +643,7 @@ const DetailFecha = ({ rowData }) => {
                     </div>
                   </div>
                   <div className='buttons-down-carreras'>
-                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && (
+                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (
                       <div className='day-carreras'>
                         <h4>Dom.</h4>
                       </div>

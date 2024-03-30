@@ -4,7 +4,17 @@ import { useCarrerasAnuales } from '../../../Context/Context';
 const EnVivo = ({ isVisible }) => {
   return (
     <div style={{ display: isVisible ? 'block' : 'none' }}>
-      <h2>En Vivo</h2>
+      <div className='call-action-vivo'> 
+      <div>
+        <div>
+          <img src="" alt="" />
+        </div>
+        <div>
+          <h4></h4>
+        </div>
+      </div>
+      <div></div>
+      </div>
   
     </div>
   );

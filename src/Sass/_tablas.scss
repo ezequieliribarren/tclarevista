@@ -1,0 +1,200 @@
+.tabla-campeonato {
+    width: 100%;
+}
+
+.auto-piloto {
+    margin-right: 1.5rem;
+
+    img {
+        width: 9.5rem;
+    }
+}
+
+
+th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h4 {
+        font-family: goldman-regular;
+        font-size: 2.4rem;
+        color: white;
+        text-align: center;
+    }
+}
+
+
+tr {
+    height: 6.5rem;
+}
+
+.row {
+    margin: 0;
+}
+
+
+// FECHAS
+
+.pos-carreras {
+    h4 {
+        color: #FE0 !important;
+        text-align: center !important;
+    }
+
+
+    .piloto-carreras,
+    .marca-carreras,
+    .vueltas-carreras,
+    .tiempos-carreras,
+    .dif-carreras {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+}
+
+.piloto-carreras,
+.marca-carreras,
+.vueltas-carreras,
+.tiempos-carreras,
+.dif-carreras {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.marca-carreras-td,
+.vueltas-carreras-td,
+.tiempo-carreras-td,
+.dif-carreras-td {
+    border-bottom: white 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    h4 {
+        font-family: roboto-medium;
+        font-size: 2.4rem;
+    }
+}
+
+
+.pos-carreras-td {
+    padding: 0 !important;
+
+    h4 {
+        background: var(--Amarillo, #FE0);
+        font-family: goldman-regular;
+        font-size: 2.4rem;
+        height: 6.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: black;
+        border-bottom: white 1px solid;
+    }
+}
+
+.grupo-carreras-td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    border-bottom: 1px solid white;
+    height: 100%;
+
+    h4 {
+        text-align: center;
+        font-family: roboto-regular;
+        color: white;
+        font-size: 2.4rem;
+    }
+}
+
+.marca-carreras-td {
+    height: 100%;
+
+    img {
+        width: 5rem;
+    }
+}
+
+.piloto-carreras-td {
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-bottom: white 1px solid;
+    padding-left: 2rem !important;
+
+    h4 {
+        font-family: goldman-regular;
+        color: #FE0;
+        font-size: 2.4rem;
+    }
+}
+
+.vueltas-carreras-td {
+    height: 100%;
+
+    h4 {
+        font-family: roboto-medium;
+    }
+}
+
+
+// CAMPEONATO
+
+.nro-piloto-td {
+    height: 100%;
+    border-bottom: 1px solid white;
+
+    .h4-nro-piloto {
+        color: #FE0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 9rem;
+        height: 6.5rem;
+        font-family: goldman-regular;
+        font-size: 2.4rem;
+
+    }
+}
+
+.th-piloto {
+    justify-content: left;
+    padding-left: 2rem !important;
+}
+
+.th-victorias {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-campeonato {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-left: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .button-campeonato {
+    width: 50%;
+    height: 4rem;
+    background-color: #000;
+    color: #FE0;
+    font-family: goldman-bold;
+    font-size: 2.8rem;
+    border-style: none;
+  }
+  
+  .button-campeonato.selected {
+    border: 1px solid #FE0;
+  }

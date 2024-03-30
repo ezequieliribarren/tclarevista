@@ -53,7 +53,6 @@ const NoticiaDetail = () => {
     }
 
     const url = window.location.href;
-    console.log(url)
 
     // Texto a compartir
     const shareText = `${noticia.title}`;
