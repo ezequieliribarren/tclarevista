@@ -47,6 +47,14 @@ function nascar() {
 function rmun() {
   return generarEnlaceConParametros("1226827878");
 } 
+function fe() {
+  return generarEnlaceConParametros("672242614");
+} 
+function tablascampeonatos() {
+  return generarEnlaceConParametros("1579842406");
+} 
+
+
 
 
 
@@ -132,6 +140,42 @@ export const CampeonatoProvider = ({ children }) => {
     </CampeonatoContext.Provider>
   );
 };
+
+// CONTEXT CAMPEONATO HOJA DE CALCULO
+const TablaCampeonatoContext = createContext();
+
+export const TablaCampeonatoProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tablascampeonatos();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <TablaCampeonatoContext.Provider value={data}>
+      {children}
+    </TablaCampeonatoContext.Provider>
+  );
+};
+
+export const useTablaCampeonato = () => {
+  return useContext(TablaCampeonatoContext);
+};
+
 
 
 // CONTEXT CARRERAS ANUALES
@@ -608,6 +652,45 @@ export const RmunProvider = ({ children }) => {
 export const useRmun = () => {
   return useContext(RmunContext);
 };
+
+
+
+// FORMULA - E 
+
+const FeContext = createContext();
+export const FeProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = fe();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <FeContext.Provider value={data}>
+      {children}
+    </FeContext.Provider>
+  );
+};
+
+export const useFe = () => {
+  return useContext(FeContext);
+};
+
+
 
 
 
