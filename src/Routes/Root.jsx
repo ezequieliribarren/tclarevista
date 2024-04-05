@@ -7,14 +7,16 @@ import Principales from '../Components/Principales/Principales'
 import Generales from '../Components/Generales/Generales'
 import CallActionVideos from '../Components/CallActionVideos/CallActionVideos'
 import CallActionCarreras from '../Components/CallActionCarreras/CallActionCarreras'
+import Vivo from '../Components/Vivo/Vivo'
 
 const Root = () => {
+
   return (
       <Layout>
         <main className='p-3'>
           <div className="container-fluid vivo">
             <div className="row">
-              {/* RESULTADOS EN VIVO */}
+       <Vivo/>
             </div>
             <div className="row">
               {/* PODIO EN VIVO */}

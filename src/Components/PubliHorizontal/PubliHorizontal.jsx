@@ -33,9 +33,21 @@ const PubliHorizontal = () => {
     autoplay: true,
     slidesToShow: 8,
     slidesToScroll: 1,
-    
+    responsive: [
+      {
+        breakpoint: 768, // Tamaño md
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 1000, // Tamaño lg
+        settings: {
+          slidesToShow: 5
+        }
+      }
+    ]
   };
-
   return (
     <section>
       <Slider {...settings} className='slider-publicidad-horizontal'>

@@ -38,7 +38,7 @@ const Principales = () => {
         const primariaDate = prioridad.primaria && prioridad.primaria.length > 0 ? new Date(prioridad.primaria[0].date) : null;
         // Obtener la fecha de la noticia más reciente en vincular
         const mostRecentVincularDate = mostRecentVincular ? new Date(mostRecentVincular.date) : null;
-    
+
         // Comparar las fechas y determinar cuál es más reciente
         if (primariaDate && mostRecentVincularDate) {
             setMostRecentIsPrimaria(primariaDate > mostRecentVincularDate);
@@ -53,6 +53,7 @@ const Principales = () => {
         const year = date.getFullYear();
         return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
     };
+
     const secundarias = news && news.prioridad ? news.prioridad.secundaria || [] : [];
     const terciarias = news && news.prioridad ? news.prioridad.terciaria || [] : [];
     return (
@@ -71,7 +72,9 @@ const Principales = () => {
                                 color: 'white',
                             }}
                         >
-
+                            <div className='category'>
+                                <div className='h4-category'><h4>{noticia.categoria}</h4></div>
+                            </div>
                             <div className='news-video'>
                                 {noticia.video ? (
                                     <iframe
@@ -89,12 +92,13 @@ const Principales = () => {
                                 <h2>{noticia.title}</h2>
                                 <h3>{formatDate(noticia.date)}</h3>
                             </div>
+
                         </div>
                     </Link>
                 ))}
             </div>
             <div className="col-lg-8 container-primarias" style={{ display: mostRecentIsPrimaria ? 'none' : 'block' }}>
-            {mostRecentVincular && (
+                {mostRecentVincular && (
                     <Link to={mostRecentVincular.link}>
                         <div
                             className="card-primarias mb-3"
@@ -105,7 +109,7 @@ const Principales = () => {
                                 backgroundPosition: "top",
                                 color: 'white',
                             }}
-                        >
+                        >   
                             <div className='news-video'>
                                 {mostRecentVincular.video && (
                                     <iframe
@@ -121,12 +125,12 @@ const Principales = () => {
 
                             <div className='title-subtitle'>
                                 <h2>{mostRecentVincular.title}</h2>
-                                <h3>{formatDate(mostRecentVincular.date)}</h3>
                             </div>
+
                         </div>
                     </Link>
 
-            )}
+                )}
             </div>
             <div className="col-lg-4">
                 <div className="container-secundarias">
@@ -144,6 +148,9 @@ const Principales = () => {
                                     color: 'white', // Color del texto para que sea visible en la imagen de fondo
                                 }}
                             >
+                                <div className='category'>
+                                    <div className='h4-category'><h4>{noticia.categoria}</h4></div>
+                                </div>
                                 {/* <Link to={`/noticia/${noticia.id}`} className='video-link'></Link> */}
                                 <div className='news-video'>
                                     {noticia.video ? (
@@ -182,6 +189,10 @@ const Principales = () => {
                                     color: 'white',
                                 }}
                             >
+                                <div className='category'>
+                                    <div className='h4-category'><h4>{noticia.categoria}</h4></div>
+                                </div>
+
                                 {/* <Link to={`/noticia/${noticia.id}`} className='video-link'></Link> */}
                                 <div className='news-video'>
                                     {noticia.video ? (

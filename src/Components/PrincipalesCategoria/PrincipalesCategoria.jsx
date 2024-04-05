@@ -52,6 +52,9 @@ const PrincipalesCategoria = ({ cat }) => {
                                 color: 'white',
                             }}
                         >
+                            <div className='category'>
+                                <div className='h4-category'><h4>{noticias.categoria}</h4></div>
+                            </div>
                             <div className='news-video'>
                                 {noticias[0].video ? (
                                     <iframe
@@ -85,6 +88,9 @@ const PrincipalesCategoria = ({ cat }) => {
                                     color: 'white',
                                 }}
                             >
+                                <div className='category'>
+                                    <div className='h4-category'><h4>{noticia.categoria}</h4></div>
+                                </div>
                                 <div className='news-video'>
                                     {noticia.video ? (
                                         <iframe
@@ -106,7 +112,7 @@ const PrincipalesCategoria = ({ cat }) => {
                     ))}
                 </div>
                 <div className="container-terciarias">
-                {noticias.slice(2, 3).map((noticia, index) => (
+                    {noticias.slice(2, 3).map((noticia, index) => (
                         <Link to={`/noticia/${noticia.id}`} key={index + 3}>
                             <div
                                 className="card-terciarias mb-3"
@@ -117,6 +123,9 @@ const PrincipalesCategoria = ({ cat }) => {
                                     color: 'white',
                                 }}
                             >
+                                <div className='category'>
+                                    <div className='h4-category'><h4>{noticia.categoria}</h4></div>
+                                </div>
                                 <div className='news-video'>
                                     {noticia.video ? (
                                         <iframe

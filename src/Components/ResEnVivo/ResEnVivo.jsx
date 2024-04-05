@@ -23,6 +23,8 @@ const EnVivo = ({ isVisible }) => {
 const Proximas = ({ isVisible }) => {
   const carrerasAnuales = useCarrerasAnuales();
 
+
+
   const fechaActual = new Date();
   const diaSemana = fechaActual.getDay();
   const inicioSemana = new Date(fechaActual);

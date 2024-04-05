@@ -1,0 +1,13 @@
+.contenedor-vivo{
+    display: flex;
+
+    .vivo{
+        width: 18rem;
+        height: 9rem;
+        border-right: solid 1px #FE0;
+
+        .contenedor-categoria-vivo{
+            display: flex;
+        }
+    }
+}
