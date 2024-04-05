@@ -101,26 +101,39 @@
 
     .card-call-action-campeonato {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
         align-items: center;
         border-right: 1px solid var(--Amarillo, #FE0);
         border-bottom: 1px solid var(--Amarillo, #FE0);
         padding: 15px 16px;
 
+        .container-pos {
+            width: 25%;
+        }
+
+        .container-piloto {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container-marca {
+            width: 25%;
+            display: flex;
+            justify-content: end;
+        }
 
         .h4-pos-campeonato {
             color: #FE0;
-            font-size: 3.5rem !important;
+            font-size: 3.3rem !important;
             font-family: goldman-bold;
-            margin-right: 0.5rem;
         }
 
         .h4-piloto {
             font-family: goldman-regular;
-            font-size: 16px;
+            font-size: 15px;
             color: white;
-            width: 11rem;
-            margin-right: 0 1rem;
+            width: 100% !important;
 
         }
 
@@ -128,8 +141,6 @@
     }
 
     .ver-tabla-completa {
-
-
         h4 {
             span {
                 margin-right: 1.2rem;
@@ -142,4 +153,60 @@
         }
     }
 
+    .img-piloto-call-action-campeonato {
+        width: 4.3rem;
+    }
 }
+
+.ver-tabla-completa{
+.nav-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+h4{
+    margin-left: 1rem;
+}
+}
+}
+
+@media (max-width: 1135px) {
+    .card-call-action-campeonato {
+        .h4-piloto {
+            font-size: 1.4rem !important;
+        }
+
+        .container-pos {
+            .h4-pos-campeonato {
+                font-size: 2.9rem !important;
+
+            }
+
+        }
+
+        .container-marca {
+            img {
+                width: 3.8rem;
+            }
+        }
+    }
+
+}
+
+
+@media (max-width: 675px) {
+ .ver-tabla-completa{
+    .h4-piloto{
+        display: none !important;
+    }
+ }   
+
+
+} 
+
+@media (max-width: 470px) {
+    .card-call-action-campeonato{
+        .h4-piloto{
+            font-size: 1.5rem !important;
+        }
+    }
+ }

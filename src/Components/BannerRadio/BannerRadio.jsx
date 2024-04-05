@@ -3,7 +3,7 @@ import React from 'react'
 const BannerRadio = () => {
   return (
     <section id='banner-radio'>
-               <img className='img-fluid' src="images/banner-radio.png" alt="Radio Tc La Revista" />
+               <img  src="images/banner-radio.png" alt="Radio Tc La Revista" />
     </section>
   )
 }

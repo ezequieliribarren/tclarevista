@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
-import { CircleLoader } from 'react-spinners';
+import { ClipLoader } from 'react-spinners';
 
 const DetailFecha = ({ rowData }) => {
   const { categoria, id } = useParams();
@@ -435,8 +435,8 @@ const DetailFecha = ({ rowData }) => {
               </div>
 
               {loading ? (
-                <div className="col-md-9 spinner-carreras">
-                  <CircleLoader color="#36D7B7" size={80} />
+                <div className="col-md-9 spinner-container">
+                  <ClipLoader color="#FE0" size={80} />
                 </div>
               ) : (
                 <div className="contenedor-table-carreras">
@@ -769,8 +769,8 @@ const DetailFecha = ({ rowData }) => {
             </div>
             <div className="row contenedor-table-carreras">
               {loading ? (
-                <div className="col-md-9 spinner-carreras">
-                  <CircleLoader color="#36D7B7" size={80} />
+                <div className="col-md-9 spinner-container">
+                  <ClipLoader color="#FE0" size={80} />
                 </div>
               ) : (
                 <div className='col-md-9'>

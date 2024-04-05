@@ -40,7 +40,7 @@ const NavCategoria = ({ background, logo, param }) => {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg nav-categoria">
+            <nav className="navbar navbar-expand-md nav-categoria">
                 <Link className={`navbar-brand ${activeButton === '' ? '' : 'no-active'}`} to={categoriaUrl} onClick={() => handleButtonClick('')}>
                     <img src={`images/categorias/logos/${logo || param}.png`} alt={`${logo}.png`} />
                 </Link>
@@ -51,27 +51,27 @@ const NavCategoria = ({ background, logo, param }) => {
                     <ul className="navbar-nav">
                         <li className={`nav-item ${activeButton === 'noticias' ? 'active' : ''}`}>
                             <Link className="nav-link" to={noticiasUrl} onClick={() => handleButtonClick('noticias')}>
-                                <h3>Noticias</h3>
+                                Noticias
                             </Link>
                         </li>
                         {videosUrl && (
                             <li className={`nav-item ${activeButton === 'videos' ? 'active' : ''}`}>
                                 <Link className="nav-link" to={videosUrl} onClick={() => handleButtonClick('videos')}>
-                                    <h3>Videos</h3>
+                                    Videos
                                 </Link>
                             </li>
                         )}
                         {carrerasUrl && (
                             <li className={`nav-item ${activeButton === 'carreras' ? 'active' : ''}`}>
                                 <Link className="nav-link" to={carrerasUrl} onClick={() => handleButtonClick('carreras')}>
-                                    <h3>Carreras</h3>
+                                    Carreras
                                 </Link>
                             </li>
                         )}
                         {campeonatoUrl && (
                             <li className={`nav-item ${activeButton === 'campeonato' ? 'active' : ''}`}>
                                 <Link className="nav-link" to={campeonatoUrl} onClick={() => handleButtonClick('campeonato')}>
-                                    <h3>Campeonato</h3>
+                                    Campeonato
                                 </Link>
                             </li>
                         )}

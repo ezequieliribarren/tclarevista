@@ -39,8 +39,8 @@
 
     .history-title-img .images-container {
         position: absolute;
-        top: -30px;
-        right: 150px;
+        top: -20%;
+        right: 15%;
         display: flex;
     }
 
@@ -63,9 +63,10 @@
 
 #equipo {
     background: var(--Negro, #000);
-margin: 4rem 0;
+margin-top: 4rem;
 padding: 4rem 0;
 padding-left: 4rem;
+border-bottom: 1px solid #FE0;
     h2{
         color: #FE0;
         margin-bottom: 1rem;
@@ -77,6 +78,7 @@ padding-left: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     width: 100%;
  
 
@@ -86,8 +88,9 @@ padding-left: 4rem;
         border-bottom: 1px solid var(--Amarillo, #FE0);
         background: var(--Negro, #000);
         padding-right: 0;
-        width: 25%;
+        width: 32rem;
         height: 25.7rem;
+        margin: 2rem;
 
 
         .card-equipo-description {
@@ -116,8 +119,6 @@ padding-left: 4rem;
 
         .card-equipo-rol {
             background-color: var(--Amarillo, #FE0);
-            margin-left: 2rem;
-
             h4 {
                 text-align: center;
                 font-family: goldman-bold;
@@ -125,5 +126,46 @@ padding-left: 4rem;
             }
         }
 
+    }
+}
+
+@media (max-width: 1350px) {
+    .history-title-img .images-container {
+        top: -10% !important;
+        right: 5% !important;
+        img{
+            width: 13rem;
+        }
+
+    }
+}
+
+@media (max-width: 1000px) {
+    .history{
+        h2{
+            font-size: 2.4rem;
+        }
+    }
+    .history-title-img .images-container {
+        top: -3% !important;
+        right: 5% !important;
+        img{
+            width: 12rem;
+        }
+
+    }
+}
+
+@media (max-width: 865px) {
+    .history-logo{
+        display: none !important;
+    }
+}
+
+@media (max-width: 667px) {
+    .history{
+        .images-container{
+            display: none !important;
+        }
     }
 }

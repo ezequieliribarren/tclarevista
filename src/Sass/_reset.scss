@@ -28,8 +28,24 @@ body, main {
     background-color: var(--gris-oscuro-fondo, #323232) !important;
 }
 
+.spinner-container{
+    display: flex;
+    justify-content: center;
+}
 
 
+a {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+
+.none {
+    display: none !important;
+}
+.clicked-button{
+    background-color: #323232 !important;
+}
 
 @font-face {
     font-family: "goldman-regular";
@@ -63,18 +79,3 @@ body, main {
 
 
 
-a {
-    color: white !important;
-    text-decoration: none !important;
-}
-
-
-.none {
-    display: none !important;
-}
-.clicked-button{
-    background-color: #323232 !important;
-}
-main{
-    
-}

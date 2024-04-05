@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCarrerasAnuales } from '../../../Context/Context';
+import { HashLink as Link } from 'react-router-hash-link';
 
 const CallActionCarreras = () => {
     const carrerasAnuales = useCarrerasAnuales();
@@ -9,9 +10,9 @@ const CallActionCarreras = () => {
 
     // Filtrar las carreras que tienen una fecha válida en la columna 6 y están después de la fecha actual
     const carrerasFiltradas = carrerasAnuales
-        .filter(carrera => carrera.c && carrera.c[6]?.v) // Filtrar aquellas con fecha válida
-        .filter(carrera => new Date(carrera.c[6].v) > fechaActual) // Filtrar las que están después de la fecha actual
-        .sort((a, b) => new Date(a.c[6].v) - new Date(b.c[6].v)); // Ordenar por fecha ascendente
+        .filter(carrera => carrera.c && carrera.c[8]?.v) // Filtrar aquellas con fecha válida
+        .filter(carrera => new Date(carrera.c[8].v) > fechaActual) // Filtrar las que están después de la fecha actual
+        .sort((a, b) => new Date(a.c[8].v) - new Date(b.c[8].v)); // Ordenar por fecha ascendente
 
     // Tomar solo las próximas 7 carreras
     const proximasCarreras = carrerasFiltradas.slice(0, 7);
@@ -22,15 +23,16 @@ const CallActionCarreras = () => {
                 <div className='title-table-carreras'><h3>Carreras</h3></div>
                 {proximasCarreras.map((carrera, index) => (
                     <div key={index} className='table-carrera'>
-                        {carrera && carrera.c && (
+                                <Link to={carrera.c[13]?.v}>
+                                      {carrera && carrera.c && (
                             <div className='description-table-carreras'>
                                 <div className='description-table-left'>
-                                {carrera.c[6]?.v && (
-        <h4 className='h4-fecha'>{new Date(carrera.c[6].v).getDate()}/{new Date(carrera.c[6].v).getMonth() + 1}</h4>
-    )}
+                                    {carrera.c[6]?.v && (
+                                        <h4 className='h4-fecha'>{new Date(carrera.c[8].v).getDate()}/{new Date(carrera.c[6].v).getMonth() + 1}</h4>
+                                    )}
                                     <span className='span-table-carreras'><img src="images/separator.png" alt="" /></span>
-                                    {carrera.c[9]?.v && <img src={carrera.c[9]?.v} alt="" />}
-                                    {carrera.c[7]?.v && <h4 className='h4-circuito'>{carrera.c[7]?.v}</h4>}
+                                    {carrera.c[11]?.v && <img src={carrera.c[11]?.v} alt="" />}
+                                    {carrera.c[9]?.v && <h4 className='h4-circuito'>{carrera.c[9]?.v}</h4>}
                                 </div>
                                 <div>
                                     {carrera.c[6]?.v && carrera.c[5]?.v && carrera.c[7]?.v && (
@@ -39,9 +41,13 @@ const CallActionCarreras = () => {
                                 </div>
                             </div>
                         )}
+                                </Link>
+                      
                     </div>
+                                    
+
                 ))}
-                <div className='ver-mas'><button>VER MÁS CARRERAS</button></div>
+                <Link to='/carreras-anuales' className='ver-mas'><button>VER MÁS CARRERAS</button></Link>
             </div>
         </aside>
     );

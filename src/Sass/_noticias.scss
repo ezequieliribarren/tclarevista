@@ -8,7 +8,7 @@
 .card-terciarias {
     h3 {
         font-family: goldman-bold;
-        font-size: 2rem;
+        font-size: 1.8rem;
         padding: 0.1rem;
 
     }
@@ -30,9 +30,9 @@
     align-items: center;
 
     h3 {
-        width: 15rem;
+        width: 100%;
         font-family: roboto-medium;
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .category {
@@ -93,7 +93,7 @@
     padding-left: 1rem;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.70) 100%);
     width: 100%;
-    height: 30%;
+    height: 35%;
     padding-left: 2rem;
     padding-bottom: 0.5rem;
 
@@ -101,6 +101,7 @@
         margin-top: 4rem;
         margin-bottom: 2rem;
         width: 100%;
+        font-size: 2.8rem;
     }
 }
 
@@ -139,10 +140,11 @@
 }
 
 .card-general {
-    height: 28rem;
+    height: 30rem;
     background-color: black;
     display: flex;
     position: relative;
+    border-bottom: 1px solid #FE0;
 
     .card-general-img {
         width: 45%;
@@ -173,12 +175,13 @@
         display: flex;
         flex-direction: column;
         align-items: left;
-        justify-content: center;
+        justify-content: end;
         height: 100%;
         width: 100%;
+        margin-bottom: 2rem;
 
         h2 {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
         }
 
         h3 {
@@ -196,10 +199,11 @@
 .category {
     display: flex;
     justify-content: end;
-    margin: 1rem !important;
+    margin: 1.5rem 0 !important;
+
 
     .h4-category {
-        padding: 0.4rem;
+        padding: 0.2rem 1rem;
         background: rgba(255, 255, 255, 0.80);
     }
 
@@ -207,6 +211,7 @@
         text-align: end !important;
         font-size: 1.8rem !important;
         font-family: goldman-regular !important;
+        font-weight: 400;
         color: var(--Rojo, #FE0000) !important;
     }
 }
@@ -392,33 +397,98 @@
 
 }
 
-@media (max-width: 700px) {
-    .card-general {
+@media (max-width: 1000px) {
+    .container-primarias {
+        .card-primarias{
+              height: 27.5rem;
+        border-bottom: 1px solid var(--Amarillo, #FE0);
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
+        display: flex;
         flex-direction: column;
-        height: 35rem;
+        align-items: center;
+        position: relative;
 
-        .card-general-img {
-            width: 100% !important;
-            height: 60%;
-        }
-
-        .description {
+        h3 {
             width: 100%;
-            height: 40%;
         }
 
         .title-subtitle {
             display: flex;
-            justify-content: center !important;
-            text-align: center;
-            padding: 0;
+            flex-direction: column;
+            justify-content: end;
+            padding-left: 1rem;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.70) 100%);
+            width: 100%;
+            height: 50%;
+            padding-left: 2rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .news-video {
+            width: 90%;
+            height: 50%;
+            display: flex;
+            align-items: end;
+            padding-top: 1rem !important;
+        }
+        }
+      
+
+    }
+
+
+}
+@media (max-width: 1100px) {
+.card-general{
+    position: relative;
+}
+.category{
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    background-color: rgba(255, 255, 255, 0.852) !important;
+
+    .h4-category{
+
+    }
+}
+
+.card-general-img{
+    width: 100% !important;
+    padding: 1.5rem !important;
+    img{
+        width: 100% !important;
+    }
+}
+
+  .card-general {
+        flex-direction: column;
+        height: auto;
+
+        .card-general-img {
+            width: 100% !important;
+            height: 40%;
+        }
+
+        .description {
+            width: 100%;
+            height: 60%;
+        }
+
+        .title-subtitle {
+            display: flex;
+            justify-content: end !important;
+            align-items: start;
+            padding-left: 1.5rem;
+
+
 
             h2 {
                 margin: 0;
                 margin-bottom: 1.5rem;
                 font-size: 2.4rem;
             }
-    
+
             h3 {
                 font-size: 1.5rem;
             }
@@ -431,17 +501,34 @@
             margin: 0 !important;
             margin-top: 0.7rem !important;
 
-            .h4-category{
-          
-                h4{
-                   font-size: 1.7rem  !important;  
+            .h4-category {
+
+                h4 {
+                    font-size: 1.7rem !important;
                 }
-               
+
             }
 
         }
     }
 
+// .card-general{
+//     .title-subtitle{
+//         h2 {
+//         font-size: 2.4rem;
+//     }  
+
+//     h3{
+//         font-size: 1.6rem;    
+//     }
+//     }
+//   .category{
+//     h4{
+//         font-size: 1.6rem !important;
+//     }
+//   }
+// }
 
 
 }
+

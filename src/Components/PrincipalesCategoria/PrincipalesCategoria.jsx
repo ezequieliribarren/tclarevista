@@ -40,7 +40,7 @@ const PrincipalesCategoria = ({ cat }) => {
 
     return (
         <section className='row' id='principalesCategorias'>
-            <div className="col-md-8 container-primarias">
+            <div className="col-lg-8 container-primarias">
                 {noticias.length > 0 && (
                     <Link to={`/noticia/${noticias[0].id}`} key={0}>
                         <div
@@ -72,7 +72,7 @@ const PrincipalesCategoria = ({ cat }) => {
                     </Link>
                 )}
             </div>
-            <div className="col-md-4">
+            <div className="col-lg-4">
                 <div className="container-secundarias">
                     {noticias.slice(1, 2).map((noticia, index) => (
                         <Link to={`/noticia/${noticia.id}`} key={index + 1}>

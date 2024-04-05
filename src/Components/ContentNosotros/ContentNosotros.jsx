@@ -12,14 +12,14 @@ const ContentNosotros = () => {
 
   const whatsappUrl = ` whatsapp://send?text=${encodeURIComponent(url)}`;
   return (
-    <section className='container-fluid' id='nosotros'>
+    <section className='container-fluid p-5' id='nosotros'>
       <div className="row history">
-        <div className="col-md-3 history-logo"><img src="images/logo-history.png" alt="" /></div>
+        <div className="col-md-3 history-logo"><img className='img-fluid' src="images/logo-history.png" alt="" /></div>
         <div className="col-md-9 history-title-img">
           <div className='history-title'>
             <h2>Nuestra historia</h2></div>
           <div className="images-container">
-            <img src="images/nosotros/historia1.png" alt="" /><img src="images/nosotros/historia2.png" alt="" /><img src="images/nosotros/historia3.png" alt="" />
+            <img className='img-fluid' src="images/nosotros/historia1.png" alt="" /><img className='img-fluid' src="images/nosotros/historia2.png" alt="" /><img className='img-fluid' src="images/nosotros/historia3.png" alt="" />
           </div>
         </div>
 

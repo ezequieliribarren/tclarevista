@@ -1,6 +1,6 @@
 
 
-.header {
+.header, .header-mobile {
     padding: 0 3rem;
     display: flex;
     justify-content: space-between;
@@ -21,6 +21,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding-left: 1.6rem;
 
     }
 
@@ -30,8 +31,11 @@
         border: 1px solid var(--Amarillo, #FE0);
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: center;     
         cursor: pointer;
+        margin-right: 1.6rem;
+
+       
 
         audio {
             width: 18rem;
@@ -70,6 +74,16 @@
             margin-right: 1rem;
         }
 
+    }
+}
+
+.header-mobile{
+display: none;
+
+    .logo{
+        img{
+            width: 15rem !important;
+        }
     }
 }
 
@@ -188,6 +202,32 @@
 }
 
 
+.sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ajusta el valor de z-index según sea necesario */
+    height: 6.5rem; /* Ajusta la altura del header pegajoso */
+    /* Agrega otros estilos según sea necesario */
+}
+
+
+@media (max-width: 1000px) {
+    .nav-item {
+        .nav-link {
+
+            font-size: 1.65rem !important ;
+        }}
+}
+
+@media (max-width: 768px) {
+.header{
+    display: none;
+}
+.header-mobile{
+    display: inherit;
+}
+}
 @media (max-width: 605px) {
     .header {
         flex-direction: column;

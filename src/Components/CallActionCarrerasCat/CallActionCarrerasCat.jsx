@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 
 // Importa los diferentes contextos según la categoría
 import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe } from '../../../Context/Context';
@@ -7,7 +8,6 @@ import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, use
 const CallActionCarrerasCat = () => {
     // Obtiene la categoría de los parámetros de la URL
     const { categoria } = useParams();
-    console.log("Categoria",categoria)
 
     // Seleccionar el contexto según la categoría
     let context;
@@ -58,15 +58,16 @@ const CallActionCarrerasCat = () => {
     // Tomar solo las primeras 7 carreras
     const proximasCarreras = context.slice(0, 7);
 
-    console.log(context, "CONTEXTO")
-    console.log(proximasCarreras, "proximas-carreras")
-
     return (
         <aside id='call-action-carreras'>
             <div className="tabla-carreras">
                 <div className='title-table-carreras'><h3>Carreras</h3></div>
                 {proximasCarreras.map((carrera, index) => (
-                    <div key={index} className='table-carrera'>
+                    <Link
+                        key={index}
+                        to={`/${categoria}/carreras/${index}`}
+                        className='table-carrera'
+                    >
                         {carrera && carrera.c && (
                             <div className='description-table-carreras'>
                                 <div className='description-table-left'>
@@ -84,7 +85,7 @@ const CallActionCarrerasCat = () => {
                                 </div>
                             </div>
                         )}
-                    </div>
+                    </Link>
                 ))}
                 <div className='ver-mas'><button>VER MÁS CARRERAS</button></div>
             </div>

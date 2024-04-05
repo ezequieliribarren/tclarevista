@@ -81,6 +81,10 @@ tr {
     }
 }
 
+.img-carreras-td{
+    height: 100%;
+}
+
 
 .pos-carreras-td {
     padding: 0 !important;
@@ -93,7 +97,6 @@ tr {
         display: flex;
         justify-content: center;
         align-items: center;
-
         color: black;
         border-bottom: white 1px solid;
     }
@@ -146,6 +149,16 @@ tr {
     }
 }
 
+.tiempo-carreras-td{
+    height: 100%;
+}
+
+.dif-carreras-td{
+    height: 100%;
+}
+
+
+
 
 // CAMPEONATO
 
@@ -183,9 +196,9 @@ tr {
     justify-content: center;
     padding-left: 0.5rem;
     margin: 1.5rem 0;
-  }
-  
-  .button-campeonato {
+}
+
+.button-campeonato {
     width: 50%;
     height: 4rem;
     background-color: #000;
@@ -193,8 +206,22 @@ tr {
     font-family: goldman-bold;
     font-size: 2.8rem;
     border-style: none;
-  }
-  
-  .button-campeonato.selected {
+}
+
+.button-campeonato.selected {
     border: 1px solid #FE0;
-  }
+}
+
+.h4-pos-tabla {
+    background: var(--Amarillo, #FE0);
+    font-family: goldman-regular;
+    font-size: 2.4rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    border-bottom: white 1px solid;
+    width: 11rem;
+
+}

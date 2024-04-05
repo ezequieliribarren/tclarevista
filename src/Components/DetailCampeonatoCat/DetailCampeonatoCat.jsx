@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../LayoutCategoria/LayoutCategoria';
 import { useParams } from 'react-router-dom';
-import { CircleLoader } from 'react-spinners';
+import { CircleLoader, ClipLoader } from 'react-spinners';
 import TablaCampeonatoActc from '../TablaCampeonatoActc/TablaCampeonatoActc';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { useTablaCampeonato } from '../../../Context/Context';
@@ -62,7 +62,7 @@ const renderizarBotonCopaDeOro = () => {
           </div>      
           {loading && (
             <div className="spinner-container">
-              <CircleLoader color="#36D7B7" size={80} />
+              <ClipLoader color="#FE0" size={80} />
             </div>
           )}
           {!loading && <TablaCampeonatoActc campeonatoData={campeonatoData} />}

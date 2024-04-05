@@ -2,118 +2,152 @@ footer {
     width: 100%;
     background: var(--Negro, #000) !important;
     padding: 0 4rem;
+    padding-top: 3rem;
 
-        padding-top: 3rem;
+    .contenedor-up {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100%;
+    }
 
-        .footer-1 {
+    .footer-1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+
+        .redes-footer {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            width: 100%;
-        
 
-            .redes-footer {
+            a {
                 display: flex;
                 align-items: center;
+                margin: 1rem;
+                color: #FE0 !important;
+                font-size: 1.5rem;
+                font-family: roboto-regular;
+            }
 
-                a{
-                    display: flex;
-                    align-items: center;
-                    margin: 1rem;
-                    color: #FE0 !important;
-                    font-size: 1.5rem;
-                    font-family: roboto-regular;
-                }
-
-                img{
-                    margin-right: 0.5rem;
-                }
+            img {
+                margin-right: 0.5rem;
             }
         }
-
-        .footer-2 {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .link-footer{
-                font-family: roboto-medium;
-                font-size: 1.8rem;
-                margin: 0.5rem 0;
-            }
-     
-        }
-
-.footer-down{
-    margin: 2rem 0;
-    border-top: 1px solid #fe0;
-    h4{
-        color: #FFEE00;
-        font-family: roboto-medium;
-        font-size: 1.8rem;
     }
 
-    .footer-nacionales, .footer-internacionales{
-        margin-top: 2rem;
-    }
-}
-
-.link-footer{
-    color:#FFEE00 !important;
-    font-family: roboto-medium;
-}
-
-.categorias-footer{
-    display: flex;
-    align-items: start;
-    div{
+    .footer-2 {
         display: flex;
         flex-direction: column;
-        margin-right: 2rem;
-        a{
-            font-size: 1.5rem;
-            font-family: roboto-regular;
+        justify-content: right !important;
+        align-items: end !important;
+        padding-right: 4rem;
+
+        .link-footer {
+            font-family: roboto-medium;
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+        }
+
+    }
+
+    .logo-footer {
+        display: flex !important;
+
+        img {
+            margin: 0 2rem;
         }
     }
-}
-.copy{
-    display: flex;
-    justify-content: center;
-    border-top: white solid 1px;
-    h4{
-        color: white;
-        font-family: roboto-regular;
-        font-size: 1.5rem;
+
+    .footer-down {
         margin: 2rem 0;
+        border-top: 1px solid #fe0;
+
+        h4 {
+            color: #FFEE00;
+            font-family: roboto-medium;
+            font-size: 1.8rem;
+        }
+
+        .footer-nacionales,
+        .footer-internacionales {
+            margin-top: 2rem;
+        }
     }
-    a{
-        color: white;
-        border-bottom: white 1px solid;
+
+    .link-footer {
+        color: #FFEE00 !important;
         font-family: roboto-medium;
-        font-size: 1.5rem;
     }
-}
+
+    .categorias-footer {
+        display: flex;
+        align-items: start;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            margin-right: 2rem;
+
+            a {
+                font-size: 1.5rem;
+                font-family: roboto-regular;
+            }
+        }
+    }
+
+    .copy {
+        display: flex;
+        justify-content: center;
+        border-top: white solid 1px;
+
+        h4 {
+            color: white;
+            font-family: roboto-regular;
+            font-size: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        a {
+            color: white;
+            border-bottom: white 1px solid;
+            font-family: roboto-medium;
+            font-size: 1.5rem;
+        }
+    }
+
+    .footer-nacionales {
+        padding-left: 2rem !important;
+    }
 }
 
 @media (max-width: 768px) {
-    .logo-footer{
+    .logo-footer {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 3rem 0;
     }
-    .redes-footer{
+
+    .footer-nacionales,
+    .footer-internacionales {
+        display: none !important;
+    }
+
+    .redes-footer {
         justify-content: center;
         margin: 3rem 0;
     }
 
-    .footer-nacionales, .footer-internacionales{
+    .footer-nacionales,
+    .footer-internacionales {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        h4{
+
+
+        h4 {
             margin: 1rem 0;
         }
     }

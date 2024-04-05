@@ -13,6 +13,7 @@ import Categoria from './Components/Categoria/Categoria';
 import NoticiaDetail from './Components/NoticiaDetail/NoticiaDetail';
 import DetailFecha from './Components/DetailFecha/DetailFecha';
 import DetailNoticiasCat from './Components/DetailNoticiasCat/DetailNoticiasCat';
+import CarrerasAnuales from './Components/CarrerasAnuales/CarrerasAnuales';
 
 
 const router = createHashRouter([
@@ -31,34 +32,34 @@ const router = createHashRouter([
     path: "/:categoria", // Utiliza un parámetro para la categoría
     element: (
       <NewsProvider>
-      <TcpmProvider>
-        <TcProvider>
-          <TcmProvider>
-            <TcpkProvider>
-              <TcppkProvider>
-                <TcpProvider>
-                  <RallyProvider>
-                    <F1Provider>
-                      <MgpProvider>
-                        <IndyProvider>
-                          <NasProvider>
-                            <RmunProvider>
-                              <FeProvider>
-                                <Categoria />
-                              </FeProvider>
-                            </RmunProvider>
-                          </NasProvider>
-                        </IndyProvider>
-                      </MgpProvider>
-                    </F1Provider>
-                  </RallyProvider>
-                </TcpProvider>
-              </TcppkProvider>
-            </TcpkProvider>
-          </TcmProvider>
-        </TcProvider>
-      </TcpmProvider>
-    </NewsProvider>
+        <TcpmProvider>
+          <TcProvider>
+            <TcmProvider>
+              <TcpkProvider>
+                <TcppkProvider>
+                  <TcpProvider>
+                    <RallyProvider>
+                      <F1Provider>
+                        <MgpProvider>
+                          <IndyProvider>
+                            <NasProvider>
+                              <RmunProvider>
+                                <FeProvider>
+                                  <Categoria />
+                                </FeProvider>
+                              </RmunProvider>
+                            </NasProvider>
+                          </IndyProvider>
+                        </MgpProvider>
+                      </F1Provider>
+                    </RallyProvider>
+                  </TcpProvider>
+                </TcppkProvider>
+              </TcpkProvider>
+            </TcmProvider>
+          </TcProvider>
+        </TcpmProvider>
+      </NewsProvider>
     ),
   },
 
@@ -83,7 +84,7 @@ const router = createHashRouter([
     path: '/:categoria/noticias',
     element: (
       <NewsProvider>
-                                  <DetailNoticiasCat />
+        <DetailNoticiasCat />
       </NewsProvider>
     ),
   },
@@ -92,7 +93,7 @@ const router = createHashRouter([
     path: '/:categoria/videos',
     element: (
 
-        <DetailVideosCat />
+      <DetailVideosCat />
 
     ),
   },
@@ -101,9 +102,9 @@ const router = createHashRouter([
     element: (
       <NewsProvider>
         <TablaCampeonatoProvider>
-           <DetailCampeonatoCat />
+          <DetailCampeonatoCat />
         </TablaCampeonatoProvider>
-       
+
       </NewsProvider>
     ),
   },
@@ -141,6 +142,16 @@ const router = createHashRouter([
       </NewsProvider>
     ),
   },
+
+  {
+    path: '/carreras-anuales',
+    element: (
+      <CarrerasAnualesProvider>
+         <CarrerasAnuales />
+      </CarrerasAnualesProvider>
+    ),
+  },
+
 
   {
     path: "/noticia/:id",

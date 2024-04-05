@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { HashLink as Link } from 'react-router-hash-link';
-import { CircleLoader } from 'react-spinners'; // Importa CircleLoader
+import { ClipLoader } from 'react-spinners'; // Importa CircleLoader
 
 const CallActionCampeonato = () => {
     const { categoria } = useParams(); // Obtiene el valor del parámetro de la URL
     const [campeonatoData, setCampeonatoData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [numPilotos, setNumPilotos] = useState(5); // Estado para la cantidad de pilotos a mostrar
 
     const campeonatoUrl = `/${categoria || param}/campeonato`;
 
@@ -28,6 +29,25 @@ const CallActionCampeonato = () => {
         fetchData();
     }, [categoria]);
 
+    // Función para manejar el cambio en el tamaño de la pantalla
+    const handleResize = () => {
+        const windowWidth = window.innerWidth;
+        if (windowWidth <= 470) {
+            setNumPilotos(1);
+        } else if (windowWidth <= 675) {
+            setNumPilotos(2);
+        } else if (windowWidth <= 1050) {
+            setNumPilotos(3);
+        } else {
+            setNumPilotos(5);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const getMarcaImageUrl = (marca) => {
         if (marca && marca.includes('chevrolet')) {
             return 'chevrolet.png';
@@ -39,8 +59,21 @@ const CallActionCampeonato = () => {
         }
     };
 
-    // Obtener los primeros 5 pilotos
-    const primerosCincoPilotos = campeonatoData.slice(1, 6);
+    const colClass = () => {
+        if (numPilotos === 5) return 'col-lg-2';
+        else if (numPilotos === 3) return 'col-md-3 col-sm-3';
+        else if (numPilotos === 2) return 'col-5';
+        else if (numPilotos === 1) return 'col-9';
+    };
+
+    const verTablaCompletaColClass = () => {
+        if (numPilotos === 5) return 'col-lg-2';
+        else if (numPilotos === 3) return 'col-md-3 col-sm-3';
+        else if (numPilotos === 2) return 'col-2';
+        else if (numPilotos === 1) return 'col-3';
+    };;
+
+    const primerosNPilotos = campeonatoData.slice(1, numPilotos + 1);
 
     return (
         <div className='container-fluid call-action-campeonato'>
@@ -48,22 +81,31 @@ const CallActionCampeonato = () => {
                 <h2>Campeonato</h2>
             </div>
             <div className='row'>
-                {loading ? ( // Si loading es true, muestra el CircleLoader
+                {loading ? (
                     <div className="col-md-12 spinner-container">
-                        <CircleLoader color="#36D7B7" size={80} />
+                        <ClipLoader color="#FE0" size={80} />
                     </div>
                 ) : (
                     <>
-                        {primerosCincoPilotos.map((piloto, index) => (
-                            <div key={index} className="col-md-2 card-call-action-campeonato">
-                                <div><h4 className='h4-pos-campeonato'>{piloto.posicion.replace('°', '')}</h4></div>
-                                <div><h4 className='h4-piloto'>{piloto.piloto}</h4></div>
-                                <div> {piloto.marca && <img src={`images/marcas/${getMarcaImageUrl(piloto.marca)}`} alt="" />}</div>
+                        {primerosNPilotos.map((piloto, index) => (
+                            <div key={index} className={`card-call-action-campeonato ${colClass()}`}>
+                                <div className='container-pos'>
+                                    <h4 className='h4-pos-campeonato'>{piloto.posicion.replace('°', '')}</h4>
+                                </div>
+                                <div className='container-piloto'>
+                                    <h4 className='h4-piloto'>{piloto.piloto}</h4>
+                                </div>
+                                <div className='container-marca'>
+                                    {piloto.marca && <img className='img-piloto-call-action-campeonato' src={`images/marcas/${getMarcaImageUrl(piloto.marca)}`} alt="" />}
+                                </div>
                             </div>
                         ))}
-                        <div className="col-md-2 card-call-action-campeonato ver-tabla-completa">
+                        <div className={`card-call-action-campeonato ver-tabla-completa ${verTablaCompletaColClass()}`}>
                             <Link className="nav-link" to={campeonatoUrl} onClick={() => handleButtonClick('campeonato')}>
-                                <h4 className='h4-piloto'><span><img src="images/+.png" alt="" /></span>Ver Tabla Completa</h4>
+                                <div>
+                                     <img src="images/+.png" alt="" />
+                                </div>
+                               <h4 className='h4-piloto'>Ver Tabla Completa</h4>
                             </Link>
                         </div>
                     </>

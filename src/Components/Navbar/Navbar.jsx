@@ -6,11 +6,10 @@ import { HashLink as Link } from 'react-router-hash-link';
 
 
 
-
-
 const Navbar = () => {
   const radioUrl = 'http://01.solumedia.com.ar:8420/;stream.nsv'
   const audioRef = React.createRef();
+
 
   return (
     <>
@@ -21,10 +20,16 @@ const Navbar = () => {
             <div><a href=""><img src="images/redes/youtube.png" alt="Youtube de Tc La Revista" /></a></div>
             <div><a href=""><img src="images/redes/mail.png" alt="Mail de Tc La Revista" /></a></div>
           </div>
-          <div classNameName='logo'> <Link to='/'><img className='img-fluid' src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
-          <div classNameName='radio'>
+          <div className='logo'> <Link to='/'><img className='img-fluid' src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
+          <div className='radio'>
             <Radio url={radioUrl} />
           </div>
+      </header>
+      <header className='header-mobile'>
+      <div className='logo'> 
+      <Link to='/'><img className='img-fluid' src="images/logo.png" alt="Logo de Tc La Revista" /></Link>
+      </div>
+
       </header>
       <nav className="navbar navbar-expand-lg">
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
