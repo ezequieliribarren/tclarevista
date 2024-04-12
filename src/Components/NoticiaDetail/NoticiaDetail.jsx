@@ -10,6 +10,7 @@ const NoticiaDetail = () => {
     const [loading, setLoading] = useState(true);
     const [noticia, setNoticia] = useState(null);
     const [categoria, setCategoria] = useState('');
+    const hideHuella = true; // Ocultar Huella en la página de noticias
 
     useEffect(() => {
         const findNoticia = (noticias) => {
@@ -69,22 +70,27 @@ const NoticiaDetail = () => {
     const whatsappUrl = ` whatsapp://send?text=${encodeURIComponent(url)}`;
 
     return (
-        <Layout background={categoria} logo={categoria} param={categoria}>
+        <Layout background={categoria} logo={categoria} param={categoria} hideHuella={hideHuella}>
             <main>
                 <div className="container-fluid">
                     <div className="row">
-                        <section className="col-md-8" id='noticia'>
+                        <section className="col-lg-8" id='noticia'>
                             <div className="card-noticia-detail">
                                 <div className="top-card-noticia-detail">
-                                    <div className="title-noticia-detail">
+                                    <div className="container-category">
+                                         <div className="category">
+                                        <h4 className='h4-category'>{noticia.categoria}</h4>
+                                    </div>
+                                    </div>
+                                  
+                                    <div className="title-noticia-detail">  
+                                  
                                         <div>
                                             <h2>{noticia.title}</h2>
                                             <h3>{formatDate(noticia.date)}</h3>
                                         </div>
+ 
 
-                                        <div className="category">
-                                            <h4 className='h4-category'>{noticia.categoria}</h4>
-                                        </div>
                                     </div>
                                     <div
                                         className="image-noticia-detail"
@@ -136,7 +142,7 @@ const NoticiaDetail = () => {
                             </div>
 
                         </section>
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             <CallActionNoticias />
                         </div>
                     </div>

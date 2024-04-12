@@ -37,7 +37,7 @@ const Generales = () => {
                                     height="100%"
                                 ></iframe>
                             ) : (
-                                <img className='img-fluid' src={`http://localhost:5000/${noticia.image}`} alt={`Imagen ${index + 1}`} />
+                                <img className='img-fluid' src={`http://localhost:5000/${noticia.image}`} alt={noticia.title} />
                             )}
                         </div>
                         <div className='description'>

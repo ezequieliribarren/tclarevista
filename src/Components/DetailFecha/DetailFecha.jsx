@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { ClipLoader } from 'react-spinners';
+import GeneralesCategoria from '../GeneralesCategoria/GeneralesCategoria';
 
 const DetailFecha = ({ rowData }) => {
   const { categoria, id } = useParams();
@@ -144,6 +145,12 @@ const DetailFecha = ({ rowData }) => {
       break;
     case 'formula-e':
       context = useFe();
+      break;
+    case 'tr':
+      context = useTr();
+      break;
+    case 'tr-series':
+      context = useTrSeries();
       break;
     default:
       context = [];
@@ -403,24 +410,24 @@ const DetailFecha = ({ rowData }) => {
                 <table className={`table-carreras ${showShakeTable ? '' : ''}`}>
                   <thead className='container-fluid'>
                     <tr className='row'>
-                      <td className='evento-carreras-td col-md-12'><h4>Tabla de Todos los Pilotos</h4></td>
+                      <td className='evento-carreras-td col-12'><h4>Tabla de Todos los Pilotos</h4></td>
                     </tr>
                     <tr className='row'>
-                      <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
-                      <th className='piloto-carreras col-md-5'><h4>Piloto / Navegante</h4></th>
-                      <th className='tiempo-carreras col-md-2'><h4>Vuelta 1</h4></th>
-                      <th className='dif-carreras col-md-2'><h4>Vuelta 2</h4></th>
-                      <th className='dif-carreras col-md-2'><h4>Vuelta 3</h4></th>
+                      <th className='pos-carreras col-1'><h4>Pos</h4></th>
+                      <th className='piloto-carreras col-5'><h4>Piloto / Navegante</h4></th>
+                      <th className='tiempo-carreras col-2'><h4>Vuelta 1</h4></th>
+                      <th className='dif-carreras col-2'><h4>Vuelta 2</h4></th>
+                      <th className='dif-carreras col-2'><h4>Vuelta 3</h4></th>
                     </tr>
                   </thead>
                   <tbody>
                     {raceData[0]?.results && Array.isArray(raceData[0].results) && raceData[0].results.map((item, idx) => (
                       <tr className='row' key={idx}>
-                        <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
-                        <td className='piloto-carreras-td col-md-5'><h4>{item.piloto}</h4></td>
-                        <td className='tiempo-carreras-td col-md-2'><h4>{item.tramo1}</h4></td>
-                        <td className='dif-carreras-td col-md-2'><h4>{item.tramo2}</h4></td>
-                        <td className='dif-carreras-td col-md-2'><h4>{item.tramo3}</h4></td>
+                        <td className='pos-carreras-td col-1'><h4>{item.posicion}</h4></td>
+                        <td className='piloto-carreras-td col-5'><h4>{item.piloto}</h4></td>
+                        <td className='tiempo-carreras-td col-2'><h4>{item.tramo1}</h4></td>
+                        <td className='dif-carreras-td col-2'><h4>{item.tramo2}</h4></td>
+                        <td className='dif-carreras-td col-2'><h4>{item.tramo3}</h4></td>
                       </tr>
                     ))}
                   </tbody>
@@ -430,7 +437,7 @@ const DetailFecha = ({ rowData }) => {
             </div>
           </div>
           <div className="row">
-            <div className="contenedor-table-carreras col-md-9">
+            <div className="contenedor-table-carreras col-lg-9">
               <div>
               </div>
 
@@ -450,7 +457,7 @@ const DetailFecha = ({ rowData }) => {
                           <th className='pos-carreras col-md-1'><h4>Pos.</h4></th>
                           <th className='piloto-carreras col-md-7'><h4>Piloto / Navegante</h4></th>
                           <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
-                          <th className='dif-carreras col-md-2'><h4>Diferencia</h4></th>
+                          <th className='dif-carreras col-md-2'><h4>Dif</h4></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -477,7 +484,7 @@ const DetailFecha = ({ rowData }) => {
                         <th className='piloto-carreras col-md-5'><h4>Piloto / Navegante</h4></th>
                         <th className='tiempo-carreras col-md-2'><h4>Marca</h4></th>
                         <th className='dif-carreras col-md-2'><h4>Tiempo</h4></th>
-                        <th className='dif-carreras col-md-2'><h4>Diferencia</h4></th>
+                        <th className='dif-carreras col-md-2'><h4>Dif</h4></th>
 
                       </tr>
                     </thead>
@@ -510,7 +517,7 @@ const DetailFecha = ({ rowData }) => {
                             <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
                             <th className='piloto-carreras col-md-7'><h4>Piloto / Navegante</h4></th>
                             <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
-                            <th className='dif-carreras col-md-2'><h4>Diferencia</h4></th>
+                            <th className='dif-carreras col-md-2'><h4>Dif</h4></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -532,7 +539,7 @@ const DetailFecha = ({ rowData }) => {
 
 
             </div>
-            <div className="col-md-3">
+            <div className="col-lg-3">
               <CallActionNoticias filterDate={new Date(context[id]?.c[2]?.v)} category={categoria} />
 
 
@@ -560,7 +567,7 @@ const DetailFecha = ({ rowData }) => {
                 </div>
                 <div className="col-12 select-tandas-carreras">
                   <div className='buttons-up-carreras'>
-                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (
+                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && categoria !== 'tr' && categoria !== 'tr-series' && (
                       <div className='day-carreras'>
                         <h4>Sáb.</h4>
                       </div>
@@ -628,22 +635,32 @@ const DetailFecha = ({ rowData }) => {
                             >
                               Q1 G2
                             </button>
-                          ) : (
+                          ) : categoria === 'tr' ? (
                             <button
                               value={context[id]?.c[14]?.v}
                               className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
-                              onClick={() => handleButtonClick('clasificacion', 'Clasificacion')}
+                              onClick={() => handleButtonClick('clasificacion', 'Clasificacion Gral')}
                             >
-                              Clasificación
+                             1° Clas. (Gral)
                             </button>
                           )
+
+                            : (
+                              <button
+                                value={context[id]?.c[14]?.v}
+                                className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
+                                onClick={() => handleButtonClick('clasificacion', 'Clasificacion')}
+                              >
+                                Clasificación
+                              </button>
+                            )
                         )
                       }
 
                     </div>
                   </div>
                   <div className='buttons-down-carreras'>
-                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (
+                    {categoria !== 'f1' && categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && categoria !== 'tr' && categoria !== 'tr-series' && (
                       <div className='day-carreras'>
                         <h4>Dom.</h4>
                       </div>
@@ -668,7 +685,17 @@ const DetailFecha = ({ rowData }) => {
                               >
                                 QA
                               </button>
-                            ) : (
+                            ) : categoria === 'tr' || 'tr-series' ? (
+                              <button
+                                value={context[id]?.c[15]?.v}
+                                className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
+                                onClick={() => handleButtonClick('serie1', 'Clasificacion 2')}
+                              >
+                                2° Clas.
+                              </button>
+                            )
+
+                            : (
                               <button
                                 value={context[id]?.c[15]?.v}
                                 className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
@@ -698,7 +725,16 @@ const DetailFecha = ({ rowData }) => {
                             >
                               Q3
                             </button>
-                          ) : categoria === 'nascar' ? (
+                          ) : categoria === 'tr' || 'tr-series' ? (
+                            <button
+                              value={context[id]?.c[16]?.v}
+                              className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
+                              onClick={() => handleButtonClick('serie2', 'Clas. 2')}
+                            >
+                             3° CLas.
+                            </button>
+                          )
+                           : categoria === 'nascar' ? (
                             <button
                               value={context[id]?.c[16]?.v}
                               className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
@@ -773,7 +809,7 @@ const DetailFecha = ({ rowData }) => {
                   <ClipLoader color="#FE0" size={80} />
                 </div>
               ) : (
-                <div className='col-md-9'>
+                <div className='col-lg-9'>
                   {raceData && raceData.map((data, idx) => (
                     <div key={idx}>
                       <h3>{selectedButtonText}</h3>
@@ -781,9 +817,9 @@ const DetailFecha = ({ rowData }) => {
                         <table className="table-carreras container-fluid">
                           <thead>
                             <tr className='row title-pilotos-carreras'>
-                              <th className='pos-carreras col-md-2'><h4>Número</h4></th>
-                              <th className='piloto-carreras col-md-8'><h4>Piloto</h4></th>
-                              <th className='piloto-carreras col-md-2'><h4>Marca</h4></th>
+                              <th className='pos-carreras col-2'><h4>Número</h4></th>
+                              <th className='piloto-carreras col-8'><h4>Piloto</h4></th>
+                              <th className='piloto-carreras col-2'><h4>Marca</h4></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -793,13 +829,13 @@ const DetailFecha = ({ rowData }) => {
                                   <th className='title-carreras-th'><h4>{item.title}</h4></th>
                                 )}
                                 {item.numero && (
-                                  <td className='pos-carreras-td col-md-2'><h4>{item.numero}</h4></td>
+                                  <td className='pos-carreras-td col-2'><h4>{item.numero}</h4></td>
                                 )}
                                 {item.piloto && (
-                                  <td className='piloto-carreras-td col-md-8'><h4>{item.piloto}</h4></td>
+                                  <td className='piloto-carreras-td col-8'><h4>{item.piloto}</h4></td>
                                 )}
                                 {item.img && (
-                                  <td className='img-carreras-td col-md-2'>
+                                  <td className='img-carreras-td col-2'>
                                     {getBrandFromImageUrl(item.img) && (
                                       <img src={`images/marcas/${getBrandFromImageUrl(item.img)}.png`} alt={getBrandFromImageUrl(item.img)} />
                                     )}
@@ -815,7 +851,7 @@ const DetailFecha = ({ rowData }) => {
                             <React.Fragment key={idx}>
                               {item.title && ( // Verificar si item.title tiene contenido
                                 <tr className='row'>
-                                  <td className='evento-carreras-td col-md-12'><h4>{item.title}</h4></td>
+                                  <td className='evento-carreras-td col-12'><h4>{item.title}</h4></td>
                                 </tr>
                               )}
                               <tbody>
@@ -824,10 +860,10 @@ const DetailFecha = ({ rowData }) => {
                                   (item.tipo && item.tipo.trim() !== '') ||
                                   (item.grupo && item.grupo.trim() !== '')) && ( // Verificar si al menos uno de los elementos está presente y no es vacío
                                     <tr className='row'>
-                                      {item.horario && item.horario.trim() !== '' && <td className='horario-carreras-td col-md-3'><h4>{item.horario}</h4></td>}
-                                      {item.categoria && item.categoria.trim() !== '' && <td className='categoria-carreras-td col-md-2'><h4>{item.categoria}</h4></td>}
-                                      {item.tipo && item.tipo.trim() !== '' && <td className='tipo-carreras-td col-md-3'><h4>{item.tipo}</h4></td>}
-                                      {item.grupo && item.grupo.trim() !== '' && <td className='grupo-carreras-td col-md-4'><h4>{item.grupo}</h4></td>}
+                                      {item.horario && item.horario.trim() !== '' && <td className='horario-carreras-td col-3'><h4>{item.horario}</h4></td>}
+                                      {item.categoria && item.categoria.trim() !== '' && <td className='categoria-carreras-td col-2'><h4>{item.categoria}</h4></td>}
+                                      {item.tipo && item.tipo.trim() !== '' && <td className='tipo-carreras-td col-3'><h4>{item.tipo}</h4></td>}
+                                      {item.grupo && item.grupo.trim() !== '' && <td className='grupo-carreras-td col-4'><h4>{item.grupo}</h4></td>}
                                     </tr>
                                   )}
                               </tbody>
@@ -837,23 +873,23 @@ const DetailFecha = ({ rowData }) => {
                       ) : (<table className="table-carreras">
                         <thead className='container-fluid'>
                           <tr className='row'>
-                            <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
-                            <th className='piloto-carreras col-md-4'><h4>Piloto</h4></th>
-                            <th className='img-carreras col-md-2'><h4>Marca</h4></th>
-                            <th className='vueltas-carreras col-md-1'><h4>Vueltas</h4></th>
-                            <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
-                            <th className='dif-carreras col-md-2'><h4>Diferencia</h4></th>
+                            <th className='pos-carreras col-1'><h4>Pos</h4></th>
+                            <th className='piloto-carreras col-4'><h4>Piloto</h4></th>
+                            <th className='img-carreras col-2'><h4>Marca</h4></th>
+                            <th className='vueltas-carreras col-1'><h4>Vtas</h4></th>
+                            <th className='tiempo-carreras col-2'><h4>Tiempo</h4></th>
+                            <th className='dif-carreras col-2'><h4>Dif</h4></th>
                           </tr>
                         </thead>
                         <tbody>
                           {data.results && Array.isArray(data.results) && data.results.map((item, idx) => (
                             <tr className='row' key={idx}>
-                              <td className='pos-carreras-td col-md-1'><h4>{item.pos}</h4></td>
-                              <td className='piloto-carreras-td col-md-4'><h4>{item.piloto}</h4></td>
-                              <td className='img-carreras-td col-md-2'><h4>{item.img}</h4></td>
-                              <td className='vueltas-carreras-td col-md-1'><h4>{item.vueltas}</h4></td>
-                              <td className='tiempo-carreras-td col-md-2'><h4>{item.tiempo}</h4></td>
-                              <td className='dif-carreras-td col-md-2'><h4>{item.diferencia}</h4></td>
+                              <td className='pos-carreras-td col-1'><h4>{item.pos}</h4></td>
+                              <td className='piloto-carreras-td col-4'><h4>{item.piloto}</h4></td>
+                              <td className='img-carreras-td col-2'><h4>{item.img}</h4></td>
+                              <td className='vueltas-carreras-td col-1'><h4>{item.vueltas}</h4></td>
+                              <td className='tiempo-carreras-td col-2'><h4>{item.tiempo}</h4></td>
+                              <td className='dif-carreras-td col-2'><h4>{item.diferencia}</h4></td>
                             </tr>
                           ))}
                         </tbody>
@@ -863,16 +899,19 @@ const DetailFecha = ({ rowData }) => {
                   ))}
                 </div>
               )}
-              <div className="col-md-3">
+              <div className="col-lg-3 none-lg">
                 <CallActionNoticias filterDate={new Date(context[id]?.c[2]?.v)} category={categoria} />
               </div>
             </div>
 
             <div className="row">
-              <div className="col-md-8">
-                <div className="row">
-                  {/* INFORMACION DE LAS CARRERAS*/}
-                </div>
+              <div className="col-12 col-lg-8">
+                <h2 className='margin-title'>Noticias</h2>
+                <GeneralesCategoria filterDate={new Date(context[id]?.c[2]?.v)} cat={categoria} />
+              </div>
+
+              <div className="col-lg-4">
+                <PublicidadVertical />
               </div>
             </div>
           </div>

@@ -16,6 +16,7 @@
     }
 
 
+
     .history-title-img {
         display: flex;
         border: 1px solid var(--Amarillo, #FE0);
@@ -51,11 +52,12 @@
 .history-description{
     .cuerpo-noticia-detail{
         p{
-            margin: 0 !important;
+            margin: -10px !important;
         }
 
         .compartir-noticia{
             padding-top: 4rem;
+            margin-bottom: 2rem;
         }
     }
 }

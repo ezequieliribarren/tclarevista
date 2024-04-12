@@ -14,7 +14,7 @@ const Root = () => {
   return (
       <Layout>
         <main className='p-3'>
-          <div className="container-fluid vivo">
+          <div className="container-fluid">
             <div className="row">
        <Vivo/>
             </div>

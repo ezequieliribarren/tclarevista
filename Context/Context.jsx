@@ -53,6 +53,12 @@ function fe() {
 function tablascampeonatos() {
   return generarEnlaceConParametros("1579842406");
 } 
+function tr() {
+  return generarEnlaceConParametros("1197579525");
+} 
+function trseries() {
+  return generarEnlaceConParametros("435208865");
+} 
 
 
 
@@ -175,6 +181,7 @@ export const TablaCampeonatoProvider = ({ children }) => {
 export const useTablaCampeonato = () => {
   return useContext(TablaCampeonatoContext);
 };
+
 
 
 
@@ -690,6 +697,78 @@ export const useFe = () => {
   return useContext(FeContext);
 };
 
+
+// TOP RACE
+
+const TrContext = createContext();
+export const TrProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tr();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <TrContext.Provider value={data}>
+      {children}
+    </TrContext.Provider>
+  );
+};
+
+export const useTr = () => {
+  return useContext(TrContext);
+};
+
+
+
+// TOP RACE SERIES
+
+const TrSeriesContext = createContext();
+export const TrSeriesProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = trseries();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <TrSeriesContext.Provider value={data}>
+      {children}
+    </TrSeriesContext.Provider>
+  );
+};
+
+export const useTrSeries = () => {
+  return useContext(TrSeriesContext);
+};
 
 
 

@@ -24,6 +24,11 @@ html {
 
 }
 
+
+.margin-title{
+    margin: 4rem 0;
+}
+
 body, main {
     background-color: var(--gris-oscuro-fondo, #323232) !important;
 }
@@ -43,9 +48,13 @@ a {
 .none {
     display: none !important;
 }
+
+
 .clicked-button{
     background-color: #323232 !important;
 }
+
+
 
 @font-face {
     font-family: "goldman-regular";
@@ -78,4 +87,10 @@ a {
 }
 
 
+
+@media (max-width: 1000px) {
+.none-lg{
+    display: none;
+}
+}
 

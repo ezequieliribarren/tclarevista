@@ -4,14 +4,14 @@ import Footer from '../Components/Footer/Footer'
 import NavCategoria from '../Components/NavCategoria/NavCategoria'
 
 
-const Layout = ({children, background, logo, param}) => {
+const Layout = ({ children, background, logo, param, hideHuella }) => {
 
   return (
     <>
-        <Navbar/>
-        <NavCategoria background={background} logo={logo} param={param}/>
-        {children}
-        <Footer/>
+      <Navbar />
+      <NavCategoria background={background} logo={logo} param={param} hideHuella ={hideHuella } />
+      {children}
+      <Footer />
     </>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../../LayoutCategoria/LayoutCategoria';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
-import { useF1, useFe, useIndy, useMgp, useNas, useRmun, useTc } from '../../../Context/Context';
+import { useF1, useFe, useIndy, useMgp, useNas, useRmun, useTc, useTr, useTrSeries } from '../../../Context/Context';
 import { useTcp } from '../../../Context/Context';
 import { useTcm } from '../../../Context/Context';
 import { useTcpm } from '../../../Context/Context';
@@ -70,6 +70,12 @@ const DetailCarrerasCat = () => {
     case 'formula-e':
       context = useFe();
       break;
+    case 'tr':
+      context = useTr();
+      break;
+    case 'tr-series':
+      context = useTrSeries();
+      break;
     default:
       context = [];
   }
@@ -79,7 +85,7 @@ const DetailCarrerasCat = () => {
       <main>
         <section id='detail-carreras' className="container-fluid">
           <div className="row">
-            <div className="col-md-10">
+            <div className="col-lg-10">
               <div className='title-detail-carreras'><h2>Carreras</h2></div>
               {context.length > 0 && context.map((item, index) => (
                 <Link
@@ -88,11 +94,11 @@ const DetailCarrerasCat = () => {
                   component={() => <DetailFecha rowData={item} />}
                   className="row carrera-detail-carreras"
                 >
-                  <div className="col-md-4 fecha-detail-carreras">
+                  <div className="col-4 fecha-detail-carreras">
                     <h4 className='h4-nro-tabla'>{item.c[0]?.v}</h4>
                     <h3>{item.c[2]?.v && formatDate(item.c[2].v)}</h3>
                   </div>
-                  <div className="col-md-4 lugar-detail-carreras">
+                  <div className="col-4 lugar-detail-carreras">
                     <div>
                       <img src="images/separator.png" alt="Separador" />
                     </div>
@@ -103,7 +109,7 @@ const DetailCarrerasCat = () => {
                       <h3>{item.c[3]?.v}</h3>
                     </div>
                   </div>
-                  <div className="col-md-4 circuito-detail-carreras">
+                  <div className="col-4 circuito-detail-carreras">
                     <div>
                       <img src={item.c[4]?.v} alt="" />
                     </div>
@@ -111,7 +117,7 @@ const DetailCarrerasCat = () => {
                 </Link>
               ))}
             </div>
-            <div className="col-md-2">
+            <div className="col-lg-2">
               <PublicidadVertical none={'none'} />
             </div>
           </div>

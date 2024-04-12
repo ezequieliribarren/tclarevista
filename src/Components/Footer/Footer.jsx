@@ -9,7 +9,7 @@ const Footer = () => {
                     <div className="footer-1 row">
             <div className='col-md-6 logo-footer'>
               <div className="row">
-                   <div className='col-md-6'><Link to='/'><img src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
+                   <div className='col-md-6 logo-footer-img'><Link to='/'><img src="images/logo.png" alt="Logo de Tc La Revista" /></Link></div>
               <div className='redes-footer col-md-4' >
               <div>
                 <a href="https://twitter.com/tclarevista"><img src="images/redes/x.png" alt="Twitter Tc La Revista" /> @tclarevista</a>
@@ -24,8 +24,13 @@ const Footer = () => {
            
             </div>     
             <div className="footer-2 col-md-6">
-            <Link className='link-footer'>Nosotros</Link>
-            <Link className='link-footer'>Contacto</Link>
+              <div>
+                <Link className='link-footer'>Nosotros</Link>
+              </div>
+            <div>
+               <Link className='link-footer'>Contacto</Link>
+            </div>
+           
           </div>
           </div>            
      
@@ -38,21 +43,22 @@ const Footer = () => {
             <h4>Nacionales</h4>
             <div className="categorias-footer">
                           <div>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
+              <Link to="/tc">Turismo Carretera</Link>
+              <Link to="/tn">Turismo Nacional</Link>
+              <Link to="/tcpk">TC PickUp</Link>
+              <Link to="/tcp">TC Pista</Link>
+              <Link to="/tcm">TC Mouras</Link>
+              <Link to="/tcpm">TC Pista Mouras</Link>
+              <Link to="/tcppk">TC Pista PickUp</Link>
             </div>
             <div>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
+              <Link to="/f2-nacional">Fórmula 2 Nacional</Link>
+              <Link to="/tc2000">TC 2000</Link>
+              <Link to="/tc2000-series">TC 2000 Series</Link>
+              <Link to="/tr">Top Race</Link>
+              <Link to="/tr-series">Top Race Series</Link>
+              <Link to="/rally-argentino">Rally Argentino</Link>
+              <Link to="/tp">Turismo Pista</Link>
             </div>
             </div>
 
@@ -62,17 +68,17 @@ const Footer = () => {
             <h4>Internacionales</h4>
             <div className='categorias-footer'> 
             <div>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
+              <Link to="/f1">Fórmula 1</Link>
+              <Link to="/moto-gp">Moto GP</Link>
+              <Link to="/indycar-series">Indycar Series</Link>
+              <Link to="/nascar">Nascar</Link>
+              <Link to="/rally-mundial">Rally Mundial</Link>
+              <Link to="/dakar">Dakar</Link>
             </div>
             <div>
-              <Link>Turismo Carretera</Link>
-              <Link>Turismo Carretera</Link>
+              <Link to="/tcr">TCR</Link>
+              <Link to="/formula-e">Fórmula E</Link>
+              <Link to="/arg-mundo">Argentinos</Link>
             </div>
             </div>
 

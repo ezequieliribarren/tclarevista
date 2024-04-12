@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Huella from '../Huella/Huella';
 
-const NavCategoria = ({ background, logo, param }) => {
+const NavCategoria = ({ background, logo, param , hideHuella  }) => {
     // Obtener los parámetros de la URL
     const { categoria } = useParams();
     const location = useLocation();
@@ -21,6 +21,7 @@ const NavCategoria = ({ background, logo, param }) => {
     const videosUrl = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/videos`;
     const carrerasUrl = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/carreras`;
     const campeonatoUrl = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/campeonato`;
+    const campeonatoUrlTc2000 = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/campeonatoTc2000`;
 
     // Estado para mantener el botón activo
     const [activeButton, setActiveButton] = useState('');
@@ -40,13 +41,10 @@ const NavCategoria = ({ background, logo, param }) => {
 
     return (
         <>
-            <nav className="navbar navbar-expand-md nav-categoria">
-                <Link className={`navbar-brand ${activeButton === '' ? '' : 'no-active'}`} to={categoriaUrl} onClick={() => handleButtonClick('')}>
-                    <img src={`images/categorias/logos/${logo || param}.png`} alt={`${logo}.png`} />
+            <nav className="navbar navbar-expand nav-categoria">
+                <Link className={`navbar-brand  ${activeButton === '' ? '' : 'no-active'}`} to={categoriaUrl} onClick={() => handleButtonClick('')}>
+                    <img  src={`images/logos/${logo || param}.png`} alt={`${logo}.png`} />
                 </Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav">
                         <li className={`nav-item ${activeButton === 'noticias' ? 'active' : ''}`}>
@@ -78,7 +76,7 @@ const NavCategoria = ({ background, logo, param }) => {
                     </ul>
                 </div>
             </nav>
-            <Huella currentSection={{ videos: videosUrl, carreras: carrerasUrl, campeonato: campeonatoUrl }} />
+            {!hideHuella && <Huella currentSection={{ videos: videosUrl, carreras: carrerasUrl, campeonato: campeonatoUrl }} />} 
         </>
     );
 }

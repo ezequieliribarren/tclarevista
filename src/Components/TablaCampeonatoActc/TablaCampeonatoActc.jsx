@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TablaCampeonatoActc = ({campeonatoData}) => {
+const TablaCampeonatoActc = ({campeonatoData, categoria}) => {
 
 
       const getMarcaImageUrl = (marca) => {
@@ -192,59 +192,107 @@ const TablaCampeonatoActc = ({campeonatoData}) => {
   //     return 'default.png';
   //   }
   // };
+
+  
     
   return (
     <>
-
-          <table className='tabla-campeonato'>
-            <div className="row">
-              <th className="col-md-1 pos-carreras">
+      <table className='tabla-campeonato'>
+        <div className="row">
+          {categoria !== 'rally-argentino' && (
+            <>
+              <th className="col-1 pos-carreras none-th">
                 <h4>Pos.</h4>
               </th>
-              <th className="col-md-1 ">
+              <th className="col-1 none-th">
                 <h4>N°</h4>
               </th>
-              <th className="col-md-4 th-piloto">
+              <th className="col-5 th-piloto">
                 <h4>Piloto</h4>
               </th>
-              <th className="col-md-2 th-victorias">
-                    <img src="images/cup.png" alt="" />
+            </>
+          )}
+          {categoria === 'tn' && (
+            <>
+              <th className="col-2">
+                <h4>Auto</h4>
               </th>
-              <th className="col-md-1">
+              <th className="col-3">
+                <h4 className='h4-vueltas'>Puntos</h4>
+              </th>
+            </>
+          )}
+          {categoria !== 'rally-argentino' && categoria !== 'tn' && (
+            <>
+              <th className="col-2 th-victorias none-th">
+                <img src="images/cup.png" alt="" />
+              </th>
+              <th className="col-1 none-th">
                 <h4>Marca</h4>
               </th>
-              <th className="col-md-3">
+              <th className="col-2">
                 <h4>Puntos</h4>
               </th>
-            </div>
-            {campeonatoData.slice(1).map((item, index) => (
-              <tr key={index} className="row">
-                <td className="col-md-1 pos-carreras-td">
-                  <h4 className='h4-pos-tabla'>{item.posicion}</h4>
+            </>
+          )}
+        </div>
+        {campeonatoData.map((item, index) => (
+          <tr key={index} className="row d-flex justify-content-center">
+            {categoria === 'rally-argentino' && (
+              <>
+                <td className="col-1 pos-carreras-td">
+                  <h4 className='h4-pos-tabla'>{index + 1}</h4>
                 </td>
-                <td className="col-md-1 nro-piloto-td">
-                  <h4 className='h4-nro-piloto'>{item.nro}</h4>
-                </td>
-                <td className="col-md-4 piloto-carreras-td">
-                  {/* <span className='auto-piloto none'>{item.piloto && <img src={`images/autos/${getCarImageUrl(item.piloto)}`} alt="" />}</span>  */}
+                <td className="col-5 piloto-carreras-td">
                   <h4 className='h4-piloto'>{item.piloto}</h4>
                 </td>
-                <td className="col-md-2 vueltas-carreras-td">
-                  <h4>{item.victorias}</h4>
-                </td>
-                <td className="col-md-1 marca-carreras-td">
-                  {item.marca && <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt="" />}
-                </td>
-                <td className="col-md-3 grupo-carreras-td">
+                <td className="col-3 grupo-carreras-td">
                   <h4>{item.puntos}</h4>
                 </td>
-              </tr>
-            ))}
-          </table>
-    
+              </>
+            )}
+            {categoria !== 'rally-argentino' && (
+              <>
+                <td className="col-1 pos-carreras-td">
+                  <h4 className='h4-pos-tabla'>{item.posicion}</h4>
+                </td>
+                <td className="col-1 nro-piloto-td">
+                  <h4 className='h4-nro-piloto'>{item.nro}</h4>
+                </td>
+                <td className="col-5 piloto-carreras-td">
+                  <h4 className='h4-piloto'>{item.piloto}</h4>
+                </td>
+                
+              </>
+            )}
+            {categoria === 'tn' && (
+              <>
+                <td className="col-2 vueltas-carreras-td display-none">
+                  <h4>{item.victorias}</h4>
+                </td>
+                <td className="col-3 vueltas-carreras-td">
+                  <h4 className='h4-vueltas'>{item.marca}</h4>
+                </td>
+              </>
+            )}
+            {categoria !== 'rally-argentino' && categoria !== 'tn' && (
+              <>
+                <td className="col-2 vueltas-carreras-td">
+                  <h4>{item.victorias}</h4>
+                </td>
+                <td className="col-1 marca-carreras-td">
+                  {item.marca && <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt="" />}
+                </td>
+                <td className="col-2 grupo-carreras-td">
+                  <h4>{item.puntos}</h4>
+                </td>
+              </>
+            )}
+          </tr>
+        ))}
+      </table>
     </>
-       
-  )
-}
+  );
+};
 
-export default TablaCampeonatoActc
+export default TablaCampeonatoActc;

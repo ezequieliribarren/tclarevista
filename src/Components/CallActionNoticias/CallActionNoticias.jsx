@@ -85,39 +85,51 @@ const CallActionNoticias = ({ filterDate, category }) => {
           <h3>Últimas Noticias</h3>
         </div>
         <div className="row container-noticias">
-          {noticias.map((noticia, index) => (
-            <Link to={`/noticia/${noticia.id}`} key={index}>
-              <div className="card-ultimas-noticias"
-                style={{
-                  backgroundImage: `url(http://localhost:5000/${noticia.image})`,
-                  backgroundPosition: "center", backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  color: 'white',
-                }}>   <div className="category">
-                  <h4 className="h4-category">{noticia.categoria}</h4>
-                </div>
-                <div className="card-noticia-details">
-                  <div className="call-action-title-subtitle">
-                    <h2>{noticia.title}</h2>
-                    <h3>{formatDate(noticia.date)}</h3>
-                    <div className="iframe-container">
-                      {noticia.video ? (
-                        <iframe
-                          className="call-action-video"
-                          src={`https://www.youtube.com/embed/${noticia.idVideo}`}
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          width="100%"
-                          height="100%"
-                        ></iframe>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
+        {noticias.map((noticia, index) => {
+  // Contar las palabras en el título de la noticia
+  const titleWords = noticia.title.split(' ');
+  const fontSize = titleWords.length > 6 ? '2rem' : '2.4rem'; // Definir tamaño de fuente
+
+  return (
+    <Link to={`/noticia/${noticia.id}`} key={index}>
+      <div className="card-ultimas-noticias"
+        style={{
+          backgroundImage: `url(http://localhost:5000/${noticia.image})`,
+          backgroundPosition: "end", backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          color: 'white',
+        }}>
+        <div className="category">
+          <h4 className="h4-category">{noticia.categoria}</h4>
+        </div>
+        <div className="card-noticia-details">
+          <div className="call-action-title-subtitle">
+            <h2 style={{ fontSize }}>{noticia.title}</h2> {/* Aplicar tamaño de fuente */}
+            <h3>{formatDate(noticia.date)}</h3>
+            <div className="iframe-container">
+              <div className="category">
+                <h4 className="h4-category">{noticia.categoria}</h4>
               </div>
-            </Link>
-          ))}
+              {noticia.video ? (
+                <iframe
+                  className="call-action-video"
+                  src={`https://www.youtube.com/embed/${noticia.idVideo}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  width="100%"
+                  height="100%"
+                >
+                </iframe>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+})}
+
            <div ref={lastNewsElementRefCallback}></div>
           {loading && (
             <div className="cargando-mas-noticias">

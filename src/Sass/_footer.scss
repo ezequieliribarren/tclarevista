@@ -1,5 +1,5 @@
 footer {
-    width: 100%;
+    width: 100% ;
     background: var(--Negro, #000) !important;
     padding: 0 4rem;
     padding-top: 3rem;
@@ -123,10 +123,24 @@ footer {
 
 @media (max-width: 768px) {
     .logo-footer {
-        display: flex;
-        justify-content: center;
+        display: flex !important;
+        justify-content: center !important;
         align-items: center;
         margin: 3rem 0;
+
+
+    }
+
+    .footer-down{
+        display: none !important; 
+    }
+
+    footer{
+        .col-md-6 {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
     }
 
     .footer-nacionales,
@@ -136,19 +150,35 @@ footer {
 
     .redes-footer {
         justify-content: center;
-        margin: 3rem 0;
+        margin: 1rem 0 !important;
+        margin-top: 3rem !important;
+        flex-direction: column !important;
+    }
+.footer-2{
+    margin-bottom: 2rem;
+}
+
+}
+
+@media (max-width: 400px) {
+.logo-footer-img{
+    img{
+         width: 11rem !important; 
+    }
+  
+}
+
+    .redes-footer {
+        justify-content: center;
+        margin: 0 !important;
+        width: 100% !important;
+a{
+    font-size: 1.2rem !important;
+}
     }
 
-    .footer-nacionales,
-    .footer-internacionales {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-
-        h4 {
-            margin: 1rem 0;
-        }
+    .link-footer{
+        font-size: 1.6rem !important;
     }
 }
+

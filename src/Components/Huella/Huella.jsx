@@ -51,6 +51,8 @@ const Huella = () => {
                 return 'TCR';
             case 'formula-e':
                 return 'Fórmula E';
+                case 'tr-series':
+                    return 'Top-Race Series';
             default:
                 return categoria; // Por defecto, devuelve la categoría tal como está
         }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 
-const GeneralesCategoria = ({ cat }) => {
+const GeneralesCategoria = ({ cat, filterDate }) => {
     const [noticias, setNoticias] = useState([]);
     const [loading, setLoading] = useState(false);
     const [shownNewsCount, setShownNewsCount] = useState(7);
@@ -25,6 +25,17 @@ const GeneralesCategoria = ({ cat }) => {
 
         fetchNoticiasCat();
     }, [cat]);
+
+    useEffect(() => {
+        // Filtrar noticias por fecha si se proporciona filterDate
+        if (filterDate) {
+            const filteredNoticias = noticias.filter(noticia => {
+                const noticiaDate = new Date(noticia.date).toISOString().split('T')[0]; // Formato: YYYY-MM-DD
+                return noticiaDate === filterDate.toISOString().split('T')[0];
+            });
+            setNoticias(filteredNoticias);
+        }
+    }, [filterDate]);
 
     const sortNoticiasByDate = (noticias) => {
         return noticias.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -72,7 +83,7 @@ const GeneralesCategoria = ({ cat }) => {
                                     height="100%"
                                 ></iframe>
                             ) : (
-                                <img className='img-fluid' src={`http://localhost:5000/${noticia.image}`} alt={`Imagen ${index + 1}`} />
+                                <img className='img-fluid' src={`http://localhost:5000/${noticia.image}`} alt={noticia.title} />
                             )}
                         </div>
                         <div className='description'>

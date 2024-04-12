@@ -18,10 +18,10 @@ const Radio = ({ url }) => {
 
   // Renderizar el componente dependiendo de si el usuario ha interactuado o no
   return (
-    <div className='radio'>
+    <div>
       {userInteracted ? (
         // Si el usuario ha interactuado, mostrar el reproductor de audio con controles
-        <div onClick={handleRadioClick}>
+        <div onClick={handleRadioClick} >
           <audio ref={audioRef} controls autoPlay={isPlaying}>
             <source src={url} type='audio/mpeg' />
             Your browser does not support the audio element.

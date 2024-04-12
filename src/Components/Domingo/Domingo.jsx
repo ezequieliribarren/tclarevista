@@ -1,9 +1,46 @@
 import React, { useState, useEffect } from 'react';
+import Slider from 'react-slick';
 import { ClipLoader } from 'react-spinners';
 
 const Domingo = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Función para mapear códigos de tanda a nombres completos
+  const mapTandaCodeToFullName = (code) => {
+    switch (code) {
+      case "TC":
+        return "Turismo Carretera";
+      case "TCP":
+        return "TC Pista";
+      case "TCPK":
+        return "TC Pick Up";
+      case "TCPPK":
+        return "TC Pista Pickup";
+      case "TCM":
+        return "TC Mouras";
+      default:
+        return code; // Devolver el código original si no coincide con ninguno
+    }
+  };
+
+  // Función para mapear códigos de tanda a rutas de imágenes
+  const mapTandaCodeToImage = (code) => {
+    switch (code) {
+      case "TC":
+        return "images/logos/tc.png";
+      case "TCP":
+        return "images/logos/tcp.png";
+      case "TCPK":
+        return "images/logos/tcpk.png";
+      case "TCPPK":
+        return "images/logos/tcppk.png";
+      case "TCM":
+        return "images/logos/tcm.png";
+      default:
+        return ""; // Devolver una cadena vacía si no coincide con ninguno
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,46 +52,102 @@ const Domingo = () => {
           'http://localhost:5000/ip4menu'
         ];
 
-        // Realizar fetch a todas las URLs en paralelo
         const responses = await Promise.all(urls.map(url => fetch(url)));
         const jsonResponses = await Promise.all(responses.map(response => response.json()));
-        
-        // Iterar sobre los arrays de respuesta y encontrar el conjunto de datos correspondiente al domingo
-        let domingoData = [];
-        for (let i = 0; i < jsonResponses.length; i++) {
-          const response = jsonResponses[i];
-          const domingo = response.find(obj => obj && obj.title && obj.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === "domingo");
-          if (domingo) {
-            domingoData = domingo.items.map(item => ({ ...item, categoria: domingo.categoria })); // Agregar la categoría a cada item
-            break; // Detener la iteración si se encontraron datos de domingo
-          }
-        }
 
-        setData(domingoData);
-        setLoading(false); // Establecer loading a false cuando se reciben los datos
+        const allData = jsonResponses.reduce((acc, response) => acc.concat(response), []);
+
+        // Unificar los datos de todos los endpoints en un solo array
+        const mergedData = allData.reduce((acc, item) => {
+          if (item.title === "Domingo") {
+            item.items.forEach(subItem => {
+              const newItem = {
+                ...subItem,
+                categoria: item.categoria
+              };
+              acc.push(newItem);
+            });
+          }
+          return acc;
+        }, []);
+        
+        console.log('Datos procesados:', mergedData);
+
+
+        // Ordenar los datos según el estado
+        mergedData.sort((a, b) => {
+          if (a.estado === "vivo") return -1;
+          if (a.estado === "" && b.estado !== "vivo") return -1;
+          return 1;
+        });
+
+        setData(mergedData);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setLoading(false); // En caso de error, también establecer loading a false
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  // Configuración de Slick
+  const slickSettings = {
+    dots: true,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1
+  };
+
   return (
     <div className='contenedor-vivo'>
-      {loading ? ( // Si loading es true, mostrar el spinner
+      <h3 className='h3-sab-dom'>Domingo</h3>
+      {loading ? (
         <div className="spinner-container">
           <ClipLoader color="#FE0" size={80} />
         </div>
-      ) : ( // Si loading es false, mostrar los datos
-        data.map((item, index) => (
-          <div className='vivo' key={index}>
-            <h4 className="tanda">{item.tanda}</h4>
-            <p className="categoria">{item.categoria}</p> {/* Renderizar la categoría */}
-            {item.estado && <img src={item.estado} alt="Estado" />}
-          </div>
-        ))
+      ) : (
+        <Slider className='slider-vivo' {...slickSettings}>
+          {data.map((item, idx) => (
+            <div className='vivo' key={idx}>
+              <div className='contenedor-categoria-vivo'>
+                <div className='contenedor-img-categoria'>
+                  <img src={mapTandaCodeToImage(item.categoria)} alt="" />
+                </div>
+                <div>
+                  <h3>{mapTandaCodeToFullName(item.categoria)}</h3>
+                </div>
+              </div>
+              <div className='contenedor-tanda'>
+                {item.tanda && (
+                  <div className='tanda'>
+                    <div className='tanda-info'>
+                      <div>
+                        {item.estado === 'vivo' && <img className='titilar' src="images/vivo.png" alt="Estado" />}
+                        {item.estado === 'finalizado' && <img src="images/finalizado.png" alt="Estado" />}
+                        {item.estado === 'proximo' && "HOY"}
+                      </div>
+                      {item.tanda.split(' ').map((part, idx) => {
+                        let formattedPart = part;
+                        if (part === 'Entrenamiento') {
+                          formattedPart = 'En.';
+                        } else if (part === 'Serie') {
+                          formattedPart = 'S.';
+                        } else if (part === 'Clasificación') {
+                          formattedPart = 'Clas.';
+                        }
+                        return <h4 key={idx}>{formattedPart}</h4>;
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </Slider>
       )}
     </div>
   );
