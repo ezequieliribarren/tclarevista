@@ -120,6 +120,23 @@
 
 }
 
+
+// RESULTADOS EN VIVO
+
+.botonera {
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .button-tanda {
+        text-align: center;
+    }
+}
+
+
+
 @keyframes titilar {
     0% {
         opacity: 1;

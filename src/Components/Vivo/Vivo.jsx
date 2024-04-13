@@ -1,6 +1,7 @@
 import React from 'react';
 import Sabado from '../Sabado/Sabado';
 import Domingo from '../Domingo/Domingo';
+import Viernes from '../Viernes/Viernes';
 
 const Vivo = () => {
   const obtenerDiaDeSemana = () => {
@@ -18,7 +19,7 @@ const Vivo = () => {
     case 'domingo':
       return <Domingo />;
     case 'viernes':
-      return <Sabado />;
+      return <Viernes />;
     case 'lunes':
       // AQUI DEBERIA GUARDAR EL ULTIMO ESTADO DE LAS 3PM Y GUARDARLOS TODOS COMO FINALIZADOS 
       // return <Domingo />; 

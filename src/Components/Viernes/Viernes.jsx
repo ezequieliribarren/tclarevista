@@ -4,7 +4,7 @@ import { ClipLoader } from 'react-spinners';
 import { HashLink as Link } from 'react-router-hash-link';
 import { useParams } from 'react-router-dom';
 
-const Sabado = () => {
+const Viernes = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,10 +53,10 @@ const Sabado = () => {
    const fetchData = async () => {
   try {
     const urls = [
-      'http://localhost:5000/ip1menu',
-      'http://localhost:5000/ip2menu',
-      'http://localhost:5000/ip3menu',
-      'http://localhost:5000/ip4menu'
+      'http://localhost:5000/ip1',
+      'http://localhost:5000/ip2',
+      'http://localhost:5000/ip3',
+      'http://localhost:5000/ip4'
     ];
 
     const responses = await Promise.all(urls.map(url => fetch(url)));
@@ -77,7 +77,7 @@ const Sabado = () => {
 
         // Unificar los datos de todos los endpoints en un solo array
         const mergedData = allData.reduce((acc, item) => {
-          if (item.title === "Sábado") {
+          if (item.title === "Viernes") {
             item.items.forEach(subItem => {
               const newItem = {
                 ...subItem,
@@ -124,7 +124,7 @@ const Sabado = () => {
 
   return (
     <div className='contenedor-vivo'>
-      <h3 className='h3-sab-dom'>Sábado</h3>
+      <h3 className='h3-sab-dom'>Viernes</h3>
       {loading ? (
         <div className="spinner-container">
           <ClipLoader color="#FE0" size={80} />
@@ -180,4 +180,4 @@ const Sabado = () => {
   );
 };
 
-export default Sabado;
+export default Viernes;

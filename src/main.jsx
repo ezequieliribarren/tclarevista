@@ -15,7 +15,6 @@ import DetailFecha from './Components/DetailFecha/DetailFecha';
 import DetailNoticiasCat from './Components/DetailNoticiasCat/DetailNoticiasCat';
 import CarrerasAnuales from './Components/CarrerasAnuales/CarrerasAnuales';
 import ResultadoEnVivo from './ResultadoEnVivo/ResultadoEnVivo';
-import CampeonatoTc2000 from './Components/CampeonatoTc2000/CampeonatoTc2000';
 
 
 const router = createHashRouter([
@@ -32,7 +31,7 @@ const router = createHashRouter([
   },
 
   {
-    path: "/vivo/:tanda",
+    path: "/vivo/:categoria/:tanda/:ip",
     element: (
       <ResultadoEnVivo />
     ),
@@ -121,17 +120,7 @@ const router = createHashRouter([
       </NewsProvider>
     ),
   },
-  {
-    path: '/:categoria/campeonatoTc2000',
-    element: (
-      <NewsProvider>
-        <TablaCampeonatoProvider>
-          <CampeonatoTc2000 />
-        </TablaCampeonatoProvider>
 
-      </NewsProvider>
-    ),
-  },
   {
     path: '/:categoria/carreras',
     element: (
