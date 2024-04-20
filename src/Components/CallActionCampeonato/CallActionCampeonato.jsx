@@ -9,11 +9,31 @@ const CallActionCampeonato = () => {
     const [loading, setLoading] = useState(true);
     const [numPilotos, setNumPilotos] = useState(5); // Estado para la cantidad de pilotos a mostrar
 
-    const campeonatoUrl = categoria === 'tc2000' ? 
-    'http://localhost:5000/api/campeonato/tc2000' : 
-    (categoria === 'rally-argentino' ? 
-    'http://localhost:5000/api/campeonato/rally-argentino' : 
-    `http://localhost:5000/api/campeonatos/${categoria}`);
+    const campeonatoUrl = categoria === 'tc2000' ?
+    'http://localhost:5000/api/campeonato/tc2000' :
+    (categoria === 'rally-argentino' ?
+        'http://localhost:5000/api/campeonato/rally-argentino' :
+        (categoria === 'rally-mundial' ?
+            'http://localhost:5000/api/campeonato/rally-mundial' :
+            (categoria === 'nascar' ?
+                'http://localhost:5000/api/campeonato/nascar' :
+                (categoria === 'formula-e' ?
+                    'http://localhost:5000/api/campeonato/formula-e' :
+                    (categoria === 'f1' ?
+                        'http://localhost:5000/api/campeonato/f1' :
+                        (categoria === 'moto-gp' ?
+                            'http://localhost:5000/api/campeonato/moto-gp' :
+                            (categoria === 'indycar-series' ?
+                                'http://localhost:5000/api/campeonato/indycar-series' :
+                                `http://localhost:5000/api/campeonatos/${categoria}`
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    );
+
 
 
     const handleResize = () => {
@@ -34,11 +54,29 @@ const CallActionCampeonato = () => {
             return 'http://localhost:5173/#/tc2000/campeonato';
         } else if (categoria === 'rally-argentino') {
             return 'http://localhost:5173/#/rally-argentino/campeonato';
+        } else if (categoria === 'rally-mundial') {
+            return 'http://localhost:5173/#/rally-mundial/campeonato';
         }
+        else if (categoria === 'nascar') {
+            return 'http://localhost:5173/#/rally-mundial/nascar';
+        }
+        else if (categoria === 'formula-e') {
+            return 'http://localhost:5173/#/rally-mundial/formula-e';
+        }
+        else if (categoria === 'f1') {
+            return 'http://localhost:5173/#/f1/campeonato';
+        }
+        else if (categoria === 'moto-gp') {
+            return 'http://localhost:5173/#/moto-gp/campeonato';
+        }
+        else if (categoria === 'indycar-series') {
+            return 'http://localhost:5173/#/rally-mundial/indycar-series';
+        }
+
         // Si la categoría no es ni 'tc2000' ni 'rally-argentino', puedes devolver una URL por defecto
         return `http://localhost:5173/#/${categoria}/campeonato`;
     };
-    
+
 
     useEffect(() => {
         // Función para manejar el cambio en el tamaño de la pantalla
@@ -96,10 +134,12 @@ const CallActionCampeonato = () => {
         else if (numPilotos === 1) return 'col-3';
     };
 
-    const primerosNPilotos = campeonatoData.slice(0, numPilotos );
-    
+    const primerosNPilotos = campeonatoData.slice(0, numPilotos);
+
 
     return (
+        <>
+        {categoria !== 'dakar' && categoria !== 'tcr' && categoria !== 'tp' && categoria !== 'arg-mundo' && (
         <div className='container-fluid call-action-campeonato'>
             <div className='row'>
                 <h2>Campeonato</h2>
@@ -111,23 +151,23 @@ const CallActionCampeonato = () => {
                     </div>
                 ) : (
                     <>
-                       {primerosNPilotos.map((piloto, index) => (
-    <div key={index} className={`card-call-action-campeonato ${colClass()}`}>
-        <div className='container-pos'>
-            <h4 className='h4-pos-campeonato'>
-                {/* Verifica si la categoría es 'rally-argentino' para mostrar un contador en lugar de la posición */}
-                {categoria === 'rally-argentino' ? index + 1 : (piloto.posicion && piloto.posicion.replace('°', ''))}
-            </h4>
-        </div>
-        <div className='container-piloto'>
-            <h4 className='h4-piloto'>{piloto.piloto}</h4>
-        </div>
-        <div className='container-marca'>
-            {piloto.marca && <img className='img-piloto-call-action-campeonato' src={`images/marcas/${getMarcaImageUrl(piloto.marca)}`} alt="" />}
-        </div>
-    </div>
-))}
-                      <div className={`card-call-action-campeonato ver-tabla-completa ${verTablaCompletaColClass()}`}>
+                        {primerosNPilotos.map((piloto, index) => (
+                            <div key={index} className={`card-call-action-campeonato ${colClass()}`}>
+                                <div className='container-pos'>
+                                    <h4 className='h4-pos-campeonato'>
+                                    
+                                        {categoria === 'rally-argentino' ? index + 1 : (piloto.posicion && piloto.posicion.replace('°', ''))}
+                                    </h4>
+                                </div>
+                                <div className='container-piloto'>
+                                    <h4 className='h4-piloto'>{piloto.piloto}</h4>
+                                </div>
+                                <div className='container-marca'>
+                                    {piloto.marca && <img className='img-piloto-call-action-campeonato' src={`images/marcas/${getMarcaImageUrl(piloto.marca)}`} alt="" />}
+                                </div>
+                            </div>
+                        ))}
+                        <div className={`card-call-action-campeonato ver-tabla-completa ${verTablaCompletaColClass()}`}>
                             <Link className="nav-link" to={getCampeonatoUrl()} onClick={() => handleButtonClick('campeonato')}>
                                 <div>
                                     <img src="images/+.png" alt="" />
@@ -139,6 +179,7 @@ const CallActionCampeonato = () => {
                 )}
             </div>
         </div>
+    )}   </>
     )
 }
 

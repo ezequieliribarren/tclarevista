@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../../LayoutCategoria/LayoutCategoria';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
-import { useF1, useFe, useIndy, useMgp, useNas, useRmun, useTc, useTr, useTrSeries } from '../../../Context/Context';
+import { useF1, useFe, useIndy, useMgp, useNas, useRmun, useTc, useTc2000, useTn, useTp, useTr, useTrSeries } from '../../../Context/Context';
 import { useTcp } from '../../../Context/Context';
 import { useTcm } from '../../../Context/Context';
 import { useTcpm } from '../../../Context/Context';
@@ -15,6 +15,11 @@ import DetailFecha from '../DetailFecha/DetailFecha';
 
 const DetailCarrerasCat = () => {
   const { categoria } = useParams(); // Obtiene el valor del parámetro de la URL
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Desplaza la página hacia arriba cuando el componente se monta
+  }, []); // El segundo argumento es un array vacío para que el efecto se ejecute solo una vez al montar el componente
+
 
   const formatDate = (dateString) => {
     const months = [
@@ -76,6 +81,15 @@ const DetailCarrerasCat = () => {
     case 'tr-series':
       context = useTrSeries();
       break;
+    case 'tp':
+      context = useTp();
+      break;
+    case 'tc2000':
+      context = useTc2000();
+      break;
+    case 'tn':
+      context = useTn();
+      break;
     default:
       context = [];
   }
@@ -90,9 +104,9 @@ const DetailCarrerasCat = () => {
               {context.length > 0 && context.map((item, index) => (
                 <Link
                   key={index}
-                  to={`/${categoria}/carreras/${index}`}
+                  to={categoria !== 'tc2000' && categoria !== 'tn' ? `/${categoria}/carreras/${index}` : '#'}
                   component={() => <DetailFecha rowData={item} />}
-                  className="row carrera-detail-carreras"
+                  className={`row carrera-detail-carreras ${categoria === 'tc2000' || categoria === 'tn' ? 'disabled-link' : ''}`}
                 >
                   <div className="col-4 fecha-detail-carreras">
                     <h4 className='h4-nro-tabla'>{item.c[0]?.v}</h4>

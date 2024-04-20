@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { HashLink as Link } from 'react-router-hash-link';
 
 // Importa los diferentes contextos según la categoría
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTn } from '../../../Context/Context';
 
 const CallActionCarrerasCat = () => {
     // Obtiene la categoría de los parámetros de la URL
@@ -51,6 +51,16 @@ const CallActionCarrerasCat = () => {
         case 'formula-e':
             context = useFe();
             break;
+        case 'tr':
+            context = useTr();
+            break;
+        case 'tr-series':
+            context = useTrSeries();
+            break;
+        case 'tn':
+            context = useTn();
+            break;
+
         default:
             context = [];
     }
@@ -87,7 +97,10 @@ const CallActionCarrerasCat = () => {
                         )}
                     </Link>
                 ))}
-                <div className='ver-mas'><button>VER MÁS CARRERAS</button></div>
+                <Link to={`/${categoria}/carreras`}>
+                    <div className='ver-mas'><button>VER MÁS CARRERAS</button></div>
+                </Link>
+
             </div>
         </aside>
     );

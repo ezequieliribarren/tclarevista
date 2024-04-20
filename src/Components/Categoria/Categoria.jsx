@@ -23,6 +23,8 @@ const Categoria = () => {
         };
     }, []);
 
+    
+
 
     return (
         <Layout background={categoria} logo={categoria} >

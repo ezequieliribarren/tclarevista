@@ -59,6 +59,17 @@ function tr() {
 function trseries() {
   return generarEnlaceConParametros("435208865");
 } 
+function tp() {
+  return generarEnlaceConParametros("1432416990");
+}
+function tc2000() {
+  return generarEnlaceConParametros("901761059");
+}
+function tn() {
+  return generarEnlaceConParametros("249354540");
+}
+
+
 
 
 
@@ -444,6 +455,43 @@ export const useTcppk = () => {
 };
 
 
+// TN 
+const TnContext = createContext();
+
+export const TnProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tn();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <TnContext.Provider value={data}>
+      {children}
+    </TnContext.Provider>
+  );
+};
+
+export const useTn = () => {
+  return useContext(TnContext);
+};
+
+
+
 // RALLY-ARGENTINO
 
 const RallyContext = createContext();
@@ -480,6 +528,78 @@ export const useRally = () => {
 };
 
 
+// TP C3
+const TpContext = createContext();
+export const TpProvider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tp();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <TpContext.Provider value={data}>
+      {children}
+    </TpContext.Provider>
+  );
+};
+
+export const useTp = () => {
+  return useContext(TpContext);
+};
+
+// TC2000
+const Tc2000Context = createContext();
+export const Tc2000Provider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tc2000();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <Tc2000Context.Provider value={data}>
+      {children}
+    </Tc2000Context.Provider>
+  );
+};
+
+export const useTc2000 = () => {
+  return useContext(Tc2000Context);
+};
+
+
+
+
+// INTERNACIONALES
 
 // FORMULA 1
 
