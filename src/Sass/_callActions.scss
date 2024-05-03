@@ -69,7 +69,6 @@
     }
 }
 
-
 .lugar-circuito{
     .h4-lugar{
         font-family: roboto-bold;
@@ -180,6 +179,11 @@ h4{
 }
 }
 
+.banner-mobile{
+    display: none;
+}
+
+
 @media (max-width: 1135px) {
     .card-call-action-campeonato {
         .h4-piloto {
@@ -203,6 +207,14 @@ h4{
 
 }
 
+@media (max-width: 768px) {
+.banner-desktop{
+    display: none;
+}
+.banner-mobile{
+    display: inherit;
+}
+}
 
 @media (max-width: 675px) {
  .ver-tabla-completa{

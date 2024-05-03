@@ -22,7 +22,10 @@ const ContentNosotros = () => {
             <img className='img-fluid' src="images/nosotros/historia1.png" alt="" /><img className='img-fluid' src="images/nosotros/historia2.png" alt="" /><img className='img-fluid' src="images/nosotros/historia3.png" alt="" />
           </div>
         </div>
-
+        <img className='banner-nosotros-mobile' src="images/banner-nosotros.png" alt="" />
+      </div>
+      <div >
+           
       </div>
       <div className="row history-description">
         <div className="cuerpo-noticia-detail">

@@ -51,7 +51,7 @@ const Navbar = () => {
                   <div className="row">
                     <div className="col-xl-3 tc">
                       <Link to='/tc' className="dropdown-item tc">
-                        <div><img src="images/categorias/logos//tc-nav.png" alt="" /></div>
+                        <div><img src="images/logos/tc.png" alt="" /></div>
                         <div><h2>Turismo<br />Carretera</h2></div>
                         <div><img src="images/mayor.png" alt="" /></div>
                       </Link>
@@ -59,17 +59,17 @@ const Navbar = () => {
                     <div className="col-xl-9">
                       <div className="row">
                         <div className="col cat"> <Link to='/tn' className="dropdown-item">
-                          <div> <img src="images/categorias/logos//tn.png" alt="" /></div>
+                          <div> <img src="images/logos//tn.png" alt="" /></div>
                           <div> <h2>Turismo<br />Nacional</h2></div>
                           <div> <img src="images/mayor.png" alt="" /></div>
                         </Link></div>
                         <div className="col cat">    <Link to='/tcpk' className="dropdown-item">
-                          <div> <img src="images/categorias/logos//tcpk.png" alt="" /></div>
+                          <div> <img src="images/logos//tcpk.png" alt="" /></div>
                           <div> <h2>TC Pickup</h2></div>
                           <div> <img src="images/mayor.png" alt="" /></div>
                         </Link></div>
                         <div className="col cat">    <Link to='/tcp' className="dropdown-item">
-                          <div> <img src="images/categorias/logos//tcp.png" alt="" /></div>
+                          <div> <img src="images/logos//tcp.png" alt="" /></div>
                           <div> <h2>TC Pista</h2></div>
                           <div> <img src="images/mayor.png" alt="" /></div>
                         </Link></div>
@@ -77,21 +77,21 @@ const Navbar = () => {
                       <div className="row">
                         <div className="col cat">
                           <Link to='/tcm' className="dropdown-item">
-                            <div> <img src="images/categorias/logos//tcm.png" alt="" /></div>
+                            <div> <img src="images/logos//tcm.png" alt="" /></div>
                             <div> <h2>TC Mouras</h2></div>
                             <div> <img src="images/mayor.png" alt="" /></div>
                           </Link>
                         </div>
                         <div className="col cat">
                           <Link to='/tcpm' className="dropdown-item">
-                            <div> <img src="images/categorias/logos//tcpm.png" alt="" /></div>
+                            <div> <img src="images/logos//tcpm.png" alt="" /></div>
                             <div> <h2>TC Pista<br />Mouras</h2></div>
                             <div> <img src="images/mayor.png" alt="" /></div>
                           </Link>
                         </div>
                         <div className="col cat">
                           <Link to='/tcppk' className="dropdown-item">
-                            <div> <img src="images/categorias/logos//tcppk.png" alt="" /></div>
+                            <div> <img src="images/logos//tcppk.png" alt="" /></div>
                             <div> <h2>TC Pista<br />Pickup</h2></div>
                             <div> <img src="images/mayor.png" alt="" /></div>
                           </Link>
@@ -102,22 +102,22 @@ const Navbar = () => {
                   <div className="row">
                     <div className="col-3 cat">
                       <Link to='/tc2000' className="dropdown-item">
-                        <div> <img src="images/categorias/logos//tc2000.png" alt="" /></div>
+                        <div> <img src="images/logos//tc2000.png" alt="" /></div>
                         <div> <h2>TC 2000</h2></div>
                         <div> <img src="images/mayor.png" alt="" /></div>
                       </Link></div>
                     <div className="col-3 cat"><Link to='/tr' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//tr.png" alt="" /></div>
+                      <div> <img src="images/logos//tr.png" alt="" /></div>
                       <div> <h2>Top Race</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link></div>
                     <div className="col-3 cat">  <Link to='/tr-series' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//tr-series.png" alt="" /></div>
+                      <div> <img src="images/logos//tr-series.png" alt="" /></div>
                       <div> <h2>Top Race<br />Series</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link></div><div className="col-3 cat">
                       <Link to='/rally-argentino' className="dropdown-item">
-                        <div> <img src="images/categorias/logos//rally-argentino.png" alt="" /></div>
+                        <div> <img src="images/logos//rally-argentino.png" alt="" /></div>
                         <div> <h2>Rally<br />Argentino</h2></div>
                         <div> <img src="images/mayor.png" alt="" /></div>
                       </Link>
@@ -127,7 +127,7 @@ const Navbar = () => {
 
                     <div className="col-3 cat">
                       <Link to='/tp' className="dropdown-item">
-                        <div> <img src="images/categorias/logos//tp.png" alt="" /></div>
+                        <div> <img src="images/logos//tp.png" alt="" /></div>
                         <div> <h2>Turismo Pista</h2></div>
                         <div> <img src="images/mayor.png" alt="" /></div>
                       </Link>
@@ -144,25 +144,25 @@ const Navbar = () => {
                 <div className="row">
                   <div className="col-3 cat">
                     <Link to='/f1' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//f1.png" alt="" /></div>
+                      <div> <img src="images/logos//f1.png" alt="" /></div>
                       <div> <h2>Fórmula 1</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link>
                   </div>
                   <div className="col-3 cat">
                     <Link to='/moto-gp' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//moto-gp.png" alt="" /></div>
+                      <div> <img src="images/logos//moto-gp.png" alt="" /></div>
                       <div> <h2>Moto GP</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link></div>
                   <div className="col-3 cat">   <Link to='/indycar-series' className="dropdown-item">
-                    <div> <img src="images/categorias/logos//indycar-series.png" alt="" /></div>
+                    <div> <img src="images/logos//indycar-series.png" alt="" /></div>
                     <div> <h2>Indycar<br />Series</h2></div>
                     <div> <img src="images/mayor.png" alt="" /></div>
                   </Link></div>
                   <div className="col-3 cat">
                     <Link to='/nascar' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//nascar.png" alt="" /></div>
+                      <div> <img src="images/logos//nascar.png" alt="" /></div>
                       <div> <h2>Nascar</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link>
@@ -171,28 +171,28 @@ const Navbar = () => {
                 <div className="row">
                   <div className="col-3 cat">
                     <Link to='/rally-mundial' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//rally-mundial.png" alt="" /></div>
+                      <div> <img src="images/logos//rally-mundial.png" alt="" /></div>
                       <div> <h2>Rally<br />Mundial</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link>
                   </div>
                   <div className="col-3 cat">
                     <Link to='/dakar' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//dakar.png" alt="" /></div>
+                      <div> <img src="images/logos//dakar.png" alt="" /></div>
                       <div> <h2>Dakar</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link>
                   </div>
                   <div className="col-3 cat">
                     <Link to='/tcr' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//tcr.png" alt="" /></div>
+                      <div> <img src="images/logos//tcr.png" alt="" /></div>
                       <div> <h2>TCR</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link>
                   </div>
                   <div className="col-3 cat">
                     <Link to='/formula-e' className="dropdown-item">
-                      <div> <img src="images/categorias/logos//formula-e.png" alt="" /></div>
+                      <div> <img src="images/logos//formula-e.png" alt="" /></div>
                       <div> <h2>Fórmula E</h2></div>
                       <div> <img src="images/mayor.png" alt="" /></div>
                     </Link>

@@ -44,9 +44,13 @@ const DetailVideosCat = () => {
         setNoticias(updatedNoticias);
         // Calcular el 10% del alto de la ventana
         const windowHeight = window.innerHeight;
-        const scrollPosition = 0.65 * windowHeight;
+        const scrollPosition = 0.50 * windowHeight;
         // Desplazamiento hacia arriba un 10% del alto de la ventana
         window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+        // Reproducir el video principal automáticamente
+        const videoPrincipal = document.getElementById('videoPrincipal');
+        const newVideoUrl = `https://www.youtube.com/embed/${selectedVideo.idVideo}?autoplay=1`;
+        videoPrincipal.src = newVideoUrl;
     };
 
     return (
@@ -57,16 +61,18 @@ const DetailVideosCat = () => {
                     {noticias.length > 0 && (
                         <div className="container-fluid">
                             <div className="row container-video-primario">
-                                <div className="video-primario" style={{ position: 'relative', width: '100%', paddingTop: '56.25%' }}>
+                                <div className="video-primario" style={{ position: 'relative', width: '80%', paddingTop: '56.25%' }}>
                                     <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '90%' }}>
                                         {noticias[0].video ? (
-                                            <iframe
-                                                src={`https://www.youtube.com/embed/${noticias[0].idVideo}`}
-                                                frameBorder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                                style={{ position: 'absolute', width: '100%', height: '100%', border: 'none', margin: '0', padding: '3rem' }}
-                                            ></iframe>
+                                     <iframe
+                                     id="videoPrincipal"
+                                     src={`https://www.youtube.com/embed/${noticias[0].idVideo}?autoplay=1`}
+                                     frameBorder="0"
+                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                     allowFullScreen
+                                     style={{ position: 'absolute', width: '100%', height: '100%', border: 'none', margin: '0', padding: '3rem', zIndex:'1111' }}
+                                 ></iframe>
+                                 
                                         ) : (
                                             <img className='img-fluid' src={`http://localhost:5000/${noticias[0].image}`} alt={`Imagen principal`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                         )}
@@ -81,7 +87,6 @@ const DetailVideosCat = () => {
                             </div>
                         </div>
                     )}
-                    {/* Renderizar los videos secundarios */}
                     {noticias.length > 1 && (
                         <div className="container-fluid">
                             <div className="row">

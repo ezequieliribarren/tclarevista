@@ -1,6 +1,0 @@
- 
-      {categoria === 'rally-argentino' ? (
-
-      ) : (
-
-      )}

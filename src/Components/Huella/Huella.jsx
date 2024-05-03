@@ -53,6 +53,8 @@ const Huella = () => {
                 return 'Fórmula E';
                 case 'tr-series':
                     return 'Top-Race Series';
+                    case 'arg-mundo':
+                        return 'Argentinos por el mundo';
             default:
                 return categoria; // Por defecto, devuelve la categoría tal como está
         }

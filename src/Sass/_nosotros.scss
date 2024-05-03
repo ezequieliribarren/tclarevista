@@ -62,7 +62,9 @@
     }
 }
 
-
+.banner-nosotros-mobile{
+    display: none;
+}
 #equipo {
     background: var(--Negro, #000);
 margin-top: 4rem;
@@ -158,16 +160,21 @@ border-bottom: 1px solid #FE0;
     }
 }
 
-@media (max-width: 865px) {
+@media (max-width: 930px) {
     .history-logo{
         display: none !important;
     }
 }
 
-@media (max-width: 667px) {
-    .history{
-        .images-container{
-            display: none !important;
-        }
+@media (max-width: 703px) {
+    .history-logo, .history-title, .history-title-img{
+  
+        display: none !important;
+    }
+
+    .banner-nosotros-mobile{
+        display: inherit !important;
+        display: flex;
+        justify-content: center;
     }
 }
