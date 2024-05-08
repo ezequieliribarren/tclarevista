@@ -16,14 +16,27 @@
 }
 
 .carrera-detail-carreras {
+
+    /* Estilos para cuando el cursor está sobre el enlace */
+    &:hover {
+        /* Agrega aquí los estilos que desees para el hover del enlace completo */
+        background-color: #000000;
+        /* Ejemplo: Cambia el color de fondo al pasar el cursor */
+        /* Otros estilos de hover que desees aplicar */
+    }
+}
+
+.carrera-detail-carreras {
     display: flex;
     justify-content: space-between;
     width: 100%;
     border-bottom: 1px solid var(--Negro, #000);
 
+
     .fecha-detail-carreras {
-        
+
         display: flex;
+
         h4 {
             background: var(--Amarillo, #FE0);
             font-family: goldman-regular;
@@ -71,9 +84,8 @@
         align-items: center;
         padding-right: 1rem;
 
-        img{
+        img {
             width: 9rem;
         }
     }
 }
-

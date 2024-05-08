@@ -134,10 +134,10 @@ const NoticiaDetail = () => {
                                             <p dangerouslySetInnerHTML={{ __html: noticia.cuerpo }}></p>
                                         </div>
                                     </div>
-                                    <div className='img-cuerpo-noticia-detail img-fluid'>
+                                    {/* <div className='img-cuerpo-noticia-detail img-fluid'>
                                         <img src={`http://localhost:5000/${noticia.image}`} alt="" />
 
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
 

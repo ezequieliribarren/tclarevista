@@ -5,15 +5,11 @@ const Radio = ({ url }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  // Manejar el clic en el div de la radio para mostrar el reproductor
+  // Manejar el clic en el div de la radio para mostrar el reproductor y reproducir automáticamente
   const handleRadioClick = () => {
     setUserInteracted(true);
-    setIsPlaying(!isPlaying);
-    if (!isPlaying) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
+    setIsPlaying(true); // Establecer el estado de reproducción como true
+    audioRef.current.play(); // Reproducir automáticamente
   };
 
   // Renderizar el componente dependiendo de si el usuario ha interactuado o no
@@ -36,7 +32,6 @@ const Radio = ({ url }) => {
           <h3>
              RADIO 890 AM
           </h3>
-         
         </div>
       )}
     </div>

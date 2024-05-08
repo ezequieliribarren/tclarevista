@@ -20,7 +20,7 @@ const DetailCampeonatoCat = () => {
   const context = useTablaCampeonato();
 
   const copaDeOroURL = context[0]?.c[2]?.v || '';
-  
+
 
   const renderizarBotonCopaDeOro = () => {
     if (copaDeOroURL) {
@@ -125,7 +125,6 @@ const DetailCampeonatoCat = () => {
     } else if (nacionalidad && nacionalidad.includes('USA')) {
       return 'estados-unidos.png';
     } else {
-      // Si la nacionalidad no coincide con ninguna, puedes devolver una imagen por defecto
       return 'default.png';
     }
   };
@@ -332,16 +331,16 @@ const DetailCampeonatoCat = () => {
     <Layout background={categoria} logo={categoria}>
       <div className="container-fluid" id='campeonato'>
         <div className="row">
-       
-            <div className='select-campeonato'>
-              {(categoria === 'tc' || categoria === 'tcp' || categoria === 'tcm' || categoria === 'tcpk' || categoria === 'tcppk' || categoria === 'tcm') && <button className={`button-campeonato ${tipoCampeonato === 'regular' ? 'selected' : ''}`} onClick={() => handleTipoCampeonatoChange('regular')}>Tabla Regular</button>}
-              {renderizarBotonCopaDeOro()}
+
+          <div className='select-campeonato'>
+            {(categoria === 'tc' || categoria === 'tcp' || categoria === 'tcm' || categoria === 'tcpk' || categoria === 'tcppk' || categoria === 'tcm') && <button className={`button-campeonato ${tipoCampeonato === 'regular' ? 'selected' : ''}`} onClick={() => handleTipoCampeonatoChange('regular')}>Tabla Regular</button>}
+            {renderizarBotonCopaDeOro()}
+          </div>
+          {loading && (
+            <div className="spinner-container">
+              <ClipLoader color="#FE0" size={80} />
             </div>
-            {loading && (
-              <div className="spinner-container">
-                <ClipLoader color="#FE0" size={80} />
-              </div>
-            )} <h2>{campeonatoData.length > 0 && campeonatoData[0].disputadas}</h2>           <div className="col-lg-10">
+          )} <h2>{campeonatoData.length > 0 && campeonatoData[0].disputadas}</h2>           <div className="col-lg-10">
             {!loading && categoria === 'tp' && <TableTp campeonatoData={campeonatoData} />}
             {!loading && categoria === 'tn' && <TableTn campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} />}
             {!loading && categoria === 'rally-argentino' && <TableRallyArgentino campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} />}

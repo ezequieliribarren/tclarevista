@@ -64,7 +64,7 @@ const Vivo = () => {
     if (cargandoF1) {
       // Mostrar un cliploader mientras se carga la información de F1
       return         <div className="loader">
-      <span className="loader-text">Verificando carreras en vivo...</span>
+      <span style={{color: "#fe0"}} className="loader-text">Verificando carreras en vivo...</span>
   </div>;
     } else if (mostrarF1) {
       // Renderizar componente de F1

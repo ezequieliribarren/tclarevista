@@ -87,6 +87,14 @@ a {
     animation: blink 1.5s infinite;
 }
 
+.disabled-link {
+    pointer-events: none; 
+    opacity: 0.6;
+    text-decoration: none;
+    cursor: not-allowed; 
+
+  }
+
 @font-face {
     font-family: "goldman-regular";
     src: url(/public/fonts/Goldman-Regular.ttf);

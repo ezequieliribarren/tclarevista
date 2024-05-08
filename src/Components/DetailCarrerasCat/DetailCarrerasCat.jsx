@@ -20,7 +20,6 @@ const DetailCarrerasCat = () => {
     window.scrollTo(0, 0); // Desplaza la página hacia arriba cuando el componente se monta
   }, []); // El segundo argumento es un array vacío para que el efecto se ejecute solo una vez al montar el componente
 
-
   const formatDate = (dateString) => {
     const months = [
       "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -94,6 +93,8 @@ const DetailCarrerasCat = () => {
       context = [];
   }
 
+  const currentDate = new Date();
+
   return (
     <Layout background={categoria} logo={categoria}>
       <main>
@@ -101,35 +102,43 @@ const DetailCarrerasCat = () => {
           <div className="row">
             <div className="col-lg-10">
               <div className='title-detail-carreras'><h2>Carreras</h2></div>
-              {context.length > 0 && context.map((item, index) => (
-                <Link
-                  key={index}
-                  to={categoria !== 'tc2000' && categoria !== 'tn' ? `/${categoria}/carreras/${index}` : '#'}
-                  component={() => <DetailFecha rowData={item} />}
-                  className={`row carrera-detail-carreras ${categoria === 'tc2000' || categoria === 'tn' ? 'disabled-link' : ''}`}
-                >
-                  <div className="col-4 fecha-detail-carreras">
-                    <h4 className='h4-nro-tabla'>{item.c[0]?.v}</h4>
-                    <h3>{item.c[2]?.v && formatDate(item.c[2].v)}</h3>
-                  </div>
-                  <div className="col-4 lugar-detail-carreras">
-                    <div>
-                      <img src="images/separator.png" alt="Separador" />
+              {context.length > 0 && context.map((item, index) => {
+                const eventDate = new Date(item.c[2]?.v); // Convertir la fecha del evento a objeto Date
+                const isPastEvent = eventDate < currentDate;
+                const isFutureEvent = eventDate > currentDate;
+                const isSameDay = eventDate.toDateString() === currentDate.toDateString();
+                const isConfirmedEvent = item.c[3]?.v === "A confirmar";
+
+                return (
+                  <Link
+                    key={index}
+                    to={isFutureEvent ? '#' : `/${categoria}/carreras/${index}`}
+                    component={() => <DetailFecha rowData={item} />}
+                    className={`row carrera-detail-carreras ${isConfirmedEvent || (isFutureEvent && !isSameDay) ? 'disabled-link' : ''}`}
+                  >
+                    <div className="col-4 fecha-detail-carreras">
+                      <h4 className='h4-nro-tabla'>{item.c[0]?.v}</h4>
+                      <h3>{item.c[2]?.v && formatDate(item.c[2].v)}</h3>
                     </div>
-                    <div>
-                      <img src={item.c[5]?.v} alt="Bandera" />
+                    <div className="col-4 lugar-detail-carreras">
+                      <div>
+                        <img src="images/separator.png" alt="Separador" />
+                      </div>
+                      <div>
+                        <img src={item.c[5]?.v} alt="Bandera" />
+                      </div>
+                      <div>
+                        <h3>{item.c[3]?.v}</h3>
+                      </div>
                     </div>
-                    <div>
-                      <h3>{item.c[3]?.v}</h3>
+                    <div className="col-4 circuito-detail-carreras">
+                      <div>
+                        <img src={item.c[4]?.v} alt="" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-4 circuito-detail-carreras">
-                    <div>
-                      <img src={item.c[4]?.v} alt="" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
             <div className="col-lg-2">
               <PublicidadVertical none={'none'} />
