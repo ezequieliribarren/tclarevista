@@ -66,10 +66,10 @@ const Domingo = () => {
           'http://localhost:5000/ip3menu',
           'http://localhost:5000/ip4menu'
         ];
-
+  
         const responses = await Promise.all(urls.map(url => fetch(url)));
         const jsonResponses = await Promise.all(responses.map(response => response.json()));
-
+  
         const allData = jsonResponses.reduce((acc, response, index) => {
           const url = urls[index]; // Obtener la URL correspondiente al índice actual
           response.forEach(item => {
@@ -81,8 +81,7 @@ const Domingo = () => {
           });
           return acc.concat(response);
         }, []);
-
-
+  
         // Unificar los datos de todos los endpoints en un solo array
         const mergedData = allData.reduce((acc, item) => {
           if (item.title === "Domingo") {
@@ -96,17 +95,16 @@ const Domingo = () => {
           }
           return acc;
         }, []);
-
+  
         console.log('Datos procesados:', mergedData);
-
-
+  
         // Ordenar los datos según el estado
         mergedData.sort((a, b) => {
           if (a.estado === "vivo") return -1;
           if (a.estado === "" && b.estado !== "vivo") return -1;
           return 1;
         });
-
+  
         setData(mergedData);
         setLoading(false);
       } catch (error) {
@@ -114,8 +112,15 @@ const Domingo = () => {
         setLoading(false);
       }
     };
-
+  
+    // Llamar fetchData una vez al principio
     fetchData();
+  
+    // Establecer el intervalo para realizar el fetch cada 30 segundos
+    const interval = setInterval(fetchData, 30000);
+  
+    // Limpiar el intervalo al desmontar el componente para evitar fugas de memoria
+    return () => clearInterval(interval);
   }, []);
 
 
@@ -133,9 +138,9 @@ const Domingo = () => {
     <div className='contenedor-vivo'>
     <h3 className='h3-sab-dom'>Domingo</h3>
     {loading ? (
-      <div className="spinner-container">
-        <ClipLoader color="#FE0" size={80} />
-      </div>
+        <div className="spinner-container">
+          <span style={{ color: "#FE0" }} className="loader-text">Verificando carreras en vivo...</span>
+        </div>
     ) : (
       <Slider className='slider-vivo' {...slickSettings}>
         {data.map((item, idx) => (

@@ -124,6 +124,18 @@ a {
     margin-left: 1.5rem;
   }
 
+  .contador {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .progress-bar {
+    height: 5px;
+    background-color: #ccc;
+    margin-top: 10px;
+    transition: width 1s ease-in-out;
+  }
+
 @keyframes titilar {
     0% {
         opacity: 1;

@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners';
 import PreloaderVivo from '../Components/PreloaderVivo/PreloaderVivo';
 import Semaforo from '../Components/Semaforo/Semaforo';
 import BanderaCuadros from '../Components/BanderaCuadros/BanderaCuadros';
+import Contador from '../Components/Contador/Contador';
 
 const ResultadoEnVivo = () => {
   const { tanda, ip } = useParams();
@@ -13,7 +14,7 @@ const ResultadoEnVivo = () => {
   const [loading, setLoading] = useState(true);
   const [menu, setMenu] = useState([]);
   const [tandasPrimerBotonera, setTandasPrimerBotonera] = useState([]);
-
+  const [tandaEstado, setTandaEstado] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,11 @@ const ResultadoEnVivo = () => {
       }
     };
 
-    fetchData();
+    const interval = setInterval(() => {
+      fetchData(); // Realizar un nuevo intento de fetch cada 10 segundos
+    }, 10000);
+
+    return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
   }, [ip]);
 
   useEffect(() => {
@@ -112,51 +117,49 @@ const ResultadoEnVivo = () => {
             <PreloaderVivo />
           </div>
         )}
-        {!loading && (
-          <div className='contenedor-botonera'>
-            {menu.slice(2).map((item, index) => {
-              return (
-                <div className="up-botonera" key={index}>
-                  <h2>{item.circuito}</h2>
-                </div>
-              );
-            })}
-            <div className='botonera'>
-              {menu.slice(0, -1).map((item, index) => {
-                const filteredItems = item.items.filter((tandaItem) => !tandaItem.tanda.toLowerCase().includes('grilla'));
+{!loading && tandaSeleccionada && (
+  <div className='contenedor-botonera'>
+    {menu.slice(2).map((item, index) => {
+      return (
+        <div className="up-botonera" key={index}>
+          <h2>{item.circuito}</h2>
+        </div>
+      );
+    })}
+    <div className='botonera'>
+      {menu.map((item, index) => {
+        const filteredItems = item.items.filter((tandaItem) => !tandaItem.tanda.toLowerCase().includes('grilla'));
 
-                return (
-                  <div style={{ display: "flex" }} className='buttons-vivo' key={index}>
-                    <div style={{ width: "auto" }} className='day-carreras'>
-                      <h4>{item.title}</h4>
-                    </div>
-                    {filteredItems.map((tandaItem, subIndex) => (
-                      <button className='button-tanda' key={subIndex} onClick={() => handleTandaClick(tandaItem.tanda)}>{tandaItem.tanda}</button>
-                    ))}
-                  </div>
-                );
-              })}
-              <div style={{ opacity: "0", display: "flex" }} className="segunda-botonera">
-                {tandas.map((tandaItem, index) => (
-                  <div className='buttons-vivo' key={index}>
-                    <button
-                      className={`button-tanda ${tandaItem.Tanda === tandaSeleccionada ? 'seleccionado' : ''}`}
-                      onClick={() => handleTandaClick(tandaItem.Tanda)}
-                      style={{
-                        backgroundColor: tandaItem.Tanda === tandaSeleccionada ? '#fe0' : '',
-                        color: tandaItem.Tanda === tandaSeleccionada ? '#000' : '',
-                      }}
-                    >
-                      {tandaItem.Tanda}
-                    </button>
-                  </div>
-                ))}
-              </div>
+        return (
+          <div style={{ display: "flex" }} className='buttons-vivo' key={index}>
+            <div style={{ width: "auto" }} className='day-carreras'>
+              <h4>{item.title}</h4>
             </div>
+            {filteredItems.map((tandaItem, subIndex) => (
+              <button className='button-tanda' key={subIndex} onClick={() => handleTandaClick(tandaItem.tanda)}>{tandaItem.tanda}</button>
+            ))}
           </div>
-
-        )}
-
+        );
+      })}
+      <div style={{ opacity: "0", display: "flex", widht: "100%", overflow: "hidden"}} className="segunda-botonera">
+        {tandas.map((tandaItem, index) => (
+          <div className='buttons-vivo' key={index}>
+            <button
+              className={`button-tanda ${tandaItem.Tanda === tandaSeleccionada ? 'seleccionado' : ''}`}
+              onClick={() => handleTandaClick(tandaItem.Tanda)}
+              style={{
+                backgroundColor: tandaItem.Tanda === tandaSeleccionada ? '#fe0' : '',
+                color: tandaItem.Tanda === tandaSeleccionada ? '#000' : '',
+              }}
+            >
+              {tandaItem.Tanda}
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
         {!loading && tandaSeleccionada && (
           <TablaResultado tanda={tandas.find((t) => t.Tanda === tandaSeleccionada)} obtenerRutaImagen={obtenerRutaImagen} obtenerNumeroMarca={obtenerNumeroMarca} />
         )}
@@ -177,7 +180,8 @@ const TablaResultado = ({ tanda, obtenerRutaImagen, obtenerNumeroMarca }) => {
       </div>
       <table className="tabla-resultado container-fluid">
         <thead>
-          <tr className='row'>
+        {/* {tanda.Estado === "vivo" && <Contador />}           */}
+        <tr className='row'>
             <th className='pos-carreras col-1'><h4>Pos</h4></th>
             <th className='piloto-carreras col-4'><h4>Piloto</h4></th>
             <th className='img-carreras col-2'><h4>Marca</h4></th>
@@ -217,3 +221,4 @@ const TablaResultado = ({ tanda, obtenerRutaImagen, obtenerNumeroMarca }) => {
 };
 
 export default ResultadoEnVivo;
+

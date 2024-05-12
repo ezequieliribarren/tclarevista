@@ -9,7 +9,7 @@ const PreloaderVivo = () => {
       if (progress < 100) {
         setProgress((prevProgress) => prevProgress + 1);
       }
-    }, 80); // 9 segundos en milisegundos
+    }, 90); // 9 segundos en milisegundos
 
     return () => clearInterval(interval);
   }, [progress]);

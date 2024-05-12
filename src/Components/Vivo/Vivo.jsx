@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ClipLoader from 'react-spinners/ClipLoader';
+import Slider from 'react-slick';
 import Sabado from '../Sabado/Sabado';
 import Domingo from '../Domingo/Domingo';
 import Viernes from '../Viernes/Viernes';
@@ -15,7 +15,7 @@ const Vivo = () => {
   const [diaActual, setDiaActual] = useState(obtenerDiaDeSemana());
   const [mostrarBotonTC, setMostrarBotonTC] = useState(false); // Estado para controlar la visibilidad del botón TC
   const [mostrarBotonF1, setMostrarBotonF1] = useState(false); // Estado para controlar la visibilidad del botón F1
-  const [cargandoF1, setCargandoF1] = useState(true); // Estado para controlar la carga de datos de F1
+  const [cargandoF1, setCargandoF1] = useState(false); // Estado para controlar la carga de datos de F1
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,12 +36,13 @@ const Vivo = () => {
           } else {
             setMostrarBotonF1(true); // Mostrar el botón de F1
           }
-          setCargandoF1(false); // La carga ha finalizado
         } else {
           console.error('Error al obtener los datos de F1');
         }
       } catch (error) {
         console.error('Error al realizar la solicitud fetch:', error);
+      } finally {
+        setCargandoF1(false); // Finaliza la carga de datos
       }
     };
 
@@ -61,12 +62,7 @@ const Vivo = () => {
   };
 
   const renderComponente = () => {
-    if (cargandoF1) {
-      // Mostrar un cliploader mientras se carga la información de F1
-      return <div className="loader">
-        <span style={{ color: "#fe0" }} className="loader-text">Verificando carreras en vivo...</span>
-      </div>;
-    } else if (mostrarF1) {
+    if (mostrarF1) {
       // Renderizar componente de F1
       return <div>F1 Componente</div>;
     } else {
