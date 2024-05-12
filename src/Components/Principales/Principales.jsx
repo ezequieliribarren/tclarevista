@@ -77,14 +77,7 @@ const Principales = () => {
                             </div>
                             <div className='news-video'>
                                 {noticia.video ? (
-                                    <iframe
-                                        src={`https://www.youtube.com/embed/${noticia.idVideo}`}
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen
-                                        width="100%"
-                                        height="100%"
-                                    ></iframe>
+                                     <img className='img-fluid' src={noticia.miniatura} alt="Video" />
                                 ) : null}
                             </div>
 
@@ -100,7 +93,11 @@ const Principales = () => {
             <div className="col-lg-8 container-primarias" style={{ display: mostRecentIsPrimaria ? 'none' : 'block' }}>
                 {mostRecentVincular && (
                     <Link to={mostRecentVincular.link}>
-                        <div
+                         {mostRecentVincular.vivo && (
+                                <div className="vivo-vincular">
+                                    <h4>VIVO</h4>
+                                </div>
+                            )}<div
                             className="card-primarias mb-3"
                             style={{
                                 backgroundImage: `url(http://localhost:5000/${mostRecentVincular.image})`,
@@ -109,8 +106,8 @@ const Principales = () => {
                                 backgroundPosition: "top",
                                 color: 'white',
                             }}
-                        >   
-                            <div className='news-video'>
+                        >
+                            {/* <div className='news-video'>
                                 {mostRecentVincular.video && (
                                     <iframe
                                         src={`https://www.youtube.com/embed/${mostRecentVincular.idVideo}`}
@@ -121,8 +118,8 @@ const Principales = () => {
                                         height="100%"
                                     ></iframe>
                                 )}
-                            </div>
-
+                            </div> */}
+                           
                             <div className='title-subtitle'>
                                 <h2>{mostRecentVincular.title}</h2>
                             </div>
@@ -154,15 +151,7 @@ const Principales = () => {
                                 {/* <Link to={`/noticia/${noticia.id}`} className='video-link'></Link> */}
                                 <div className='news-video'>
                                     {noticia.video ? (
-                                        <iframe
-                                            src={`https://www.youtube.com/embed/${noticia.idVideo}`}
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen
-                                            width="100%"
-                                            height="90%"
-
-                                        ></iframe>
+                                         <img className='img-fluid' src={noticia.miniatura} alt="Video" />
                                     ) : null}
                                 </div>
 
@@ -196,14 +185,7 @@ const Principales = () => {
                                 {/* <Link to={`/noticia/${noticia.id}`} className='video-link'></Link> */}
                                 <div className='news-video'>
                                     {noticia.video ? (
-                                        <iframe
-                                            src={`https://www.youtube.com/embed/${noticia.idVideo}`}
-                                            frameborder="0"
-                                            width="100%"
-                                            height="100%"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen
-                                        ></iframe>
+                                      <img className='img-fluid' src={noticia.miniatura} alt="Video" />
                                     ) : null}
                                 </div>
                                 <div className='title-subtitle'>

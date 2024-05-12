@@ -28,14 +28,7 @@ const Generales = () => {
                     <div className="card-general mb-3">
                         <div className='card-general-img'>
                             {noticia.video ? (
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${noticia.idVideo}`}
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen
-                                    width="100%"
-                                    height="100%"
-                                ></iframe>
+                                <img className='img-fluid' src={noticia.miniatura} alt="Video" />
                             ) : (
                                 <img className='img-fluid' src={`http://localhost:5000/${noticia.image}`} alt={noticia.title} />
                             )}

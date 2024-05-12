@@ -70,6 +70,11 @@
     border-right: solid 1px #FE0;
     width: 100%;
 
+    :hover {
+        background-color: rgb(0, 0, 0);
+        border-radius: 8px;
+    }
+
 
     .contenedor-tanda {
         height: 50%;
@@ -122,13 +127,43 @@
 
 
 // RESULTADOS EN VIVO
+.contenedor-botonera {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+.h2-tanda-vivo{
+    color: var(--Amarillo, rgb(255, 255, 255));
+    font-family: goldman-bold;
+    font-size: 2.8rem;
+}
+
+.up-botonera {
+    width: 95%;
+    height: 40% !important;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);
+
+    h2 {
+        color: var(--Amarillo, #FE0);
+        font-family: goldman-bold;
+        font-size: 3rem;
+    }
+}
 
 .botonera {
-    height: 15rem;
+    width: 95%;
+    height: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    background: var(--Negro, #000);
+    padding-top: 2rem;
 
     .button-tanda {
         text-align: center;

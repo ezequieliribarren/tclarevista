@@ -63,9 +63,9 @@ const Vivo = () => {
   const renderComponente = () => {
     if (cargandoF1) {
       // Mostrar un cliploader mientras se carga la información de F1
-      return         <div className="loader">
-      <span style={{color: "#fe0"}} className="loader-text">Verificando carreras en vivo...</span>
-  </div>;
+      return <div className="loader">
+        <span style={{ color: "#fe0" }} className="loader-text">Verificando carreras en vivo...</span>
+      </div>;
     } else if (mostrarF1) {
       // Renderizar componente de F1
       return <div>F1 Componente</div>;
@@ -86,8 +86,8 @@ const Vivo = () => {
 
   return (
     <div>
-      {mostrarBotonTC && <button className='button-tanda' onClick={() => setMostrarF1(false)}>TC</button>}
-      {mostrarBotonF1 && <button className='button-tanda' onClick={() => setMostrarF1(true)}>F1</button>}
+      {mostrarBotonTC && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(false)}>NACIONALES</button>}
+      {mostrarBotonF1 && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(true)}>F1</button>}
       {renderComponente()}
     </div>
   );

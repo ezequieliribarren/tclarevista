@@ -57,14 +57,7 @@ const PrincipalesCategoria = ({ cat }) => {
                             </div>
                             <div className='news-video'>
                                 {noticias[0].video ? (
-                                    <iframe
-                                        src={`https://www.youtube.com/embed/${noticias[0].idVideo}`}
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen
-                                        width="100%"
-                                        height="100%"
-                                    ></iframe>
+                                     <img className='img-fluid' src={noticias.miniatura} alt="Video" />
                                 ) : null}
                             </div>
                             <div className='title-subtitle'>
@@ -93,14 +86,7 @@ const PrincipalesCategoria = ({ cat }) => {
                                 </div>
                                 <div className='news-video'>
                                     {noticia.video ? (
-                                        <iframe
-                                            src={`https://www.youtube.com/embed/${noticia.idVideo}`}
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen
-                                            width="100%"
-                                            height="90%"
-                                        ></iframe>
+                                      <img className='img-fluid' src={noticias.miniatura} alt="Video" />
                                     ) : null}
                                 </div>
                                 <div className='title-subtitle'>
@@ -128,14 +114,7 @@ const PrincipalesCategoria = ({ cat }) => {
                                 </div>
                                 <div className='news-video'>
                                     {noticia.video ? (
-                                        <iframe
-                                            src={`https://www.youtube.com/embed/${noticia.idVideo}`}
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen
-                                            width="100%"
-                                            height="100%"
-                                        ></iframe>
+                                 <img className='img-fluid' src={noticias.miniatura} alt="Video" />
                                     ) : null}
                                 </div>
                                 <div className='title-subtitle'>

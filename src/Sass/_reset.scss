@@ -25,15 +25,16 @@ html {
 }
 
 
-.margin-title{
+.margin-title {
     margin: 4rem 0;
 }
 
-body, main {
+body,
+main {
     background-color: var(--gris-oscuro-fondo, #323232) !important;
 }
 
-.spinner-container{
+.spinner-container {
     display: flex;
     justify-content: center;
 }
@@ -50,7 +51,7 @@ a {
 }
 
 
-.clicked-button{
+.clicked-button {
     background-color: #323232 !important;
 }
 
@@ -65,9 +66,11 @@ a {
     0% {
         opacity: 0;
     }
+
     50% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
@@ -88,12 +91,69 @@ a {
 }
 
 .disabled-link {
-    pointer-events: none; 
+    pointer-events: none;
     opacity: 0.6;
     text-decoration: none;
-    cursor: not-allowed; 
+    cursor: not-allowed;
 
+}
+
+.custom-iframe {
+    height: calc(100% - 70rem - 50rem) !important;
+    margin-top: 70rem !important;
+    margin-bottom: 50rem !important;
+}
+
+.preloader-container {
+    width: 300px;
+    margin: 50px auto;
   }
+  
+  .preloader {
+    width: 100%;
+    opacity: 0;
+  }
+  
+  .progress-bar {
+    height: 10px;
+    background-color: #fe0;
+    margin-top: 10px;
+  }
+
+  .semaforo{
+    margin-left: 1.5rem;
+  }
+
+@keyframes titilar {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Aplica la animación al div */
+.vivo-vincular {
+    animation: titilar 1s infinite;
+    /* La animación dura 1 segundo y se repite infinitamente */
+    width: 6rem;
+    height: 2rem;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    h4 {
+        color: red !important;
+        font-weight: 800;
+        font-size: 1.5rem;
+    }
+
+
+}
 
 @font-face {
     font-family: "goldman-regular";
@@ -128,8 +188,7 @@ a {
 
 
 @media (max-width: 1000px) {
-.none-lg{
-    display: none;
+    .none-lg {
+        display: none;
+    }
 }
-}
-

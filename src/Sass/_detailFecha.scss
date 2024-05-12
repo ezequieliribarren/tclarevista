@@ -72,32 +72,34 @@
         width: 100%;
     }
 
-    .description-pilotos-carreras{
+    .description-pilotos-carreras {
         width: 100% !important;
     }
 
-    .title-carreras-th{
+    .title-carreras-th {
         height: 6.5rem;
         width: 100% !important;
-      background-color: #C4C4C4;
-        h4{
+        background-color: #C4C4C4;
+
+        h4 {
             color: #000000;
         }
     }
 
-    .img-carreras-td{
+    .img-carreras-td {
         border-bottom: white solid 1px;
-        img{
-         width: 6rem;   
+
+        img {
+            width: 6rem;
         }
-        
+
     }
 
 }
 
 
 .button-tanda {
-    width: 21rem;
+    width: 23rem;
     height: 4rem;
     border: 1px solid var(--Amarillo, #FE0);
     background: var(--Negro, #000);
@@ -105,6 +107,15 @@
     font-family: goldman-regular;
     font-size: 2rem;
     padding: 0.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* Agrega puntos suspensivos (...) al final del texto truncado */
+}
+
+.button-tanda:hover {
+    background-color: #FE0;
+    color: #000;
 }
 
 .button-pilotos,
@@ -161,6 +172,7 @@
         .buttons-up-carreras,
         .buttons-down-carreras {
             display: flex;
+            flex-wrap: wrap;
             justify-content: start;
             align-items: start;
             margin: 1rem 0;
@@ -173,22 +185,24 @@
             /* Agrega aquí cualquier otro estilo que desees */
         }
 
-        .day-carreras {
-            width: 6.5rem;
-            height: 4rem;
-            background: var(--Gris-claro, #C4C4C4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid var(--Amarillo, #FE0);
 
-            h4 {
-                font-family: goldman-bold;
-                font-size: 2rem;
-            }
-
-        }
     }
+}
+
+.day-carreras {
+    width: 6.5rem;
+    height: 4rem;
+    background: var(--Gris-claro, #C4C4C4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--Amarillo, #FE0);
+
+    h4 {
+        font-family: goldman-bold;
+        font-size: 2rem;
+    }
+
 }
 
 .contenedor-table-carreras {
@@ -205,5 +219,3 @@
 
 
 // RALLY
-
-

@@ -88,6 +88,15 @@ tr {
 
 .img-carreras-td {
     height: 100%;
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+    img{
+width: 5.5rem;
+    }
 }
 
 

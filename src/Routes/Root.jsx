@@ -8,6 +8,7 @@ import Generales from '../Components/Generales/Generales'
 import CallActionVideos from '../Components/CallActionVideos/CallActionVideos'
 import CallActionCarreras from '../Components/CallActionCarreras/CallActionCarreras'
 import Vivo from '../Components/Vivo/Vivo'
+import VideosCarousel from '../Components/VideosCarousel/VideosCarousel'
 
 const Root = () => {
 
@@ -39,13 +40,14 @@ const Root = () => {
                   <PublicidadVertical />
                 </div>
               </div>
+            </div>            
+            <div className="row">
+             <VideosCarousel/>
             </div>
             <div className="row">
               <BannerRadio />
             </div>
-            <div className="row">
-              <CallActionVideos />
-            </div>
+
             <div className="row">
               <PubliHorizontal />
             </div>

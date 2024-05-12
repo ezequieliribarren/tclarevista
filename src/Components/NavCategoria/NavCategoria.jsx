@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Huella from '../Huella/Huella';
 
-const NavCategoria = ({ background, logo, param , hideHuella  }) => {
+const NavCategoria = ({ background, logo, param, hideHuella }) => {
     // Obtener los parámetros de la URL
     const { categoria } = useParams();
     const location = useLocation();
@@ -15,13 +15,18 @@ const NavCategoria = ({ background, logo, param , hideHuella  }) => {
     const isArgMundo = categoria === "arg-mundo";
     const isDakar = categoria === "dakar";
 
+    // Si es alguna de estas categorías, no renderiza la barra de navegación
+    if (isTcr || isArgMundo || isDakar) {
+        return null;
+    }
+
     // Construir las URLs para las diferentes secciones de la categoría
     const categoriaUrl = `/${categoria || param}/`;
     const noticiasUrl = `/${categoria || param}/noticias`;
-    const videosUrl = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/videos`;
-    const carrerasUrl = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/carreras`;
-    const campeonatoUrl = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/campeonato`;
-    const campeonatoUrlTc2000 = isTcr || isArgMundo || isDakar ? null : `/${categoria || param}/campeonatoTc2000`;
+    const videosUrl = `/${categoria || param}/videos`;
+    const carrerasUrl = `/${categoria || param}/carreras`;
+    const campeonatoUrl = `/${categoria || param}/campeonato`;
+    const campeonatoUrlTc2000 = `/${categoria || param}/campeonatoTc2000`;
 
     // Estado para mantener el botón activo
     const [activeButton, setActiveButton] = useState('');
@@ -43,7 +48,7 @@ const NavCategoria = ({ background, logo, param , hideHuella  }) => {
         <>
             <nav className="navbar navbar-expand nav-categoria">
                 <Link className={`navbar-brand  ${activeButton === '' ? '' : 'no-active'}`} to={categoriaUrl} onClick={() => handleButtonClick('')}>
-                    <img  src={`images/logos/${logo || param}.png`} alt={`${logo}.png`} />
+                    <img src={`images/logos/${logo || param}.png`} alt={`${logo}.png`} />
                 </Link>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav">
@@ -76,7 +81,7 @@ const NavCategoria = ({ background, logo, param , hideHuella  }) => {
                     </ul>
                 </div>
             </nav>
-            {!hideHuella && <Huella currentSection={{ videos: videosUrl, carreras: carrerasUrl, campeonato: campeonatoUrl }} />} 
+            {!hideHuella && <Huella currentSection={{ videos: videosUrl, carreras: carrerasUrl, campeonato: campeonatoUrl }} />}
         </>
     );
 }

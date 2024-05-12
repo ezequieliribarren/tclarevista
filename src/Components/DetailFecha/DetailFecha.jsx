@@ -152,15 +152,10 @@ const DetailFecha = ({ rowData }) => {
 
   useEffect(() => {
     const fetchLastButtonData = async () => {
-      if (categoria !== 'rally-mundial') {
-        setLoading(true);
-        try {
-          let lastButton;
-          if (categoria === 'rally-argentino') {
-            lastButton = getLastButtonRallyArgentino(context[id]);
-          } else {
-            lastButton = getLastButton();
-          }
+      setLoading(true);
+      try {
+        const lastButton = localStorage.getItem('lastButton');
+        if (lastButton) {
           const response = await fetch(`http://localhost:5000/${categoria}/${lastButton}/${id}`);
           if (response.ok) {
             const jsonData = await response.json();
@@ -170,17 +165,17 @@ const DetailFecha = ({ rowData }) => {
             console.error(`Error al obtener los datos de ${categoria}/${lastButton}/${id}`);
             setRaceData([]);
           }
-        } catch (error) {
-          console.error('Error al realizar la solicitud:', error);
-          setRaceData([]);
-        } finally {
-          setLoading(false);
         }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+        setRaceData([]);
+      } finally {
+        setLoading(false);
       }
     };
-
+  
     fetchLastButtonData();
-  }, [categoria, id]);
+  }, []); // Sin dependencias, se ejecuta solo una vez al montar el componente
 
   // RALLY MUNDIAL
   const handleButtonClickRally = async (selectedButton) => {
@@ -334,8 +329,16 @@ const DetailFecha = ({ rowData }) => {
 
   // Función para manejar el clic en un botón del menú
   const handleMenuButtonClick = (buttonName) => {
-    console.log("Botón clickeado:", buttonName);
-    const buttonInfo = actcButtons.find(button => button.tanda === buttonName);
+    localStorage.setItem('lastButton', buttonName);
+    const buttonInfo = actcButtons.find(button => {
+      if (Array.isArray(button.tanda)) {
+        // Si la tanda es un array, busca en cada opción
+        return button.tanda.includes(buttonName);
+      } else {
+        // Si la tanda no es un array, busca la coincidencia directamente
+        return button.tanda === buttonName;
+      }
+    });
     if (buttonInfo) {
       fetchSpecificData(buttonInfo.endpoint);
     } else {
@@ -350,11 +353,12 @@ const DetailFecha = ({ rowData }) => {
     { tanda: "4\u00BA Entrenamiento", endpoint: "en4" },
     { tanda: "5\u00BA Entrenamiento", endpoint: "en5" },
     { tanda: "6\u00BA Entrenamiento", endpoint: "en6" },
-    { tanda: "Clasificación", endpoint: "clasificacion" },
-    { tanda: "1\u00BA Serie", endpoint: "serie1" },
-    { tanda: "2\u00BA Serie", endpoint: "serie2" },
-    { tanda: "3\u00BA Serie", endpoint: "serie3" },
-    { tanda: "Final", endpoint: "final" }
+    { tanda: "1\u00BA Pruebas Libres", endpoint: "en6" },
+    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024"  ], endpoint: "clasificacion" },
+    { tanda: ["1\u00BA Serie", "Clasificación 1º al 10º TRV6 2024"], endpoint: "serie1" },
+    { tanda: ["2\u00BA Serie", "Clasificación 1º al 5º TRV6 2024","Clasificación Especial Top Race V6"], endpoint: "serie2" },
+    { tanda: ["3\u00BA Serie", "Sprint 2024"], endpoint: "serie3" },
+    { tanda: ["Final", "Final 2024"], endpoint: "final" }
   ];
 
   return (
@@ -1130,7 +1134,6 @@ const DetailFecha = ({ rowData }) => {
                     )}
 
                   </div> */}
-
                   <div className="buttons-pilotos-horarios">
                     {context[id]?.c[7]?.v && (
                       <button value={context[id]?.c[7]?.v} className={`button-pilotos ${selectedButton === 'pilotos' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('pilotos', 'Pilotos')}>Pilotos</button>

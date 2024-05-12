@@ -22,8 +22,8 @@ const Viernes = () => {
         return "TC Pista Pickup";
       case "TCM":
         return "TC Mouras";
-        case "TCPM":
-            return "TC Pista";
+      case "TCPM":
+        return "TC Pista";
       default:
         return code; // Devolver el código original si no coincide con ninguno
     }
@@ -42,38 +42,46 @@ const Viernes = () => {
         return "images/logos/tcppk.png";
       case "TCM":
         return "images/logos/tcm.png";
-        case "TCPM":
-            return "images/logos/tcpm.png";
+      case "TCPM":
+        return "images/logos/tcpm.png";
+      case "TN 3":
+        return "images/logos/tn.png";
+        case "TN 2":
+          return "images/logos/tn.png";
       default:
         return ""; // Devolver una cadena vacía si no coincide con ninguno
     }
   };
 
+  const normalizeTanda = (tanda) => {
+    return tanda.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  };
+
   useEffect(() => {
-   const fetchData = async () => {
-  try {
-    const urls = [
-      'http://localhost:5000/ip1',
-      'http://localhost:5000/ip2',
-      'http://localhost:5000/ip3',
-      'http://localhost:5000/ip4'
-    ];
+    const fetchData = async () => {
+      try {
+        const urls = [
+          'http://localhost:5000/ip1menu',
+          'http://localhost:5000/ip2menu',
+          'http://localhost:5000/ip3menu',
+          'http://localhost:5000/ip4menu'
+        ];
 
-    const responses = await Promise.all(urls.map(url => fetch(url)));
-    const jsonResponses = await Promise.all(responses.map(response => response.json()));
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+        const jsonResponses = await Promise.all(responses.map(response => response.json()));
 
-    const allData = jsonResponses.reduce((acc, response, index) => {
-      const url = urls[index]; // Obtener la URL correspondiente al índice actual
-      response.forEach(item => {
-        // Agregar la URL como una propiedad a cada objeto de datos
-        item.url = url;
-        // Además, asegurémonos de que el objeto tenga una propiedad 'tanda'
-        // para evitar errores posteriores
-        item.tanda = item.tanda || '';
-      });
-      return acc.concat(response);
-    }, []);
-      
+        const allData = jsonResponses.reduce((acc, response, index) => {
+          const url = urls[index]; // Obtener la URL correspondiente al índice actual
+          response.forEach(item => {
+            // Agregar la URL como una propiedad a cada objeto de datos
+            item.url = url;
+            // Además, asegurémonos de que el objeto tenga una propiedad 'tanda'
+            // para evitar errores posteriores
+            item.tanda = item.tanda || '';
+          });
+          return acc.concat(response);
+        }, []);
+
 
         // Unificar los datos de todos los endpoints en un solo array
         const mergedData = allData.reduce((acc, item) => {
@@ -88,7 +96,7 @@ const Viernes = () => {
           }
           return acc;
         }, []);
-        
+
         console.log('Datos procesados:', mergedData);
 
 
@@ -111,7 +119,6 @@ const Viernes = () => {
   }, []);
 
 
-
   // Configuración de Slick
   const slickSettings = {
     dots: true,
@@ -124,20 +131,22 @@ const Viernes = () => {
 
   return (
     <div className='contenedor-vivo'>
-      <h3 className='h3-sab-dom'>Viernes</h3>
-      {loading ? (
-        <div className="spinner-container">
-          <ClipLoader color="#FE0" size={80} />
-        </div>
-      ) : (
-        <Slider className='slider-vivo' {...slickSettings}>
-          {data.map((item, idx) => (
-        <Link
-        to={`/vivo/${item.categoria.toLowerCase()}/${item.tanda}/${item.ip}`}
-        className='vivo'
-        key={idx}
-        data-url={item.url} // Pasar la URL como una propiedad adicional
-      >
+    <h3 className='h3-sab-dom'>Viernes</h3>
+    {loading ? (
+      <div className="spinner-container">
+        <ClipLoader color="#FE0" size={80} />
+      </div>
+    ) : (
+      <Slider className='slider-vivo' {...slickSettings}>
+        {data.map((item, idx) => (
+          // Evitar renderizar el slider si el nombre de la tanda incluye "Grilla"
+          !item.tanda.toLowerCase().includes('grilla') && (
+            <Link
+              to={`/vivo/${item.categoria.toLowerCase()}/${item.tanda}/${item.ip}`}
+              className='vivo'
+              key={idx}
+              data-url={item.url} // Pasar la URL como una propiedad adicional
+            >
               <div className='vivo'>
                 <div className='contenedor-categoria-vivo'>
                   <div className='contenedor-img-categoria'>
@@ -173,6 +182,7 @@ const Viernes = () => {
                 </div>
               </div>
             </Link>
+          )
           ))}
         </Slider>
       )}
