@@ -31,7 +31,7 @@ const TablaCampeonatoActc = ({ campeonatoData, categoria, getMarcaImageUrl }) =>
               <h4 className='h4-piloto'>{item.piloto}</h4>
             </td>
             <td className="col-2 vueltas-carreras-td">
-              <h4>{item.victorias}</h4>
+            <td className='victorias-carreras-td col-2'><h4>{item.victorias.trim() !== '' ? item.victorias : '0'}</h4></td>
             </td>
           <td className="col-2 marca-carreras-td">
               {item.marca && <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt="" />}

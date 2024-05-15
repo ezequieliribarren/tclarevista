@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
 import Sabado from '../Sabado/Sabado';
 import Domingo from '../Domingo/Domingo';
 import Viernes from '../Viernes/Viernes';
+import { useRally } from '../../../Context/Context';
+import { HashLink as Link } from 'react-router-hash-link';
+
 
 const Vivo = () => {
   const obtenerDiaDeSemana = () => {
@@ -13,14 +15,18 @@ const Vivo = () => {
 
   const [mostrarF1, setMostrarF1] = useState(false);
   const [diaActual, setDiaActual] = useState(obtenerDiaDeSemana());
-  const [mostrarBotonTC, setMostrarBotonTC] = useState(false); // Estado para controlar la visibilidad del botón TC
-  const [mostrarBotonF1, setMostrarBotonF1] = useState(false); // Estado para controlar la visibilidad del botón F1
-  const [cargandoF1, setCargandoF1] = useState(false); // Estado para controlar la carga de datos de F1
+  const [mostrarBotonTC, setMostrarBotonTC] = useState(false);
+  const [mostrarBotonF1, setMostrarBotonF1] = useState(false);
+  const [mostrarBotonRally, setMostrarBotonRally] = useState(false);
+  const [cargandoF1, setCargandoF1] = useState(false);
+  const [idCarreraRally, setIdCarreraRally] = useState(null); // Estado para almacenar el ID de la carrera de rally
+
+  const contextRally = useRally();
 
   useEffect(() => {
     const interval = setInterval(() => {
       setDiaActual(obtenerDiaDeSemana());
-    }, 60000); // Actualizar cada 1 minuto
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -30,11 +36,10 @@ const Vivo = () => {
         const response = await fetch('http://localhost:5000/f1/live');
         if (response.ok) {
           const data = await response.json();
-          // Verificar si la situación es "Bandera a cuadros"
           if (data.statusData.situacion === "Bandera a cuadros") {
-            setMostrarBotonF1(false); // Ocultar el botón de F1
+            setMostrarBotonF1(false);
           } else {
-            setMostrarBotonF1(true); // Mostrar el botón de F1
+            setMostrarBotonF1(true);
           }
         } else {
           console.error('Error al obtener los datos de F1');
@@ -42,31 +47,46 @@ const Vivo = () => {
       } catch (error) {
         console.error('Error al realizar la solicitud fetch:', error);
       } finally {
-        setCargandoF1(false); // Finaliza la carga de datos
+        setCargandoF1(false);
       }
     };
 
-    // Llamar a la función fetchF1Data al montar el componente
     fetchF1Data();
-  }, []); // El segundo parámetro de useEffect es un array vacío, para que la función se ejecute solo una vez al montar el componente
+  }, []);
 
   useEffect(() => {
-    // Si el día actual es viernes, sábado o domingo, mostrar el botón TC
     if (diaActual === 'viernes' || diaActual === 'sábado' || diaActual === 'domingo') {
       setMostrarBotonTC(true);
     }
   }, [diaActual]);
 
+  useEffect(() => {
+    const today = new Date();
+    const currentDate = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
+
+    const showRallyButton = contextRally.some(item => {
+      const eventDate = item.c[2]?.v;
+      if (eventDate === currentDate) {
+        // Al encontrar la carrera de rally para el día actual, almacenamos su ID
+        setIdCarreraRally(item.c[0]?.v);
+        return true;
+      }
+      return false;
+    });
+
+    setMostrarBotonRally(showRallyButton);
+  }, [contextRally]);
+
   const toggleMostrarF1 = () => {
     setMostrarF1(!mostrarF1);
   };
 
+ 
+
   const renderComponente = () => {
     if (mostrarF1) {
-      // Renderizar componente de F1
       return <div>F1 Componente</div>;
     } else {
-      // Renderizar componente de día de la semana
       switch (diaActual) {
         case 'sábado':
           return <Sabado />;
@@ -76,6 +96,7 @@ const Vivo = () => {
           return <Viernes />;
         default:
           return <div style={{ display: 'none', height: "0px" }} />;
+
       }
     }
   };
@@ -84,9 +105,11 @@ const Vivo = () => {
     <div>
       {mostrarBotonTC && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(false)}>NACIONALES</button>}
       {mostrarBotonF1 && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(true)}>F1</button>}
+      {mostrarBotonRally && idCarreraRally && <Link to={`http://localhost:5173/rally-argentino/carreras/${idCarreraRally-1}`}   style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}><button className='button-tanda'>Rally Argentino</button></Link>}
       {renderComponente()}
     </div>
   );
 };
+
 
 export default Vivo;

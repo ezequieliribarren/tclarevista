@@ -23,7 +23,9 @@ const router = createHashRouter([
     element: (
       <CarrerasAnualesProvider>
         <NewsProvider>
-          <Root />
+        <RallyProvider>
+             <Root />
+        </RallyProvider>
         </NewsProvider>
       </CarrerasAnualesProvider>
 
