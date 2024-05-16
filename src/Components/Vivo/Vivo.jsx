@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Sabado from '../Sabado/Sabado';
 import Domingo from '../Domingo/Domingo';
 import Viernes from '../Viernes/Viernes';
-import { useRally } from '../../../Context/Context';
+import { useRally, useTr, useTrSeries } from '../../../Context/Context';
 import { HashLink as Link } from 'react-router-hash-link';
-
 
 const Vivo = () => {
   const obtenerDiaDeSemana = () => {
@@ -18,10 +17,14 @@ const Vivo = () => {
   const [mostrarBotonTC, setMostrarBotonTC] = useState(false);
   const [mostrarBotonF1, setMostrarBotonF1] = useState(false);
   const [mostrarBotonRally, setMostrarBotonRally] = useState(false);
+  const [mostrarBotonTR, setMostrarBotonTR] = useState(false); // Estado para mostrar el botón de TR
+  const [mostrarBotonTRSeries, setMostrarBotonTRSeries] = useState(false); // Estado para mostrar el botón de TR Series
   const [cargandoF1, setCargandoF1] = useState(false);
-  const [idCarreraRally, setIdCarreraRally] = useState(null); // Estado para almacenar el ID de la carrera de rally
+  const [idCarrera, setIdCarrera] = useState(null); // Estado para almacenar el ID de la carrera de rally
 
   const contextRally = useRally();
+  const contextTr = useTr();
+  const contextTrSeries = useTrSeries();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -64,24 +67,35 @@ const Vivo = () => {
     const today = new Date();
     const currentDate = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
 
+    // Lógica para mostrar el botón de Rally
     const showRallyButton = contextRally.some(item => {
       const eventDate = item.c[2]?.v;
       if (eventDate === currentDate) {
-        // Al encontrar la carrera de rally para el día actual, almacenamos su ID
-        setIdCarreraRally(item.c[0]?.v);
+        setIdCarrera(item.c[0]?.v);
         return true;
       }
       return false;
     });
-
     setMostrarBotonRally(showRallyButton);
-  }, [contextRally]);
+
+    // Lógica para mostrar el botón de TR
+    const showTRButton = contextTr.some(item => {
+      const eventDate = item.c[2]?.v;
+      return eventDate === currentDate;
+    });
+    setMostrarBotonTR(showTRButton);
+
+    // Lógica para mostrar el botón de TR Series
+    const showTRSeriesButton = contextTrSeries.some(item => {
+      const eventDate = item.c[2]?.v;
+      return eventDate === currentDate;
+    });
+    setMostrarBotonTRSeries(showTRSeriesButton);
+  }, [contextRally, contextTr, contextTrSeries]);
 
   const toggleMostrarF1 = () => {
     setMostrarF1(!mostrarF1);
   };
-
- 
 
   const renderComponente = () => {
     if (mostrarF1) {
@@ -96,7 +110,6 @@ const Vivo = () => {
           return <Viernes />;
         default:
           return <div style={{ display: 'none', height: "0px" }} />;
-
       }
     }
   };
@@ -105,11 +118,31 @@ const Vivo = () => {
     <div>
       {mostrarBotonTC && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(false)}>NACIONALES</button>}
       {mostrarBotonF1 && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(true)}>F1</button>}
-      {mostrarBotonRally && idCarreraRally && <Link to={`http://localhost:5173/rally-argentino/carreras/${idCarreraRally-1}`}   style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}><button className='button-tanda'>Rally Argentino</button></Link>}
+      {mostrarBotonRally && idCarrera &&
+        <Link to={`http://localhost:5173/rally-argentino/carreras/${idCarrera - 1}?vivo=true`} style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}>
+          <button className='button-tanda'>Rally Argentino</button>
+        </Link>
+      }
+      {mostrarBotonTR && idCarrera && (
+        <Link
+          to={`http://localhost:5173/tr/carreras/${idCarrera - 1}?vivo=true`}
+          style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}
+        >
+          <button className='button-tanda'>Top Race</button>
+        </Link>
+      )}
+      {mostrarBotonTRSeries && idCarrera && (
+        <Link
+          to={`http://localhost:5173/tr-series/carreras/${idCarrera - 1}?vivo=true`}
+          style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}
+        >
+          <button className='button-tanda'>Top Race Series</button>
+        </Link>
+      )}
+
       {renderComponente()}
     </div>
   );
 };
-
 
 export default Vivo;

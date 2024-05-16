@@ -90,7 +90,7 @@
         border-bottom: white solid 1px;
 
         img {
-            width: 6rem;
+            width: 5rem;
         }
 
     }
@@ -110,8 +110,31 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* Agrega puntos suspensivos (...) al final del texto truncado */
 }
+
+
+
+.last-button, .button-finalizado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23rem;
+    height: 4rem;
+    border: 1px solid var(--Amarillo, #FE0);
+    background: var(--Negro, #000);
+    color: var(--Amarillo, #FE0);
+    font-family: goldman-regular;
+    font-size: 2rem;
+    padding: 0.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 
 .button-tanda:hover {
     background-color: #FE0;
