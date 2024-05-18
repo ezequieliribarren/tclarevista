@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { ClipLoader } from 'react-spinners';
 import { HashLink as Link } from 'react-router-hash-link';
-import { useParams } from 'react-router-dom';
+import PreloaderVivo from '../PreloaderVivo/PreloaderVivo';
+
 
 const Sabado = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   // Función para mapear códigos de tanda a nombres completos
   const mapTandaCodeToFullName = (code) => {
@@ -23,7 +23,7 @@ const Sabado = () => {
       case "TCM":
         return "TC Mouras";
       case "TCPM":
-        return "TC Pista";
+        return "TC Pista Mouras";
       default:
         return code; // Devolver el código original si no coincide con ninguno
     }
@@ -45,7 +45,6 @@ const Sabado = () => {
       case "TCPM":
         return "images/logos/tcpm.png";
       case "TN 3":
-        return "images/logos/tn.png";
       case "TN 2":
         return "images/logos/tn.png";
       default:
@@ -82,7 +81,6 @@ const Sabado = () => {
           return acc.concat(response);
         }, []);
 
-
         // Unificar los datos de todos los endpoints en un solo array
         const mergedData = allData.reduce((acc, item) => {
           if (item.title === "Sábado") {
@@ -99,12 +97,13 @@ const Sabado = () => {
 
         console.log('Datos procesados:', mergedData);
 
-
         // Ordenar los datos según el estado
         mergedData.sort((a, b) => {
           if (a.estado === "vivo") return -1;
-          if (a.estado === "" && b.estado !== "vivo") return -1;
-          return 1;
+          if (b.estado === "vivo") return 1;
+          if (a.estado === "") return -1;
+          if (b.estado === "") return 1;
+          return 0;
         });
 
         setData(mergedData);
@@ -117,7 +116,6 @@ const Sabado = () => {
 
     fetchData();
   }, []);
-
 
   // Configuración de Slick
   const slickSettings = {
@@ -133,9 +131,7 @@ const Sabado = () => {
     <div className='contenedor-vivo'>
       <h3 className='h3-sab-dom'>Sábado</h3>
       {loading ? (
-        <div className="spinner-container">
-          <ClipLoader color="#FE0" size={80} />
-        </div>
+   <PreloaderVivo/>
       ) : (
         <Slider className='slider-vivo' {...slickSettings}>
           {data.map((item, idx) => (
@@ -143,11 +139,11 @@ const Sabado = () => {
             !item.tanda.toLowerCase().includes('grilla') && (
               <Link
                 to={`/vivo/${item.categoria.toLowerCase()}/${item.tanda}/${item.ip}/${item.indice}`}
-                className='vivo'
+                className={`vivo ${item.estado === '' ? 'disabled-link' : ''}`} // Añadir clase 'disabled-link' si el estado es ""
                 key={idx}
                 data-url={item.url} // Pasar la URL como una propiedad adicional
+                onClick={(e) => item.estado === '' && e.preventDefault()} // Deshabilitar navegación si el estado es ""
               >
-
                 <div className='vivo'>
                   <div className='contenedor-categoria-vivo'>
                     <div className='contenedor-img-categoria'>

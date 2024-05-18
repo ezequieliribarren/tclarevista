@@ -25,14 +25,22 @@
 
 .contenedor-vivo {
     display: flex;
+    align-items: center;
     width: 100%;
 
 
     .h3-sab-dom {
+        display: flex;
+justify-content: center;
+align-items: center;
         writing-mode: vertical-rl;
         /* Vertical, de abajo hacia arriba */
         text-orientation: mixed;
         /* Orientación de texto mixta para que los caracteres estén en posición vertical */
+        background-color: #000;
+        width: 4rem;
+        height: 10rem;
+        border-radius: 10px;
     }
 
 
@@ -178,6 +186,10 @@
     }
 }
 
+.tabla-resultado{
+    margin: 2rem 0;
+    margin-bottom: 5rem;
+}
 
 
 @keyframes titilar {

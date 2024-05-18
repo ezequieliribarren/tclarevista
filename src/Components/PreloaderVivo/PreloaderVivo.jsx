@@ -9,7 +9,7 @@ const PreloaderVivo = () => {
       if (progress < 100) {
         setProgress((prevProgress) => prevProgress + 1);
       }
-    }, 90); // 9 segundos en milisegundos
+    }, 60); // 9 segundos en milisegundos
 
     return () => clearInterval(interval);
   }, [progress]);
@@ -41,6 +41,9 @@ const PreloaderVivo = () => {
 
   return (
     <div className="preloader-container">
+      <div>
+        <h3 style={{color: "#fe0", margin: "0"}} className="titilar">Cargando careras en vivo</h3>
+      </div>
       <input
         type="range"
         min="0"
