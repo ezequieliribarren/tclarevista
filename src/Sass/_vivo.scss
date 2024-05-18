@@ -137,7 +137,7 @@
     margin-bottom: 2rem;
 }
 
-.h2-tanda-vivo{
+.h2-tanda-vivo {
     color: var(--Amarillo, rgb(255, 255, 255));
     font-family: goldman-bold;
     font-size: 2.8rem;
@@ -159,11 +159,19 @@
     width: 95%;
     height: 60%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
     flex-wrap: wrap;
     background: var(--Negro, #000);
-    padding-top: 2rem;
+    padding-left: 2rem;
+
+    .botones {
+        display: flex;
+        .button-tanda{
+            width: 27rem;
+        }
+    }
 
     .button-tanda {
         text-align: center;

@@ -37,7 +37,7 @@ const router = createHashRouter([
   },
 
   {
-    path: "/vivo/:categoria/:tanda/:ip",
+    path: "/vivo/:categoria/:tanda/:ip/:indice",
     element: (
       <ResultadoEnVivo />
     ),

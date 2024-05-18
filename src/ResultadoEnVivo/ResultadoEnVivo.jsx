@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import { ClipLoader } from 'react-spinners';
-import PreloaderVivo from '../Components/PreloaderVivo/PreloaderVivo';
-import Semaforo from '../Components/Semaforo/Semaforo';
-import BanderaCuadros from '../Components/BanderaCuadros/BanderaCuadros';
-import Contador from '../Components/Contador/Contador';
+import Semaforo2 from '../Components/Semaforo2/Semaforo2';
+import Finalizado from '../Components/Finalizado/Finalizado';
 
 const ResultadoEnVivo = () => {
   const { tanda, ip } = useParams();
@@ -14,65 +12,68 @@ const ResultadoEnVivo = () => {
   const [loading, setLoading] = useState(true);
   const [menu, setMenu] = useState([]);
   const [tandasPrimerBotonera, setTandasPrimerBotonera] = useState([]);
-  const [tandaEstado, setTandaEstado] = useState('');
+  const [selectedIndice, setSelectedIndice] = useState(null);
+  const [updating, setUpdating] = useState(false);
+
+  const fetchMenu = async () => {
+    try {
+      const responseMenu = await fetch(`http://localhost:5000/${ip}menu`);
+      const dataMenu = await responseMenu.json();
+      setMenu(dataMenu);
+
+      const nombresTandas = dataMenu.reduce((acc, curr) => {
+        return [...acc, ...curr.items.map((item) => item.tanda.toLowerCase())];
+      }, []);
+      setTandasPrimerBotonera(nombresTandas);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching menu:', error);
+    }
+  };
+
+  const handleTandaClick = async (indice) => {
+    console.log('Tanda seleccionada:', indice);
+    try {
+      setSelectedIndice(indice);
+      await fetchTandaData(indice);
+    } catch (error) {
+      console.error('Error fetching tanda data:', error);
+    }
+  };
+
+  const fetchTandaData = async (indice) => {
+    try {
+      setUpdating(true);
+      const response = await fetch(`http://localhost:5000/${ip}/${indice}`);
+      const data = await response.json();
+      console.log('Datos de tanda obtenidos:', data);
+      setTandas(data);
+      setTimeout(() => {
+        setUpdating(false);
+      }, 2000);
+    } catch (error) {
+      console.error('Error fetching tanda data:', error);
+      setUpdating(false);
+    }
+  };
+
+  const fetchPeriodicTandaData = async () => {
+    if (selectedIndice !== null) {
+      await fetchTandaData(selectedIndice);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/${ip}`);
-        const data = await response.json();
-        setTandas(data[ip]);
-        setLoading(false);
-        if (data.ip1menu) {
-          setMenu(data.ip1menu);
-          const nombresTandas = data.ip1menu.reduce((acc, curr) => {
-            return [...acc, ...curr.items.map((item) => item.tanda.toLowerCase())];
-          }, []);
-          setTandasPrimerBotonera(nombresTandas);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    const interval = setInterval(() => {
-      fetchData(); // Realizar un nuevo intento de fetch cada 10 segundos
-    }, 10000);
-
-    return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
+    fetchMenu();
   }, [ip]);
 
   useEffect(() => {
-    if (!loading && tandas.length > 0 && tanda) {
-      setTandaSeleccionada(tanda);
-      activateButton(tanda.toLowerCase());
-    }
-  }, [loading, tandas, tanda]);
+    const interval = setInterval(() => {
+      fetchPeriodicTandaData();
+    }, 10000);
 
-  const activateButton = useMemo(() => {
-    return (tandaNombreLower) => {
-      const buttons = document.querySelectorAll('.segunda-botonera .button-tanda');
-      buttons.forEach((button) => {
-        if (button.textContent.toLowerCase() === tandaNombreLower) {
-          button.click();
-        }
-      });
-
-      const primerBotoneraButtons = document.querySelectorAll('.botonera .button-tanda');
-      primerBotoneraButtons.forEach((button) => {
-        const buttonText = button.textContent.toLowerCase();
-        const isInSecondBotonera = tandas.some((t) => t.Tanda.toLowerCase() === buttonText);
-        if (!isInSecondBotonera) {
-          button.classList.add('disabled-link');
-        }
-      });
-    };
-  }, [tandas]);
-
-  const handleTandaClick = (tandaNombre) => {
-    setTandaSeleccionada(tandaNombre);
-    activateButton(tandaNombre.toLowerCase());
-  };
+    return () => clearInterval(interval);
+  }, [selectedIndice]);
 
   const obtenerRutaImagen = (numeroMarca) => {
     switch (numeroMarca) {
@@ -83,11 +84,9 @@ const ResultadoEnVivo = () => {
       case '46':
         return 'images/marcas/mustang.png';
       case '4':
-        return 'images/marcas/torino.png';
       case '52':
         return 'images/marcas/torino.png';
       case '3':
-        return 'images/marcas/dodge.png';
       case '50':
         return 'images/marcas/dodge.png';
       case '48':
@@ -98,14 +97,14 @@ const ResultadoEnVivo = () => {
         return null;
     }
   };
+
   const obtenerNumeroMarca = (rutaImagen) => {
-    // Suponiendo que la ruta de la imagen sigue el patrón "/upload/marcas/{numero}.jpg"
     const regex = /\/(\d+)\.jpg$/;
     const match = rutaImagen.match(regex);
     if (match) {
-      return match[1]; // Devuelve el número coincidente capturado por la expresión regular
+      return match[1];
     } else {
-      return null; // Manejar el caso en que no se encuentre ningún número
+      return null;
     }
   };
 
@@ -114,111 +113,97 @@ const ResultadoEnVivo = () => {
       <section>
         {loading && (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-            <PreloaderVivo />
+            <ClipLoader />
           </div>
         )}
-{!loading && tandaSeleccionada && (
-  <div className='contenedor-botonera'>
-    {menu.slice(2).map((item, index) => {
-      return (
-        <div className="up-botonera" key={index}>
-          <h2>{item.circuito}</h2>
-        </div>
-      );
-    })}
-    <div className='botonera'>
-      {menu.map((item, index) => {
-        const filteredItems = item.items.filter((tandaItem) => !tandaItem.tanda.toLowerCase().includes('grilla'));
-
-        return (
-          <div style={{ display: "flex" }} className='buttons-vivo' key={index}>
-            <div style={{ width: "auto" }} className='day-carreras'>
-              <h4>{item.title}</h4>
+        {!loading && (
+          <div>
+            <div className='contenedor-botonera'>
+              {menu.slice(3).map((item, index) => {
+                return (
+                  <div className="up-botonera" key={index}>
+                    <h2>{item.circuito}</h2>
+                  </div>
+                );
+              })}
+              <div className='botonera'>
+                {menu
+                  .filter(item => !item.title.includes("Próxima Tanda"))
+                  .map((item, index) => (
+                    <div className='botones' key={index}>
+                      <div className="day-carreras" style={{ width: "10rem" }}>
+                        <h4>{item.title}</h4>
+                      </div>
+                      {item.items.map((tandaItem, subIndex) => (
+                        <button
+                          key={subIndex}
+                          className={`button-tanda ${tandaItem.estado === "" ? 'disabled-link' : ''}`}
+                          onClick={() => handleTandaClick(tandaItem.indice)}
+                          disabled={tandaItem.estado === ""}
+                        >
+                          {tandaItem.tanda}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+              </div>
             </div>
-            {filteredItems.map((tandaItem, subIndex) => (
-              <button className='button-tanda' key={subIndex} onClick={() => handleTandaClick(tandaItem.tanda)}>{tandaItem.tanda}</button>
-            ))}
+            <div>
+              {tandas && tandas.DatosTabla ? (
+                <div>
+                  <div className='d-flex align-items-center'>
+                    <h2 className='pl2 margin-title'>{tandas.Tanda}</h2>
+                    <div>
+                      {tandas.estado === 'vivo' ? <Semaforo2 /> : <Finalizado />}
+                    </div>
+                  </div>
+
+                  <table className='tabla-resultado container-fluid'>
+                    <thead>
+                      <tr className='row'>
+                        <th className='pos-carreras col-1'><h4>Pos</h4></th>
+                        <th className='nro-carreras col-1'><h4>Nro</h4></th>
+                        <th className='piloto-carreras col-3'><h4>Piloto</h4></th>
+                        <th className='img-carreras col-2'><h4>Marca</h4></th>
+                        <th className='vueltas-carreras col-1'><h4>Vtas</h4></th>
+                        <th className='tiempo-carreras col-2'><h4>Tiempo</h4></th>
+                        <th className='dif-carreras col-2'><h4>Dif</h4></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tandas.DatosTabla.slice(2).map((item, index) => (
+                        <tr key={index} className='row'>
+                          <td className='pos-carreras-td col-1'><h4>{item.Pos}</h4></td>
+                          <td className='vueltas-carreras-td col-1'><h4>{item.Numero}</h4></td>
+                          <td className='piloto-carreras-td col-3'><h4>{item.Piloto}</h4></td>
+                          <td className='img-carreras-td col-2'>
+                            {item.Marca && (
+                              <img
+                                src={obtenerRutaImagen(item.Marca)}
+                                alt="Marca"
+                                style={{ width: '50px', height: 'auto' }}
+                              />
+                            )}
+                          </td>
+                          <td className='vueltas-carreras-td col-1'><h4>{item.Vueltas}</h4></td>
+                          <td className='tiempo-carreras-td col-2'><h4>{item.Tiempo}</h4></td>
+                          <td className='grupo-carreras-td col-2'><h4>{item.Diferencia}</h4></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+                  <ClipLoader />
+                </div>
+              )}
+            </div>
           </div>
-        );
-      })}
-      <div style={{ opacity: "0", display: "flex", widht: "100%", overflow: "hidden"}} className="segunda-botonera">
-        {tandas.map((tandaItem, index) => (
-          <div className='buttons-vivo' key={index}>
-            <button
-              className={`button-tanda ${tandaItem.Tanda === tandaSeleccionada ? 'seleccionado' : ''}`}
-              onClick={() => handleTandaClick(tandaItem.Tanda)}
-              style={{
-                backgroundColor: tandaItem.Tanda === tandaSeleccionada ? '#fe0' : '',
-                color: tandaItem.Tanda === tandaSeleccionada ? '#000' : '',
-              }}
-            >
-              {tandaItem.Tanda}
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-)}
-        {!loading && tandaSeleccionada && (
-          <TablaResultado tanda={tandas.find((t) => t.Tanda === tandaSeleccionada)} obtenerRutaImagen={obtenerRutaImagen} obtenerNumeroMarca={obtenerNumeroMarca} />
         )}
       </section>
     </Layout>
   );
 };
 
-const TablaResultado = ({ tanda, obtenerRutaImagen, obtenerNumeroMarca }) => {
-  if (!tanda) return null;
-
-  return (
-    <div className='m-5'>
-      <div style={{ display: "flex", alignItems: "center", paddingLeft: "2%" }}>
-        <h2 className='h2-tanda-vivo'>{tanda.Tanda}</h2>
-        {tanda.Estado === "vivo" && <Semaforo />}
-        {tanda.Estado === "finalizado" && <BanderaCuadros />}
-      </div>
-      <table className="tabla-resultado container-fluid">
-        <thead>
-        {/* {tanda.Estado === "vivo" && <Contador />}           */}
-        <tr className='row'>
-            <th className='pos-carreras col-1'><h4>Pos</h4></th>
-            <th className='piloto-carreras col-4'><h4>Piloto</h4></th>
-            <th className='img-carreras col-2'><h4>Marca</h4></th>
-            <th className='vueltas-carreras col-1'><h4>Vtas</h4></th>
-            <th className='tiempo-carreras col-2'><h4>Tiempo</h4></th>
-            <th className='dif-carreras col-2'><h4>Dif</h4></th>
-          </tr>
-        </thead>
-        <tbody>
-          {tanda.DatosTabla.slice(1).map((fila, index) => {
-            const shouldHideRow = Object.values(fila).some(value =>
-              value.includes("Verificado por Cronometraje:") ||
-              value.includes("Verificado por Deportiva:") ||
-              value.includes("Verificado por Técnica:")
-            );
-
-            if (shouldHideRow) {
-              return null;
-            }
-
-            return (
-              <tr className='row' key={index}>
-                <td className='pos-carreras-td col-1'><h4>{fila.Pos}</h4></td>
-                <td className='piloto-carreras-td col-4'><h4>{fila.Piloto}</h4></td>
-                <td className='img-carreras-td col-2'><img src={obtenerRutaImagen(obtenerNumeroMarca(fila.Marca))} alt={`Marca ${fila.Marca}`} />
-                </td>
-                <td className='vueltas-carreras-td col-1'><h4>{fila.Vueltas}</h4></td>
-                <td className='tiempo-carreras-td col-2'><h4>{fila.Tiempo}</h4></td>
-                <td className='grupo-carreras-td col-2'><h4>{fila.Diferencia}</h4></td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
 export default ResultadoEnVivo;
-
