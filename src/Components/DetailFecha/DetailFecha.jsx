@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTp, useTc2000 } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTp, useTc2000, useTn } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { ClipLoader } from 'react-spinners';
@@ -89,6 +89,9 @@ const DetailFecha = ({ rowData }) => {
     case 'tc2000':
       context = useTc2000();
       break;
+      case 'tn':
+        context = useTn();
+        break;
     default:
       context = [];
   }
@@ -365,21 +368,21 @@ const DetailFecha = ({ rowData }) => {
 
 
   const actcButtons = [
-    { tanda: "1\u00BA Entrenamiento", endpoint: "en1" },
+    { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2" ], endpoint: "en1" },
     { tanda: "FIRST PRACTICE SESSION", endpoint: "en1" },
-    { tanda: "2\u00BA Entrenamiento", endpoint: "en2" },
+    { tanda: ["2\u00BA Entrenamiento", "2\u00BA ENTRENAMIENTO C2" ], endpoint: "en2" },
     { tanda: "SECOND PRACTICE SESSION", endpoint: "en2" },
-    { tanda: "3\u00BA Entrenamiento", endpoint: "en3" },
+    { tanda: ["3\u00BA Entrenamiento", "GENERAL ENTRENAMIENTO C2" ], endpoint: "en3" },
     { tanda: "THIRD PRACTICE SESSION", endpoint: "en3" },
     { tanda: "4\u00BA Entrenamiento", endpoint: "en4" },
-    { tanda: "5\u00BA Entrenamiento", endpoint: "en5" },
-    { tanda: "6\u00BA Entrenamiento", endpoint: "en6" },
+    { tanda: ["5\u00BA Entrenamiento", "1° CLASIFICACIÓN C2"], endpoint: "en5" },
+    { tanda: ["6\u00BA Entrenamiento", "2° CLASIFICACIÓN C2"], endpoint: "en6" },
     { tanda: "1\u00BA Pruebas Libres", endpoint: "en4" },
-    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024 ", "QUALIFYING SESSION"], endpoint: "clasificacion" },
-    { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024"], endpoint: "serie1" },
-    { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6"], endpoint: "serie2" },
-    { tanda: ["3\u00BA Serie", "Sprint 2024"], endpoint: "serie3" },
-    { tanda: ["Final", "Final 2024", "GRAND PRIX", "Final Especial 2024"], endpoint: "final" },
+    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024 ", "QUALIFYING SESSION", "CLASIFICACION C2"], endpoint: "clasificacion" },
+    { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024", "PRIMERA SERIE C2"], endpoint: "serie1" },
+    { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6", "SEGUNDA SERIE C2"], endpoint: "serie2" },
+    { tanda: ["3\u00BA Serie", "Sprint 2024", "TERCERA SERIE C2"], endpoint: "serie3" },
+    { tanda: ["Final", "Final 2024", "GRAND PRIX", "Final Especial 2024", "FINAL C2"], endpoint: "final" },
   ];
 
 
@@ -396,6 +399,15 @@ const DetailFecha = ({ rowData }) => {
       "SIXTH PRACTICE SESSION": "6° Entrenamiento",
       "QUALIFYING SESSION": "Clasificación",
       "GRAND PRIX": "Final",
+      "1° ENTRENAMIENTO C2": "1° Entrenamiento",
+      "2° ENTRENAMIENTO C2": "2° Entrenamiento",
+      "PRIMERA SERIE C2": "1° Serie",
+      "SEGUNDA SERIE C2": "2° Serie",
+      "TERCERA SERIE C2": "3° Serie",
+      "1° CLASIFICACIÓN C2": "1° Clas",
+      "2° CLASIFICACIÓN C2": "2° Clas",
+      "GENERAL CLASIFICACIÓN": "Clasificación",
+      "FINAL C2": "Final",
 
       // Agrega aquí más mapeos según sea necesario
     };
@@ -923,28 +935,27 @@ const DetailFecha = ({ rowData }) => {
                   </div>
                 </div>
                 <div className="col-12 select-tandas-carreras">
-                <div className="menu">
-  {Object.entries(buttonData).map(([day, buttons], index) => (
-    <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
-      <div className='day-carreras'>
-        <h4>{day}</h4>
-      </div>
-      {buttons.map((button, buttonIndex) => (
-        <button
-          key={buttonIndex}
-          className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
-          data-name={button}
-          onClick={() => handleMenuButtonClick(button)}
-          style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
-        >
-          {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
-          {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
-        </button>
-      ))}
-    </div>
-  ))}
-</div>
-
+                  <div className="menu">
+                    {Object.entries(buttonData).map(([day, buttons], index) => (
+                      <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
+                        <div className='day-carreras'>
+                          <h4>{day}</h4>
+                        </div>
+                        {buttons.map((button, buttonIndex) => (
+                          <button
+                            key={buttonIndex}
+                            className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
+                            data-name={button}
+                            onClick={() => handleMenuButtonClick(button)}
+                            style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
+                          >
+                            {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
+                            {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
+                          </button>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
 
                   {/* <div className="endpointes" style={{ display: 'none' }}>
                     {context[id]?.c[8]?.v && (
