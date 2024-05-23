@@ -26,7 +26,7 @@ const NavCategoria = ({ background, logo, param, hideHuella }) => {
     const videosUrl = `/${categoria || param}/videos`;
     const carrerasUrl = `/${categoria || param}/carreras`;
     const campeonatoUrl = `/${categoria || param}/campeonato`;
-    const campeonatoUrlTc2000 = `/${categoria || param}/campeonatoTc2000`;
+    // const campeonatoUrlTc2000 = `/${categoria || param}/campeonatoTc2000`;
 
     // Estado para mantener el botón activo
     const [activeButton, setActiveButton] = useState('');

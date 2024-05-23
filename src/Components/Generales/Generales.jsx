@@ -24,7 +24,7 @@ const Generales = () => {
     return (
         <section id='generales'>
             {generales.map((noticia, index) => (
-                <Link to={`/noticia/${noticia.id}`} key={index}>
+                <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index}>
                     <div className="card-general mb-3">
                         <div className='card-general-img'>
                             {noticia.video ? (

@@ -68,6 +68,9 @@ function tc2000() {
 function tn() {
   return generarEnlaceConParametros("249354540");
 }
+function tn3() {
+  return generarEnlaceConParametros("162407611");
+}
 
 
 
@@ -488,6 +491,41 @@ export const TnProvider = ({ children }) => {
 
 export const useTn = () => {
   return useContext(TnContext);
+};
+
+// TN3 
+const Tn3Context = createContext();
+
+export const Tn3Provider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tn3();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <Tn3Context.Provider value={data}>
+      {children}
+    </Tn3Context.Provider>
+  );
+};
+
+export const useTn3 = () => {
+  return useContext(Tn3Context);
 };
 
 

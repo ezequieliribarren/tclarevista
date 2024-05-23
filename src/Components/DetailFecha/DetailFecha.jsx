@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTp, useTc2000, useTn } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTp, useTc2000, useTn, useTn3 } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { ClipLoader } from 'react-spinners';
@@ -89,9 +89,12 @@ const DetailFecha = ({ rowData }) => {
     case 'tc2000':
       context = useTc2000();
       break;
-      case 'tn':
-        context = useTn();
-        break;
+    case 'tn':
+      context = useTn();
+      break;
+    case 'tn3':
+      context = useTn3();
+      break;
     default:
       context = [];
   }
@@ -368,21 +371,21 @@ const DetailFecha = ({ rowData }) => {
 
 
   const actcButtons = [
-    { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2" ], endpoint: "en1" },
+    { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2", "1\u00BA ENTRENAMIENTO C3"], endpoint: "en1" },
     { tanda: "FIRST PRACTICE SESSION", endpoint: "en1" },
-    { tanda: ["2\u00BA Entrenamiento", "2\u00BA ENTRENAMIENTO C2" ], endpoint: "en2" },
+    { tanda: ["2\u00BA Entrenamiento", "2\u00BA ENTRENAMIENTO C2" , "2\u00BA ENTRENAMIENTO C3"], endpoint: "en2" },
     { tanda: "SECOND PRACTICE SESSION", endpoint: "en2" },
-    { tanda: ["3\u00BA Entrenamiento", "GENERAL ENTRENAMIENTO C2" ], endpoint: "en3" },
+    { tanda: ["3\u00BA Entrenamiento", "GENERAL ENTRENAMIENTO C2", "GENERAL ENTRENAMIENTO C3"], endpoint: "en3" },
     { tanda: "THIRD PRACTICE SESSION", endpoint: "en3" },
     { tanda: "4\u00BA Entrenamiento", endpoint: "en4" },
-    { tanda: ["5\u00BA Entrenamiento", "1° CLASIFICACIÓN C2"], endpoint: "en5" },
-    { tanda: ["6\u00BA Entrenamiento", "2° CLASIFICACIÓN C2"], endpoint: "en6" },
+    { tanda: ["5\u00BA Entrenamiento", "1° CLASIFICACIÓN C2", "1° CLASIFICACIÓN C3"], endpoint: "en5" },
+    { tanda: ["6\u00BA Entrenamiento", "2° CLASIFICACIÓN C2" , "2° CLASIFICACIÓN C3"], endpoint: "en6" },
     { tanda: "1\u00BA Pruebas Libres", endpoint: "en4" },
     { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024 ", "QUALIFYING SESSION", "CLASIFICACION C2"], endpoint: "clasificacion" },
-    { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024", "PRIMERA SERIE C2"], endpoint: "serie1" },
-    { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6", "SEGUNDA SERIE C2"], endpoint: "serie2" },
-    { tanda: ["3\u00BA Serie", "Sprint 2024", "TERCERA SERIE C2"], endpoint: "serie3" },
-    { tanda: ["Final", "Final 2024", "GRAND PRIX", "Final Especial 2024", "FINAL C2"], endpoint: "final" },
+    { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024", "PRIMERA SERIE C2", "PRIMERA SERIE C3"], endpoint: "serie1" },
+    { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6", "SEGUNDA SERIE C2", "SEGUNDA SERIE C3"], endpoint: "serie2" },
+    { tanda: ["3\u00BA Serie", "Sprint 2024", "TERCERA SERIE C2", "TERCERA SERIE C3"], endpoint: "serie3" },
+    { tanda: ["Final", "Final 2024", "GRAND PRIX", "Final Especial 2024", "FINAL C2", "FINAL C3"], endpoint: "final" },
   ];
 
 

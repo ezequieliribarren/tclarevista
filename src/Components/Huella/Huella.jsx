@@ -16,7 +16,7 @@ const Huella = () => {
             case 'tcp':
                 return 'TC Pista';
             case 'tn':
-                return 'Turismo Nacional';
+                return 'Turismo Nacional C2';
             case 'tcpk':
                 return 'TC Pick Up';
             case 'tcm':
@@ -51,10 +51,12 @@ const Huella = () => {
                 return 'TCR';
             case 'formula-e':
                 return 'Fórmula E';
-                case 'tr-series':
-                    return 'Top-Race Series';
-                    case 'arg-mundo':
-                        return 'Argentinos por el mundo';
+            case 'tr-series':
+                return 'Top-Race Series';
+            case 'arg-mundo':
+                return 'Argentinos por el mundo';
+                case 'tn3':
+                    return 'Turismo Nacional C3';
             default:
                 return categoria; // Por defecto, devuelve la categoría tal como está
         }

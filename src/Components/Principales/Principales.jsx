@@ -60,8 +60,8 @@ const Principales = () => {
         <section className='row' id='principales'>
             <div className="col-lg-8 container-primarias" style={{ display: mostRecentIsPrimaria ? 'block' : 'none' }}>
                 {news && news.prioridad && news.prioridad.primaria && news.prioridad.primaria.map((noticia, index) => (
-                    <Link to={`/noticia/${noticia.id}`} key={index}>
-                        <div
+                <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index}>
+                <div
                             className="card-primarias mb-3"
                             key={index}
                             style={{
@@ -132,7 +132,7 @@ const Principales = () => {
             <div className="col-lg-4">
                 <div className="container-secundarias">
                     {secundarias.map((noticia, index) => (
-                        <Link to={`/noticia/${noticia.id}`} key={index}>
+                <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index}>
 
                             <div
                                 className="card-secundarias mb-3"
@@ -166,8 +166,8 @@ const Principales = () => {
                 </div>
                 <div className="container-terciarias">
                     {terciarias.map((noticia, index) => (
-                        <Link to={`/noticia/${noticia.id}`} key={index}>
-                            <div
+                <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index}>
+                <div
                                 className="card-terciarias mb-3"
                                 key={index}
                                 style={{

@@ -42,7 +42,7 @@ const PrincipalesCategoria = ({ cat }) => {
         <section className='row' id='principalesCategorias'>
             <div className="col-lg-8 container-primarias">
                 {noticias.length > 0 && (
-                    <Link to={`/noticia/${noticias[0].id}`} key={0}>
+                    <Link to={`/noticia/${noticias[0].id}/${noticias[0].param}`} key={0}>
                         <div
                             className="card-primarias mb-3"
                             style={{
@@ -71,7 +71,7 @@ const PrincipalesCategoria = ({ cat }) => {
             <div className="col-lg-4">
                 <div className="container-secundarias">
                     {noticias.slice(1, 2).map((noticia, index) => (
-                        <Link to={`/noticia/${noticia.id}`} key={index + 1}>
+                        <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index + 1}>
                             <div
                                 className="card-secundarias mb-3"
                                 style={{
@@ -99,7 +99,7 @@ const PrincipalesCategoria = ({ cat }) => {
                 </div>
                 <div className="container-terciarias">
                     {noticias.slice(2, 3).map((noticia, index) => (
-                        <Link to={`/noticia/${noticia.id}`} key={index + 3}>
+                        <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index + 3}>
                             <div
                                 className="card-terciarias mb-3"
                                 style={{

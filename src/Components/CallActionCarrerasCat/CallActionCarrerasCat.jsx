@@ -68,39 +68,46 @@ const CallActionCarrerasCat = () => {
     // Tomar solo las primeras 7 carreras
     const proximasCarreras = context.slice(0, 7);
 
+    // Obtener la fecha actual
+    const today = new Date();
+
     return (
         <aside id='call-action-carreras'>
             <div className="tabla-carreras">
                 <div className='title-table-carreras'><h3>Carreras</h3></div>
-                {proximasCarreras.map((carrera, index) => (
-                    <Link
-                        key={index}
-                        to={`/${categoria}/carreras/${index}`}
-                        className='table-carrera'
-                    >
-                        {carrera && carrera.c && (
-                            <div className='description-table-carreras'>
-                                <div className='description-table-left'>
-                                    {carrera.c[2]?.v && (
-                                        <h4 className='h4-fecha'>{new Date(carrera.c[2].v).getDate()}/{new Date(carrera.c[2].v).getMonth() + 1}</h4>
-                                    )}
-                                    <span className='span-table-carreras'><img src="images/separator.png" alt="" /></span>
-                                    {carrera.c[5]?.v && <img src={carrera.c[5]?.v} alt="" />}
-                                    {carrera.c[3]?.v && <h4 className='h4-circuito'>{carrera.c[3]?.v}</h4>}
+                {proximasCarreras.map((carrera, index) => {
+                    const carreraFecha = new Date(carrera?.c[2]?.v);
+                    const isFutureRace = carreraFecha > today;
+
+                    return (
+                        <Link
+                            key={index}
+                            to={`/${categoria}/carreras/${index}`}
+                            className={`table-carrera ${isFutureRace ? 'disabled-link' : ''}`}
+                        >
+                            {carrera && carrera.c && (
+                                <div className='description-table-carreras'>
+                                    <div className='description-table-left'>
+                                        {carrera.c[2]?.v && (
+                                            <h4 className='h4-fecha'>{carreraFecha.getDate()}/{carreraFecha.getMonth() + 1}</h4>
+                                        )}
+                                        <span className='span-table-carreras'><img src="images/separator.png" alt="" /></span>
+                                        {carrera.c[5]?.v && <img src={carrera.c[5]?.v} alt="" />}
+                                        {carrera.c[3]?.v && <h4 className='h4-circuito'>{carrera.c[3]?.v}</h4>}
+                                    </div>
+                                    <div>
+                                        {carrera.c[2]?.v && carrera.c[1]?.v && carrera.c[3]?.v && (
+                                            <img className='play-carreras' src="images/little-play.png" alt="" />
+                                        )}
+                                    </div>
                                 </div>
-                                <div>
-                                    {carrera.c[2]?.v && carrera.c[1]?.v && carrera.c[3]?.v && (
-                                        <img className='play-carreras' src="images/little-play.png" alt="" />
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                    </Link>
-                ))}
+                            )}
+                        </Link>
+                    );
+                })}
                 <Link to={`/${categoria}/carreras`}>
                     <div className='ver-mas'><button>VER MÁS CARRERAS</button></div>
                 </Link>
-
             </div>
         </aside>
     );

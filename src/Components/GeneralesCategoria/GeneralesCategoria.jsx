@@ -70,7 +70,7 @@ const GeneralesCategoria = ({ cat, filterDate }) => {
     return (
         <section>
             {noticias.slice(-shownNewsCount - 3, -3).map((noticia, index) => (
-                <Link to={`/noticia/${noticia.id}`} key={index}>
+                <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index}>
                     <div className="card-general mb-3" ref={index === noticias.length - 4 ? handleObserver : null}>
                         <div className='card-general-img'>
                             {noticia.video ? (

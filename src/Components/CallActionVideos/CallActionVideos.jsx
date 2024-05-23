@@ -52,7 +52,7 @@ const CallActionVideos = () => {
       <Slider {...settings} className='slider-videos'>
         {videos.map((video, index) => (
           <div key={index} className='video-container'>
-            <Link to={`/video/${video.id}`} className='video-link'>
+            <Link to={`/noticia/${video.id}/${video.param}`} className='video-link'>
               <div className='video-overlay'></div>
             </Link>
             <div className='card-video'>

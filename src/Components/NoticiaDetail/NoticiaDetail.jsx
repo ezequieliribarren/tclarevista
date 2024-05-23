@@ -5,11 +5,11 @@ import { useNewsContext } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 
 const NoticiaDetail = () => {
-    const { id } = useParams();
+    const { id, categoria } = useParams();
     const { news: initialNews } = useNewsContext();
     const [loading, setLoading] = useState(true);
     const [noticia, setNoticia] = useState(null);
-    const [categoria, setCategoria] = useState('');
+    const [categorias, setCategorias] = useState('');
     const hideHuella = true; // Ocultar Huella en la página de noticias
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const NoticiaDetail = () => {
 
         if (noticiaEncontrada) {
             setNoticia(noticiaEncontrada);
-            setCategoria(noticiaEncontrada.param); // Establecer la categoría de la noticia encontrada
+            setCategorias(noticiaEncontrada.param); // Establecer la categoría de la noticia encontrada
         } else {
             setNoticia(null);
         }
@@ -53,21 +53,20 @@ const NoticiaDetail = () => {
         return <p>Noticia no encontrada</p>;
     }
 
-    const url = window.location.href;
+    // Reemplazar '#' por '%23' en la URL
+    const url = window.location.href.replace(/#/g, '%23');
 
     // Texto a compartir
     const shareText = `${noticia.title}`;
 
     // URL para compartir en Facebook
-
-    const facebookShareUrl = ` https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=${encodeURIComponent(url)}`;
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 
     // URL para compartir en Twitter
-    const twitterShareUrl = ` https://twitter.com/intent/tweet?original_referer=${(url)}`;
+    const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(shareText)}`;
 
-    // URL para compartir en Instagram
-
-    const whatsappUrl = ` whatsapp://send?text=${encodeURIComponent(url)}`;
+    // URL para compartir en WhatsApp
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(url)}`;
 
     return (
         <Layout background={categoria} logo={categoria} param={categoria} hideHuella={hideHuella}>
@@ -78,19 +77,15 @@ const NoticiaDetail = () => {
                             <div className="card-noticia-detail">
                                 <div className="top-card-noticia-detail">
                                     <div className="container-category">
-                                         <div className="category">
-                                        <h4 className='h4-category'>{noticia.categoria}</h4>
+                                        <div className="category">
+                                            <h4 className='h4-category'>{noticia.categoria}</h4>
+                                        </div>
                                     </div>
-                                    </div>
-                                  
-                                    <div className="title-noticia-detail">  
-                                  
+                                    <div className="title-noticia-detail">
                                         <div>
                                             <h2>{noticia.title}</h2>
                                             <h3>{formatDate(noticia.date)}</h3>
                                         </div>
- 
-
                                     </div>
                                     <div
                                         className="image-noticia-detail"
@@ -114,40 +109,33 @@ const NoticiaDetail = () => {
                                                 ></iframe>
                                             ) : null}
                                         </div>
-
                                     </div>
                                 </div>
-
-
                                 <div className="cuerpo-noticia-detail">
                                     <div className='compartir-noticia'>
                                         <div>
-                                            <h4>Compartir:</h4>     <div>
+                                            <h4>Compartir:</h4>
+                                            <div>
                                                 <a href={facebookShareUrl} target="_blank" rel="noopener noreferrer"><img src="images/redes/x-black.png" alt="Compartir en Facebook" /></a>
-                                                <a href={twitterShareUrl} target="_blank" rel="noopener noreferrer"><img src="images/redes/x-black.png" alt="Compartir en X" /></a>
-                                                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"><img src="images/redes/wp-black.png" alt="Compartir en Whatsapp" /></a>
+                                                <a href={twitterShareUrl} target="_blank" rel="noopener noreferrer"><img src="images/redes/x-black.png" alt="Compartir en Twitter" /></a>
+                                                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"><img src="images/redes/wp-black.png" alt="Compartir en WhatsApp" /></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <div>
-                                            <p dangerouslySetInnerHTML={{ __html: noticia.cuerpo }}></p>
-                                        </div>
+                                        <p dangerouslySetInnerHTML={{ __html: noticia.cuerpo }}></p>
                                     </div>
                                     {/* <div className='img-cuerpo-noticia-detail img-fluid'>
                                         <img src={`http://localhost:5000/${noticia.image}`} alt="" />
-
                                     </div> */}
                                 </div>
                             </div>
-
                         </section>
                         <div className="col-lg-4">
                             <CallActionNoticias />
                         </div>
                     </div>
                 </div>
-
             </main>
         </Layout>
     );

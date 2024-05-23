@@ -58,11 +58,25 @@ const Navbar = () => {
                     </div>
                     <div className="col-xl-9">
                       <div className="row">
-                        <div className="col cat"> <Link to='/tn' className="dropdown-item">
-                          <div> <img src="images/logos//tn.png" alt="" /></div>
+                        <div className="col cat">
+                          <div>
+                            
+                            </div> 
+                        <div className="dropdown-item">
+                        <div> <img src="images/logos//tn.png" alt="" /></div>
                           <div> <h2>Turismo<br />Nacional</h2></div>
-                          <div> <img src="images/mayor.png" alt="" /></div>
-                        </Link></div>
+                          <div className='links-clases'>
+                             <Link to='/tn' className='button-clases'>
+                            C2
+                            </Link>
+                            <Link to='/tn3' className='button-clases'>
+                            C3
+                            </Link>
+                          </div>
+                         
+                            </div>
+                        </div>
+                        
                         <div className="col cat">    <Link to='/tcpk' className="dropdown-item">
                           <div> <img src="images/logos//tcpk.png" alt="" /></div>
                           <div> <h2>TC Pickup</h2></div>
