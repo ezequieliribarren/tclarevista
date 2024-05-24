@@ -267,6 +267,14 @@ const DetailFecha = ({ rowData }) => {
       return 'red.png';
     } else if (marcaMinuscula.includes('ferrari')) {
       return 'ferrari.png';
+    } else if (marcaMinuscula.includes('ducati')) {
+      return 'ducati.png';
+    } else if (marcaMinuscula.includes('aprilia')) {
+      return 'aprilia.png';
+    } else if (marcaMinuscula.includes('yamaha')) {
+      return 'yamaha.png';
+    } else if (marcaMinuscula.includes('ktm')) {
+      return 'ktm.png';
     } else {
       // Si la marca no coincide con ninguna, puedes devolver una imagen por defecto
       return 'default.png';
@@ -966,270 +974,139 @@ const DetailFecha = ({ rowData }) => {
                   </div>
                 </div>
                 <div className="col-12 select-tandas-carreras">
-                        <div className="menu">
-              {Object.entries(buttonData).map(([day, buttons], index) => (
-                <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
-                  <div className='day-carreras'>
-                    <h4>{day}</h4>
-                  </div>
-                  {buttons.map((button, buttonIndex) => (
-                    <button
-                      key={buttonIndex}
-                      className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
-                      data-name={button}
-                      onClick={() => handleMenuButtonClick2(button)}
-                      style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
-                    >
-                      {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
-                      {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
-                    </button>
-                  ))}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* <div className="endpointes" style={{ display: 'none' }}>
-                    {context[id]?.c[8]?.v && (
-                      <button value={context[id]?.c[8]?.v} className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('en1', '1° Entrenamiento')}>1° Entrenamiento</button>
-                    )}
-                    {context[id]?.c[9]?.v && (
-                      <button value={context[id]?.c[9]?.v} className={`button-tanda ${selectedButton === 'en2' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('en2', '2° Entrenamiento')}>2° Entrenamiento</button>
-                    )}
-                    {context[id]?.c[10]?.v && (
-                      <button value={context[id]?.c[10]?.v} className={`button-tanda ${selectedButton === 'en3' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('en3', '3° Entrenamiento')}>3° Entrenamiento</button>
-                    )}
-                    {
-                      context[id]?.c[11]?.v && (
-                        categoria === 'tp' ? (
+                  {categoria === 'moto-gp' && (
+                    <div className="menu2">
+                      <div className='d-flex'>
+                        <div className="day-carreras">
+                          <h4>Vie</h4>
+                        </div>
+                        {context[id]?.c[8]?.v !== null && context[id]?.c[8]?.v !== '-' && (
                           <button
-                            value={context[id]?.c[11]?.v}
-                            className={`button-tanda ${selectedButton === 'en4' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('en4', 'TLL')}
+                            className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en1')}
                           >
-                            TLL
+                            1° Entrenamiento
                           </button>
-                        ) : (
+                        )}
+                        {context[id]?.c[9]?.v !== null && context[id]?.c[9]?.v !== '-' && (
                           <button
-                            value={context[id]?.c[11]?.v}
+                            className={`button-tanda ${selectedButton === 'en2' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en2')}
+                          >
+                            2° Entrenamiento
+                          </button>
+                        )}
+                        {context[id]?.c[10]?.v !== null && context[id]?.c[10]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en3' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en3')}
+                          >
+                            Práctica
+                          </button>
+                        )}
+                      </div>
+
+                      <div className='d-flex'>
+                        <div className="day-carreras">
+                          <h4>Sab</h4>
+                        </div>
+                        {context[id]?.c[11]?.v !== null && context[id]?.c[11]?.v !== '-' && (
+                          <button
                             className={`button-tanda ${selectedButton === 'en4' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('en4', '4° Entrenamiento')}
+                            onClick={() => fetchSpecificData('en4')}
                           >
                             4° Entrenamiento
                           </button>
-                        )
-                      )
-                    }
-                    {
-                      context[id]?.c[12]?.v && (
-                        categoria === 'tp' ? (
+                        )}
+                        {context[id]?.c[12]?.v !== null && context[id]?.c[12]?.v !== '-' && (
                           <button
-                            value={context[id]?.c[12]?.v}
                             className={`button-tanda ${selectedButton === 'en5' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('en5', 'C1')}
-                          >
-                            C1
-                          </button>
-                        ) : (
-                          <button
-                            value={context[id]?.c[12]?.v}
-                            className={`button-tanda ${selectedButton === 'en5' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('en5', '5° Entrenamiento')}
+                            onClick={() => fetchSpecificData('en5')}
                           >
                             5° Entrenamiento
                           </button>
-                        )
-                      )
-                    }
-                    {context[id]?.c[13]?.v &&
-                      (categoria === 'moto-gp' ? (
-                        <button
-                          value={context[id]?.c[13]?.v}
-                          className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
-                          onClick={() => handleButtonClick('en6', 'PR')}
-                        >
-                          PR
-                        </button>
-                      ) : categoria === 'indycar-series' ? (
-                        <button
-                          value={context[id]?.c[13]?.v}
-                          className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
-                          onClick={() => handleButtonClick('en6', 'Q1 G1')}
-                        >
-                          Q1 G1
-                        </button>
-                      ) : categoria === 'tp' ? (
-                        <button
-                          value={context[id]?.c[13]?.v}
-                          className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
-                          onClick={() => handleButtonClick('en6', 'C2')}
-                        >
-                          C2
-                        </button>
-                      ) : (
-                        <button
-                          value={context[id]?.c[13]?.v}
-                          className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
-                          onClick={() => handleButtonClick('en6', '6° Entrenamiento')}
-                        >
-                          6° Entrenamiento
-                        </button>
-                      ))
-                    }
-                    {
-                      context[id]?.c[14]?.v && (
-                        categoria === 'moto-gp' ? (
+                        )}
+                        {context[id]?.c[13]?.v !== null && context[id]?.c[13]?.v !== '-' && (
                           <button
-                            value={context[id]?.c[14]?.v}
+                            className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en6')}
+                          >
+                            PR
+                          </button>
+                        )}
+                        {context[id]?.c[14]?.v !== null && context[id]?.c[14]?.v !== '-' && (
+                          <button
                             className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('clasificacion', 'Q1')}
+                            onClick={() => fetchSpecificData('clasificacion')}
                           >
-                            Q1
+                            Clasificación
                           </button>
-                        ) : categoria === 'indycar-series' ? (
+                        )}
+                        {context[id]?.c[15]?.v !== null && context[id]?.c[15]?.v !== '-' && (
                           <button
-                            value={context[id]?.c[14]?.v}
-                            className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('clasificacion', 'Q1 G2')}
-                          >
-                            Q1 G2
-                          </button>
-                        ) : categoria === 'tr' ? (
-                          <button
-                            value={context[id]?.c[14]?.v}
-                            className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('clasificacion', 'Clasificacion Gral')}
-                          >
-                            1° Clas. (Gral)
-                          </button>
-                        )
-                          : (
-                            <button
-                              value={context[id]?.c[14]?.v}
-                              className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
-                              onClick={() => handleButtonClick('clasificacion', 'Clasificacion')}
-                            >
-                              Clasificación
-                            </button>
-                          )
-                      )
-                    }
-                    {
-                      context[id]?.c[15]?.v && (
-                        categoria === 'moto-gp' || categoria === 'indycar-series' ? (
-                          <button
-                            value={context[id]?.c[15]?.v}
                             className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie1', categoria === 'moto-gp' ? 'Q2' : 'Q2 G2')}
+                            onClick={() => fetchSpecificData('serie1')}
                           >
-                            {categoria === 'moto-gp' ? 'Q2' : 'Q2 G2'}
+                            Q2
                           </button>
-                        ) : categoria === 'nascar' ? (
+                        )}
+                        {context[id]?.c[16]?.v !== null && context[id]?.c[16]?.v !== '-' && (
                           <button
-                            value={context[id]?.c[15]?.v}
-                            className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie1', 'QA')}
-                          >
-                            QA
-                          </button>
-                        ) : categoria === 'tr' || categoria === 'tr-series' ? (
-                          <button
-                            value={context[id]?.c[15]?.v}
-                            className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie1', 'Clasificacion 2')}
-                          >
-                            2° Clas.
-                          </button>
-                        ) : (
-                          <button
-                            value={context[id]?.c[15]?.v}
-                            className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie1', 'Serie 1')}
-                          >
-                            Serie 1
-                          </button>
-                        )
-                      )
-                    }
-                    {
-                      context[id]?.c[16]?.v && (
-                        categoria === 'moto-gp' ? (
-                          <button
-                            value={context[id]?.c[16]?.v}
                             className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie2', 'SPRINT')}
+                            onClick={() => fetchSpecificData('serie2')}
                           >
                             SPRINT
                           </button>
-                        ) : categoria === 'indycar-series' ? (
+                        )}
+                        {context[id]?.c[17]?.v !== null && context[id]?.c[17]?.v !== '-' && (
                           <button
-                            value={context[id]?.c[16]?.v}
-                            className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie2', 'Q3')}
-                          >
-                            Q3
-                          </button>
-                        ) : categoria === 'tr' || categoria === 'tr-series' ? (
-                          <button
-                            value={context[id]?.c[16]?.v}
-                            className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie2', 'Clas. 2')}
-                          >
-                            3° Clas.
-                          </button>
-                        ) : categoria === 'nascar' ? (
-                          <button
-                            value={context[id]?.c[16]?.v}
-                            className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie2', 'QB')}
-                          >
-                            QB
-                          </button>
-                        ) : (
-                          <button
-                            value={context[id]?.c[16]?.v}
-                            className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie2', 'Serie 2')}
-                          >
-                            Serie 2
-                          </button>
-                        )
-                      )
-                    }
-                    {
-                      context[id]?.c[17]?.v && (
-                        categoria === 'moto-gp' || categoria === 'indycar-series' ? (
-                          <button
-                            value={context[id]?.c[17]?.v}
                             className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie3', 'WUP')}
+                            onClick={() => fetchSpecificData('serie3')}
                           >
-                            Calentamiento
+                            Sprint
                           </button>
-                        ) : categoria === 'nascar' ? (
-                          <button
-                            value={context[id]?.c[17]?.v}
-                            className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie3', 'QF')}
-                          >
-                            QF
-                          </button>
-                        ) : (
-                          <button
-                            value={context[id]?.c[17]?.v}
-                            className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
-                            onClick={() => handleButtonClick('serie3', 'Serie 3')}
-                          >
-                            Serie 3
-                          </button>
-                        )
-                      )
-                    }
+                        )}
+                      </div>
 
-                    {context[id]?.c[18]?.v && (
-                      <button value={context[id]?.c[18]?.v} className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('final', 'Final')}>Final</button>
-                    )}
+                      <div className='d-flex'>
+                        <div className="day-carreras">
+                          <h4>Dom</h4>
+                        </div>
+                        {context[id]?.c[18]?.v !== null && context[id]?.c[18]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('final')}
+                          >
+                            Final
+                          </button>
+                        )}
+                      </div>
 
-                  </div> */}
+                    </div>
+                  )} {categoria !== 'moto-gp' && (
+                    <div className="menu">
+                      {Object.entries(buttonData).map(([day, buttons], index) => (
+                        <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
+                          <div className='day-carreras'>
+                            <h4>{day}</h4>
+                          </div>
+                          {buttons.map((button, buttonIndex) => (
+                            <button
+                              key={buttonIndex}
+                              className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
+                              data-name={button}
+                              onClick={() => handleMenuButtonClick2(button)}
+                              style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
+                            >
+                              {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
+                              {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
+                            </button>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+
+                  )}
                   <div className="buttons-pilotos-horarios">
                     {context[id]?.c[7]?.v && (
                       <button value={context[id]?.c[7]?.v} className={`button-pilotos ${selectedButton === 'pilotos' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('pilotos', 'Pilotos')}>Pilotos</button>
@@ -1314,7 +1191,12 @@ const DetailFecha = ({ rowData }) => {
                             <th className='img-carreras col-2'><h4>Marca</h4></th>
                             <th className='vueltas-carreras col-1'><h4>Vtas</h4></th>
                             <th className='tiempo-carreras col-2'><h4>Tiempo</h4></th>
-                            <th className='dif-carreras col-2'><h4>Dif</h4></th>
+                            {categoria !== 'moto-gp' && (
+                              <>
+                                <th className='dif-carreras col-2'><h4>Dif</h4></th>
+
+                              </>
+                            )}
                           </tr>
                         </thead>
                         <tbody>
@@ -1324,7 +1206,7 @@ const DetailFecha = ({ rowData }) => {
                               <td className='piloto-carreras-td col-4'><h4 >{item.piloto}</h4></td>
                               <td className='img-carreras-td col-2'>
                                 {["tp", "tp1", "tp2"].includes(categoria) ? (
-                                  <h4 style={{color: "white"}}>{item.marca}</h4>
+                                  <h4 style={{ color: "white" }}>{item.marca}</h4>
                                 ) : (
                                   getMarcaImageUrl(item.marca) ? (
                                     <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt={item.marca} />
@@ -1336,7 +1218,12 @@ const DetailFecha = ({ rowData }) => {
 
                               <td className='vueltas-carreras-td col-1'><h4>{item.vueltas}</h4></td>
                               <td className='tiempo-carreras-td col-2'><h4>{item.tiempo}</h4></td>
-                              <td className='dif-carreras-td col-2'><h4>{item.diferencia}</h4></td>
+                              {categoria !== 'moto-gp' && (
+                                <>
+                                  <td className='dif-carreras-td col-2'><h4>{item.diferencia}</h4></td>
+                                </>
+                              )}
+
                             </tr>
                           ))}
                         </tbody>
@@ -1346,7 +1233,8 @@ const DetailFecha = ({ rowData }) => {
                   ))}
                 </div>
               )}
-              <div className={`col-lg-3 none-lg  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>                <CallActionNoticias filterDate={new Date(context[id]?.c[2]?.v)} category={categoria} />
+              <div className={`col-lg-3 none-lg  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>
+                <CallActionNoticias filterDate={new Date(context[id]?.c[2]?.v)} category={categoria} />
               </div>
             </div>
 

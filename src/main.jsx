@@ -15,6 +15,7 @@ import DetailFecha from './Components/DetailFecha/DetailFecha';
 import DetailNoticiasCat from './Components/DetailNoticiasCat/DetailNoticiasCat';
 import CarrerasAnuales from './Components/CarrerasAnuales/CarrerasAnuales';
 import ResultadoEnVivo from './ResultadoEnVivo/ResultadoEnVivo';
+import VivoF1 from './Components/VivoF1/VivoF1';
 
 
 const router = createHashRouter([
@@ -33,6 +34,12 @@ const router = createHashRouter([
         </NewsProvider>
       </CarrerasAnualesProvider>
 
+    ),
+  },
+  {
+    path: "/f1live",
+    element: (
+                <VivoF1 />
     ),
   },
 

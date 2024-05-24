@@ -34,7 +34,11 @@ const Huella = () => {
             case 'rally-argentino':
                 return 'Rally Argentino';
             case 'tp':
-                return 'Turismo Pista';
+                return 'Turismo Pista C3';
+                case 'tp1':
+                    return 'Turismo Pista C1';
+                    case 'tp2':
+                        return 'Turismo Pista C2';
             case 'f1':
                 return 'Fórmula 1';
             case 'moto-gp':
@@ -55,8 +59,8 @@ const Huella = () => {
                 return 'Top-Race Series';
             case 'arg-mundo':
                 return 'Argentinos por el mundo';
-                case 'tn3':
-                    return 'Turismo Nacional C3';
+            case 'tn3':
+                return 'Turismo Nacional C3';
             default:
                 return categoria; // Por defecto, devuelve la categoría tal como está
         }

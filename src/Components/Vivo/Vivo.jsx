@@ -39,10 +39,24 @@ const Vivo = () => {
         const response = await fetch('http://localhost:5000/f1/live');
         if (response.ok) {
           const data = await response.json();
-          if (data.statusData.situacion === "Bandera a cuadros") {
-            setMostrarBotonF1(false);
-          } else {
+          const { headerData } = data;
+  
+          // Convertir las fechas al formato ISO 8601 (YYYY-MM-DD)
+          const startDateParts = headerData.fechaInicio.split('/');
+          const endDateParts = headerData.fechaFin.split('/');
+          const startDateISO = `${startDateParts[2]}-${startDateParts[1]}-${startDateParts[0]}`;
+          const endDateISO = `${endDateParts[2]}-${endDateParts[1]}-${endDateParts[0]}`;
+  
+          // Crear objetos Date con las fechas convertidas
+          const currentDate = new Date();
+          const startDate = new Date(startDateISO);
+          const endDate = new Date(endDateISO);
+  
+          // Verificar si la fecha actual está dentro del rango de fechas del evento
+          if (currentDate >= startDate && currentDate <= endDate) {
             setMostrarBotonF1(true);
+          } else {
+            setMostrarBotonF1(false);
           }
         } else {
           console.error('Error al obtener los datos de F1');
@@ -53,9 +67,11 @@ const Vivo = () => {
         setCargandoF1(false);
       }
     };
-
+  
     fetchF1Data();
   }, []);
+  
+  
 
   useEffect(() => {
     if (diaActual === 'viernes' || diaActual === 'sábado' || diaActual === 'domingo') {
@@ -93,31 +109,31 @@ const Vivo = () => {
     setMostrarBotonTRSeries(showTRSeriesButton);
   }, [contextRally, contextTr, contextTrSeries]);
 
-  const toggleMostrarF1 = () => {
-    setMostrarF1(!mostrarF1);
-  };
+
 
   const renderComponente = () => {
-    if (mostrarF1) {
-      return <div>F1 Componente</div>;
-    } else {
-      switch (diaActual) {
-        case 'sábado':
-          return <Sabado />;
-        case 'domingo':
-          return <Domingo />;
-        case 'viernes':
-          return <Viernes />;
-        default:
-          return <div style={{ display: 'none', height: "0px" }} />;
-      }
+    switch (diaActual) {
+      case 'sábado':
+        return <Sabado />;
+      case 'domingo':
+        return <Domingo />;
+      case 'viernes':
+        return <Viernes />;
+      default:
+        return <div style={{ display: 'none', height: "0px" }} />;
     }
   };
+  
 
   return (
     <div>
       {mostrarBotonTC && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(false)}>NACIONALES</button>}
-      {mostrarBotonF1 && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(true)}>F1</button>}
+      {mostrarBotonF1 && 
+        <Link to={`http://localhost:5173/f1live/?vivo=true`} style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}>
+          <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(true)}>F1</button>
+        </Link>
+      
+      }
       {mostrarBotonRally && idCarrera &&
         <Link to={`http://localhost:5173/rally-argentino/carreras/${idCarrera - 1}?vivo=true`} style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}>
           <button className='button-tanda'>Rally Argentino</button>

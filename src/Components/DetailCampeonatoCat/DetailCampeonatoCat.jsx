@@ -45,6 +45,12 @@ const DetailCampeonatoCat = () => {
         else if (categoria === 'tp') {
           apiUrl = 'http://localhost:5000/api/campeonato/tp';
         }
+        else if (categoria === 'tp1') {
+          apiUrl = 'http://localhost:5000/api/campeonato/tp1';
+        }
+        else if (categoria === 'tp2') {
+          apiUrl = 'http://localhost:5000/api/campeonato/tp2';
+        }
         else if (categoria === 'f1') {
           apiUrl = 'http://localhost:5000/api/campeonato/f1';
         }
@@ -341,7 +347,7 @@ const DetailCampeonatoCat = () => {
               <ClipLoader color="#FE0" size={80} />
             </div>
           )} <h2>{campeonatoData.length > 0 && campeonatoData[0].disputadas}</h2>           <div className="col-lg-10">
-            {!loading && categoria === 'tp' && <TableTp campeonatoData={campeonatoData} />}
+{!loading && (categoria === 'tp' || categoria === 'tp1' || categoria === 'tp2') && <TableTp campeonatoData={campeonatoData} />}
             {!loading && categoria === 'tn' && <TableTn campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} />}
             {!loading && categoria === 'rally-argentino' && <TableRallyArgentino campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} />}
             {!loading && categoria === 'f1' && <TableF1 campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} getNacionalidadImgUrl={getNacionalidadImgUrl} />}

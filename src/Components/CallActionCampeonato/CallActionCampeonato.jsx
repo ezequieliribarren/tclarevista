@@ -10,29 +10,38 @@ const CallActionCampeonato = () => {
     const [numPilotos, setNumPilotos] = useState(5); // Estado para la cantidad de pilotos a mostrar
 
     const campeonatoUrl = categoria === 'tc2000' ?
-    'http://localhost:5000/api/campeonato/tc2000' :
-    (categoria === 'rally-argentino' ?
-        'http://localhost:5000/api/campeonato/rally-argentino' :
-        (categoria === 'rally-mundial' ?
-            'http://localhost:5000/api/campeonato/rally-mundial' :
-            (categoria === 'nascar' ?
-                'http://localhost:5000/api/campeonato/nascar' :
-                (categoria === 'formula-e' ?
-                    'http://localhost:5000/api/campeonato/formula-e' :
-                    (categoria === 'f1' ?
-                        'http://localhost:5000/api/campeonato/f1' :
-                        (categoria === 'moto-gp' ?
-                            'http://localhost:5000/api/campeonato/moto-gp' :
-                            (categoria === 'indycar-series' ?
-                                'http://localhost:5000/api/campeonato/indycar-series' :
-                                `http://localhost:5000/api/campeonatos/${categoria}`
+        'http://localhost:5000/api/campeonato/tc2000' :
+        (categoria === 'rally-argentino' ?
+            'http://localhost:5000/api/campeonato/rally-argentino' :
+            (categoria === 'rally-mundial' ?
+                'http://localhost:5000/api/campeonato/rally-mundial' :
+                (categoria === 'nascar' ?
+                    'http://localhost:5000/api/campeonato/nascar' :
+                    (categoria === 'formula-e' ?
+                        'http://localhost:5000/api/campeonato/formula-e' :
+                        (categoria === 'f1' ?
+                            'http://localhost:5000/api/campeonato/f1' :
+                            (categoria === 'moto-gp' ?
+                                'http://localhost:5000/api/campeonato/moto-gp' :
+                                (categoria === 'tp' ?
+                                    'http://localhost:5000/api/campeonato/tp' :
+                                    (categoria === 'tp1' ?
+                                        'http://localhost:5000/api/campeonato/tp1' :
+                                        (categoria === 'tp2' ?
+                                            'http://localhost:5000/api/campeonato/tp2' :
+                                            (categoria === 'indycar-series' ?
+                                                'http://localhost:5000/api/campeonato/indycar-series' :
+                                                `http://localhost:5000/api/campeonatos/${categoria}`
+                                            )
+                                        )
+                                    )
+                                )
                             )
                         )
                     )
                 )
             )
-        )
-    );
+        );
 
 
 
@@ -139,47 +148,47 @@ const CallActionCampeonato = () => {
 
     return (
         <>
-        {categoria !== 'dakar' && categoria !== 'tcr' && categoria !== 'tp' && categoria !== 'arg-mundo' && (
-        <div className='container-fluid call-action-campeonato'>
-            <div className='row'>
-                <h2>Campeonato</h2>
-            </div>
-            <div className='row'>
-                {loading ? (
-                    <div className="col-md-12 spinner-container">
-                        <ClipLoader color="#FE0" size={80} />
+            {categoria !== 'dakar' && categoria !== 'tcr' && categoria !== 'arg-mundo' && (
+                <div className='container-fluid call-action-campeonato'>
+                    <div className='row'>
+                        <h2>Campeonato</h2>
                     </div>
-                ) : (
-                    <>
-                        {primerosNPilotos.map((piloto, index) => (
-                            <div key={index} className={`card-call-action-campeonato ${colClass()}`}>
-                                <div className='container-pos'>
-                                    <h4 className='h4-pos-campeonato'>
-                                    
-                                        {categoria === 'rally-argentino' ? index + 1 : (piloto.posicion && piloto.posicion.replace('°', ''))}
-                                    </h4>
-                                </div>
-                                <div className='container-piloto'>
-                                    <h4 className='h4-piloto'>{piloto.piloto}</h4>
-                                </div>
-                                <div className='container-marca'>
-                                    {piloto.marca && <img className='img-piloto-call-action-campeonato' src={`images/marcas/${getMarcaImageUrl(piloto.marca)}`} alt="" />}
-                                </div>
+                    <div className='row'>
+                        {loading ? (
+                            <div className="col-md-12 spinner-container">
+                                <ClipLoader color="#FE0" size={80} />
                             </div>
-                        ))}
-                        <div className={`card-call-action-campeonato ver-tabla-completa ${verTablaCompletaColClass()}`}>
-                            <Link className="nav-link" to={getCampeonatoUrl()} onClick={() => handleButtonClick('campeonato')}>
-                                <div>
-                                    <img src="images/+.png" alt="" />
+                        ) : (
+                            <>
+                                {primerosNPilotos.map((piloto, index) => (
+                                    <div key={index} className={`card-call-action-campeonato ${colClass()}`}>
+                                        <div className='container-pos'>
+                                            <h4 className='h4-pos-campeonato'>
+
+                                                {categoria === 'rally-argentino' ? index + 1 : (piloto.posicion && piloto.posicion.replace('°', ''))}
+                                            </h4>
+                                        </div>
+                                        <div className='container-piloto'>
+                                            <h4 className='h4-piloto'>{piloto.piloto}</h4>
+                                        </div>
+                                        <div className='container-marca'>
+                                            {piloto.marca && <img className='img-piloto-call-action-campeonato' src={`images/marcas/${getMarcaImageUrl(piloto.marca)}`} alt="" />}
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className={`card-call-action-campeonato ver-tabla-completa ${verTablaCompletaColClass()}`}>
+                                    <Link className="nav-link" to={getCampeonatoUrl()} onClick={() => handleButtonClick('campeonato')}>
+                                        <div>
+                                            <img src="images/+.png" alt="" />
+                                        </div>
+                                        <h4 className='h4-piloto'>Ver Tabla Completa</h4>
+                                    </Link>
                                 </div>
-                                <h4 className='h4-piloto'>Ver Tabla Completa</h4>
-                            </Link>
-                        </div>
-                    </>
-                )}
-            </div>
-        </div>
-    )}   </>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}   </>
     )
 }
 
