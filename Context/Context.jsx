@@ -62,6 +62,12 @@ function trseries() {
 function tp() {
   return generarEnlaceConParametros("1432416990");
 }
+function tp1() {
+  return generarEnlaceConParametros("293719380");
+}
+function tp2() {
+  return generarEnlaceConParametros("289153055");
+}
 function tc2000() {
   return generarEnlaceConParametros("901761059");
 }
@@ -71,10 +77,6 @@ function tn() {
 function tn3() {
   return generarEnlaceConParametros("162407611");
 }
-
-
-
-
 
 
 
@@ -599,6 +601,76 @@ export const TpProvider = ({ children }) => {
 export const useTp = () => {
   return useContext(TpContext);
 };
+
+// TP C2
+const Tp2Context = createContext();
+export const Tp2Provider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tp2();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <Tp2Context.Provider value={data}>
+      {children}
+    </Tp2Context.Provider>
+  );
+};
+
+export const useTp2 = () => {
+  return useContext(Tp2Context);
+};
+
+
+// TP C1
+const Tp1Context = createContext();
+export const Tp1Provider = ({ children }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const enlace = tp1();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(enlace);
+        const textData = await response.text();
+        const jsonData = textData.substring(47, textData.length - 2);
+        const parsedData = JSON.parse(jsonData);
+        setData(parsedData.table.rows);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <Tp1Context.Provider value={data}>
+      {children}
+    </Tp1Context.Provider>
+  );
+};
+
+export const useTp1 = () => {
+  return useContext(Tp1Context);
+};
+
 
 // TC2000
 const Tc2000Context = createContext();

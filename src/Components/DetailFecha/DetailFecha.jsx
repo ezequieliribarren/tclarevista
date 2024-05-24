@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTp, useTc2000, useTn, useTn3 } from '../../../Context/Context';
+import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTp, useTc2000, useTn, useTn3, useTp2, useTp1 } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { ClipLoader } from 'react-spinners';
@@ -19,6 +19,7 @@ const DetailFecha = ({ rowData }) => {
   const [mostrarTablaTramo, setMostrarTablaTramo] = useState(true);
   const [loading, setLoading] = useState(true);
   const [selectedButton, setSelectedButton] = useState(null);
+  const [selectedButton2, setSelectedButton2] = useState(null);
   const [selectedButtonText, setSelectedButtonText] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [buttonVisibility, setButtonVisibility] = useState([]);
@@ -86,6 +87,12 @@ const DetailFecha = ({ rowData }) => {
     case 'tp':
       context = useTp();
       break;
+    case 'tp2':
+      context = useTp2();
+      break;
+    case 'tp1':
+      context = useTp1();
+      break;
     case 'tc2000':
       context = useTc2000();
       break;
@@ -114,6 +121,10 @@ const DetailFecha = ({ rowData }) => {
     fetchSpecificData(endpoint); // Realizar el fetch cuando se hace clic en un botón específico
   };
 
+  const handleMenuButtonClick2 = (button) => {
+    setSelectedButton(button);
+    // Aquí puedes agregar cualquier otra lógica que necesites al hacer clic en un botón
+  };
 
   const getLastButtonRallyArgentino = (contextData) => {
     const buttons = [
@@ -371,20 +382,20 @@ const DetailFecha = ({ rowData }) => {
 
 
   const actcButtons = [
-    { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2", "1\u00BA ENTRENAMIENTO C3"], endpoint: "en1" },
+    { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2", "1\u00BA ENTRENAMIENTO C3", "E1"], endpoint: "en1" },
     { tanda: "FIRST PRACTICE SESSION", endpoint: "en1" },
-    { tanda: ["2\u00BA Entrenamiento", "2\u00BA ENTRENAMIENTO C2" , "2\u00BA ENTRENAMIENTO C3"], endpoint: "en2" },
+    { tanda: ["2\u00BA Entrenamiento", "2\u00BA ENTRENAMIENTO C2", "2\u00BA ENTRENAMIENTO C3", "E2"], endpoint: "en2" },
     { tanda: "SECOND PRACTICE SESSION", endpoint: "en2" },
-    { tanda: ["3\u00BA Entrenamiento", "GENERAL ENTRENAMIENTO C2", "GENERAL ENTRENAMIENTO C3"], endpoint: "en3" },
+    { tanda: ["3\u00BA Entrenamiento", "GENERAL ENTRENAMIENTO C2", "GENERAL ENTRENAMIENTO C3", "EG"], endpoint: "en3" },
     { tanda: "THIRD PRACTICE SESSION", endpoint: "en3" },
-    { tanda: "4\u00BA Entrenamiento", endpoint: "en4" },
-    { tanda: ["5\u00BA Entrenamiento", "1° CLASIFICACIÓN C2", "1° CLASIFICACIÓN C3"], endpoint: "en5" },
-    { tanda: ["6\u00BA Entrenamiento", "2° CLASIFICACIÓN C2" , "2° CLASIFICACIÓN C3"], endpoint: "en6" },
+    { tanda: ["4\u00BA Entrenamiento", "TLL"], endpoint: "en4" },
+    { tanda: ["5\u00BA Entrenamiento", "1° CLASIFICACIÓN C2", "1° CLASIFICACIÓN C3", "C1"], endpoint: "en5" },
+    { tanda: ["6\u00BA Entrenamiento", "2° CLASIFICACIÓN C2", "2° CLASIFICACIÓN C3", "C2"], endpoint: "en6" },
     { tanda: "1\u00BA Pruebas Libres", endpoint: "en4" },
-    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024 ", "QUALIFYING SESSION", "CLASIFICACION C2"], endpoint: "clasificacion" },
-    { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024", "PRIMERA SERIE C2", "PRIMERA SERIE C3"], endpoint: "serie1" },
-    { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6", "SEGUNDA SERIE C2", "SEGUNDA SERIE C3"], endpoint: "serie2" },
-    { tanda: ["3\u00BA Serie", "Sprint 2024", "TERCERA SERIE C2", "TERCERA SERIE C3"], endpoint: "serie3" },
+    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024 ", "QUALIFYING SESSION", "CLASIFICACION C2", "CG"], endpoint: "clasificacion" },
+    { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024", "PRIMERA SERIE C2", "PRIMERA SERIE C3", "Serie 1"], endpoint: "serie1" },
+    { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6", "SEGUNDA SERIE C2", "SEGUNDA SERIE C3", "Serie 2"], endpoint: "serie2" },
+    { tanda: ["3\u00BA Serie", "Sprint 2024", "TERCERA SERIE C2", "TERCERA SERIE C3", "Serie 3"], endpoint: "serie3" },
     { tanda: ["Final", "Final 2024", "GRAND PRIX", "Final Especial 2024", "FINAL C2", "FINAL C3"], endpoint: "final" },
   ];
 
@@ -427,6 +438,19 @@ const DetailFecha = ({ rowData }) => {
     return tanda;
   }
 
+  // DIA DE LA SEMANA
+  const getDayOfWeek = (dateString, addDay = false) => {
+    if (!dateString) {
+      return '';
+    }
+
+    const [year, month, day] = dateString.split('-');
+    const date = new Date(year, month - 1, day); // Mes en JavaScript es 0-indexed, por eso month - 1
+    if (addDay) {
+      date.setDate(date.getDate() + 1); // Sumar un día si se especifica
+    }
+    return date.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', '');
+  };
   return (
     <Layout>
       {/* RALLY ARGENTINO */}
@@ -443,8 +467,9 @@ const DetailFecha = ({ rowData }) => {
                   <img src={context[id]?.c[4]?.v} alt="Circuito" />
                 </div>
               </div>
-              <div className="col-12 select-tandas-carreras">
-                <div className={`buttons-up-carreras  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>                  <div>
+              <div className="col-12 select-tandas-carreras rally-argentino">
+                <div className="buttons-up-carreras"  >                  <div>
+                  <div className="day-carreras"><h4>{getDayOfWeek(context[id]?.c[2]?.v)}</h4></div>
                   {context[id]?.c[8]?.v && context[id]?.c[8]?.v !== '-' && (
                     <button
                       value={context[id]?.c[8]?.v}
@@ -499,6 +524,10 @@ const DetailFecha = ({ rowData }) => {
                       Especial 5
                     </button>
                   )}
+                </div>
+                </div>
+                <div className="buttons-up-carreras">
+                  <div className="day-carreras"><h4>{getDayOfWeek(context[id]?.c[2]?.v, true)}</h4></div>
                   {context[id]?.c[14]?.v && context[id]?.c[14]?.v !== '-' && (
                     <button
                       value={context[id]?.c[14]?.v}
@@ -598,7 +627,6 @@ const DetailFecha = ({ rowData }) => {
                       Especial 16
                     </button>
                   )}
-                </div>
                 </div>
                 <div className="buttons-pilotos-horarios">
                   <div className="buttons-pilotos-horarios">
@@ -938,24 +966,24 @@ const DetailFecha = ({ rowData }) => {
                   </div>
                 </div>
                 <div className="col-12 select-tandas-carreras">
-                  <div className="menu">
-                    {Object.entries(buttonData).map(([day, buttons], index) => (
-                      <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
-                        <div className='day-carreras'>
-                          <h4>{day}</h4>
-                        </div>
-                        {buttons.map((button, buttonIndex) => (
-                          <button
-                            key={buttonIndex}
-                            className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
-                            data-name={button}
-                            onClick={() => handleMenuButtonClick(button)}
-                            style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
-                          >
-                            {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
-                            {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
-                          </button>
-                        ))}
+                        <div className="menu">
+              {Object.entries(buttonData).map(([day, buttons], index) => (
+                <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
+                  <div className='day-carreras'>
+                    <h4>{day}</h4>
+                  </div>
+                  {buttons.map((button, buttonIndex) => (
+                    <button
+                      key={buttonIndex}
+                      className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
+                      data-name={button}
+                      onClick={() => handleMenuButtonClick2(button)}
+                      style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
+                    >
+                      {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
+                      {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
+                    </button>
+                  ))}
                       </div>
                     ))}
                   </div>
@@ -1293,8 +1321,19 @@ const DetailFecha = ({ rowData }) => {
                           {data.results && Array.isArray(data.results) && data.results.map((item, idx) => (
                             <tr className='row' key={idx}>
                               <td className='pos-carreras-td col-1'><h4>{item.pos}</h4></td>
-                              <td className='piloto-carreras-td col-4'><h4>{item.piloto}</h4></td>
-                              <td className='img-carreras-td col-2'>  <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt={item.marca} /></td>
+                              <td className='piloto-carreras-td col-4'><h4 >{item.piloto}</h4></td>
+                              <td className='img-carreras-td col-2'>
+                                {["tp", "tp1", "tp2"].includes(categoria) ? (
+                                  <h4 style={{color: "white"}}>{item.marca}</h4>
+                                ) : (
+                                  getMarcaImageUrl(item.marca) ? (
+                                    <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt={item.marca} />
+                                  ) : (
+                                    <h4>{item.marca}</h4>
+                                  )
+                                )}
+                              </td>
+
                               <td className='vueltas-carreras-td col-1'><h4>{item.vueltas}</h4></td>
                               <td className='tiempo-carreras-td col-2'><h4>{item.tiempo}</h4></td>
                               <td className='dif-carreras-td col-2'><h4>{item.diferencia}</h4></td>

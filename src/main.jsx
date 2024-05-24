@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './index.scss'
 import Root from './Routes/Root';
-import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider, RallyProvider, F1Provider, MgpProvider, IndyProvider, NasProvider, RmunProvider, FeProvider, TablaCampeonatoProvider, TrProvider, TrSeriesProvider, TpProvider, Tc2000Provider, TnProvider, Tn3Provider } from '../Context/Context';
+import { CampeonatoProvider, CarrerasAnualesProvider, NewsProvider, TcProvider, TcpProvider, TcpmProvider, TcpkProvider, TcmProvider, TcppkProvider, RallyProvider, F1Provider, MgpProvider, IndyProvider, NasProvider, RmunProvider, FeProvider, TablaCampeonatoProvider, TrProvider, TrSeriesProvider, TpProvider, Tc2000Provider, TnProvider, Tn3Provider, Tp2Provider, Tp1Provider } from '../Context/Context';
 import Nosotros from './Routes/Nosotros';
 import Contacto from './Routes/Contacto';
 import DetailCarrerasCat from './Components/DetailCarrerasCat/DetailCarrerasCat';
@@ -65,7 +65,11 @@ const router = createHashRouter([
                                         <Tc2000Provider>
                                           <TnProvider>
                                             <Tn3Provider>
-                                              <Categoria />
+                                              <Tp2Provider>
+                                                <Tp1Provider>
+                                                  <Categoria />
+                                                </Tp1Provider>
+                                              </Tp2Provider>
                                             </Tn3Provider>
                                           </TnProvider>
                                         </Tc2000Provider>
@@ -158,7 +162,11 @@ const router = createHashRouter([
                                         <Tc2000Provider>
                                           <TnProvider>
                                             <Tn3Provider>
-                                              <DetailCarrerasCat />
+                                              <Tp1Provider>
+                                                <Tp2Provider>
+                                                  <DetailCarrerasCat />
+                                                </Tp2Provider>
+                                              </Tp1Provider>
                                             </Tn3Provider>
                                           </TnProvider>
                                         </Tc2000Provider>
@@ -224,7 +232,11 @@ const router = createHashRouter([
                                         <Tc2000Provider>
                                           <TnProvider>
                                             <Tn3Provider>
-                                              <DetailFecha />
+                                              <Tp1Provider>
+                                                <Tp2Provider>
+                                                  <DetailFecha />
+                                                </Tp2Provider>
+                                              </Tp1Provider>
                                             </Tn3Provider>
                                           </TnProvider>
                                         </Tc2000Provider>

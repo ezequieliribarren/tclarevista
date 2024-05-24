@@ -306,15 +306,19 @@
     position: sticky !important;
     top: 0;
     width: 100%;
-    z-index: 111111;
+    z-index: 111111; 
     height: 6rem;
     background-color: #000;
     display: none !important;
 
     .offcanvas-body {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
+        align-items: start;
+    }
+
+    .offcanvas-header-2{
+        margin-bottom: 2rem;
     }
 
     .cerrar {

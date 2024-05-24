@@ -59,9 +59,7 @@ const Navbar = () => {
                     <div className="col-xl-9">
                       <div className="row">
                         <div className="col cat">
-                          <div>
-                            
-                            </div> 
+                
                         <div className="dropdown-item">
                         <div> <img src="images/logos//tn.png" alt="" /></div>
                           <div> <h2>Turismo<br />Nacional</h2></div>
@@ -139,13 +137,25 @@ const Navbar = () => {
                   </div>
                   <div className="row">
 
-                    <div className="col-3 cat">
-                      <Link to='/tp' className="dropdown-item">
-                        <div> <img src="images/logos//tp.png" alt="" /></div>
-                        <div> <h2>Turismo Pista</h2></div>
-                        <div> <img src="images/mayor.png" alt="" /></div>
-                      </Link>
+                  <div className="col-3 cat">
+                
+                <div className="dropdown-item">
+                <div> <img src="images/logos/tp.png" alt="" /></div>
+                  <div> <h2>Turismo<br />Pista</h2></div>
+                  <div className='links-clases'>
+                  <Link to='/tp1' className='button-clases'>
+                    C1
+                    </Link>
+                     <Link to='/tp2' className='button-clases'>
+                    C2
+                    </Link>
+                    <Link to='/tp' className='button-clases'>
+                    C3
+                    </Link>
+                  </div>
+                 
                     </div>
+                </div>
                   </div>
                 </div>
               </ul>
@@ -248,8 +258,16 @@ const Navbar = () => {
                 <img src="images/x.png" alt="Cerrar" />
               </button>
             </div>
+            <div className="offcanvas-header-2">
+            <div className='redes'>
+                <div><a href="https://www.instagram.com/tclarevista/"><img src="images/redes/insta.png" alt="Intagram de Tc La Revista" /></a></div>
+                <div><a href="https://twitter.com/tclarevista"><img src="images/redes/x.png" alt="Twitter de Tc La Revista" /></a></div>
+                <div><a href="https://www.youtube.com/tcrevista"><img src="images/redes/youtube.png" alt="Youtube de Tc La Revista" /></a></div>
+                <div><a href=""><img src="images/redes/mail.png" alt="Mail de Tc La Revista" /></a></div>
+              </div>
+            </div>
             <div class="offcanvas-body">
-              <ul class="navbar-nav ">
+              <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Nacionales
@@ -259,7 +277,7 @@ const Navbar = () => {
                       <div><h2>Turismo Carretera</h2></div>
                       <div><img src="images/mayor.png" alt="" /></div>
                     </Link>
-                    <Link to='/tn' className='dropdown-item link-navbar-responsive'>
+                    <Link to='/tn' className='dropdown-item link-navbar-responsive' >
                       <div><h2>Turismo Nacional</h2></div>
                       <div><img src="images/mayor.png" alt="" /></div>
                     </Link>
@@ -362,12 +380,6 @@ const Navbar = () => {
                   </Link>
                 </li>
               </ul>
-              <div className='redes'>
-                <div><a href="https://www.instagram.com/tclarevista/"><img src="images/redes/insta.png" alt="Intagram de Tc La Revista" /></a></div>
-                <div><a href="https://twitter.com/tclarevista"><img src="images/redes/x.png" alt="Twitter de Tc La Revista" /></a></div>
-                <div><a href="https://www.youtube.com/tcrevista"><img src="images/redes/youtube.png" alt="Youtube de Tc La Revista" /></a></div>
-                <div><a href=""><img src="images/redes/mail.png" alt="Mail de Tc La Revista" /></a></div>
-              </div>
             </div>
 
           </div>

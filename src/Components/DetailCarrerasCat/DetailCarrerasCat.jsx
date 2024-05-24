@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../../LayoutCategoria/LayoutCategoria';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
-import { useF1, useFe, useIndy, useMgp, useNas, useRmun, useTc, useTc2000, useTn, useTn3, useTp, useTr, useTrSeries } from '../../../Context/Context';
+import { useF1, useFe, useIndy, useMgp, useNas, useRmun, useTc, useTc2000, useTn, useTn3, useTp, useTp1, useTp2, useTr, useTrSeries } from '../../../Context/Context';
 import { useTcp } from '../../../Context/Context';
 import { useTcm } from '../../../Context/Context';
 import { useTcpm } from '../../../Context/Context';
@@ -83,15 +83,21 @@ const DetailCarrerasCat = () => {
     case 'tp':
       context = useTp();
       break;
+    case 'tp2':
+      context = useTp2();
+      break;
+    case 'tp1':
+      context = useTp1();
+      break;
     case 'tc2000':
       context = useTc2000();
       break;
     case 'tn':
       context = useTn();
       break;
-      case 'tn3':
-        context = useTn3();
-        break;
+    case 'tn3':
+      context = useTn3();
+      break;
     default:
       context = [];
   }
