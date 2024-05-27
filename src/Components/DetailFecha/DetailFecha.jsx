@@ -121,10 +121,10 @@ const DetailFecha = ({ rowData }) => {
     fetchSpecificData(endpoint); // Realizar el fetch cuando se hace clic en un botón específico
   };
 
-  const handleMenuButtonClick2 = (button) => {
-    setSelectedButton(button);
-    // Aquí puedes agregar cualquier otra lógica que necesites al hacer clic en un botón
-  };
+  // const handleMenuButtonClick2 = (button) => {
+  //   setSelectedButton(button);
+  //   // Aquí puedes agregar cualquier otra lógica que necesites al hacer clic en un botón
+  // };
 
   const getLastButtonRallyArgentino = (contextData) => {
     const buttons = [
@@ -777,7 +777,7 @@ const DetailFecha = ({ rowData }) => {
                   <img style={{ maxWidth: '19rem' }} className='img-fluid' src={context[id]?.c[4]?.v} alt="Circuito" />                </div>
               </div>
               <div className="col-12 select-tandas-carreras">
-                <div className={`buttons-up-carreras  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>                  <div>
+                <div className='d-flex' style={{ flexWrap: "wrap" }}>
                   {context[id]?.c[9]?.v && (
                     <button className={`button-tanda ${selectedButton === 'shake' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('shake', 'Shake')}>Shake</button>
                   )}
@@ -856,29 +856,11 @@ const DetailFecha = ({ rowData }) => {
                   {context[id]?.c[60]?.v && (
                     <button className={`button-tanda ${selectedButton === 'p26' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p26', 'Especial 26')}>Especial 26</button>
                   )}
-                  {context[id]?.c[62]?.v && (
-                    <button className={`button-tanda ${selectedButton === 'p27' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p27', 'Especial 27')}>Especial 27</button>
-                  )}
-                  {context[id]?.c[64]?.v && (
-                    <button className={`button-tanda ${selectedButton === 'p28' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p28', 'Especial 28')}>Especial 28</button>
-                  )}
-                  {context[id]?.c[66]?.v && (
-                    <button className={`button-tanda ${selectedButton === 'p29' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p29', 'Especial 29')}>Especial 29</button>
-                  )}
-                  {context[id]?.c[68]?.v && (
-                    <button className={`button-tanda ${selectedButton === 'p30' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p30', 'Especial 30')}>Especial 30</button>
-                  )}
-
-                  {context[id]?.c[70]?.v && (
-                    <button className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('final', 'Final')}>Final</button>
-                  )}
-
-                </div>
                 </div>
               </div>
             </div>
           </div>
-          <div>
+          <div className='d-flex' style={{ paddingLeft: "2.5%" }}>
             <button className="button-tanda" onClick={toggleMostrarTabla}>Tramo</button>
             <button className="button-tanda" onClick={toggleMostrarTabla}>General</button>
           </div>
@@ -1081,7 +1063,137 @@ const DetailFecha = ({ rowData }) => {
                       </div>
 
                     </div>
-                  )} {categoria !== 'moto-gp' && (
+                  )}
+                  {categoria === 'indycar-series' && (
+                    <div className="menu2">
+                      <div className='d-flex' style={{ flexWrap: "wrap" }}>
+                        {context[id]?.c[8]?.v !== null && context[id]?.c[8]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en1')}
+                          >
+                            1° Entrenamiento
+                          </button>
+                        )}
+                        {context[id]?.c[9]?.v !== null && context[id]?.c[9]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en2' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en2')}
+                          >
+                            2° Entrenamiento
+                          </button>
+                        )}
+                        {context[id]?.c[13]?.v !== null && context[id]?.c[13]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en6')}
+                          >
+                            Q1 G1
+                          </button>
+                        )}
+                        {context[id]?.c[14]?.v !== null && context[id]?.c[14]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('clasificacion')}
+                          >
+                            Q1 G2
+                          </button>
+                        )}
+                        {context[id]?.c[15]?.v !== null && context[id]?.c[15]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('serie1')}
+                          >
+                            Q2
+                          </button>
+                        )}
+                        {context[id]?.c[16]?.v !== null && context[id]?.c[16]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('serie2')}
+                          >
+                            Q3
+                          </button>
+                        )}
+                        {context[id]?.c[17]?.v !== null && context[id]?.c[17]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('serie3')}
+                          >
+                            Calentamiento
+                          </button>
+                        )}
+                        {context[id]?.c[18]?.v !== null && context[id]?.c[18]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('final')}
+                          >
+                            Final
+                          </button>
+                        )}
+
+
+
+                      </div>
+
+                    </div>
+                  )}
+                  {categoria === 'nascar' && (
+                    <div className="menu2">
+                      <div className='d-flex' style={{ flexWrap: "wrap" }}>
+                        {context[id]?.c[8]?.v !== null && context[id]?.c[8]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en1')}
+                          >
+                            1° Entrenamiento
+                          </button>
+                        )}
+                        {context[id]?.c[9]?.v !== null && context[id]?.c[9]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en2' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en2')}
+                          >
+                            2° Entrenamiento
+                          </button>
+                        )}
+                        {context[id]?.c[15]?.v !== null && context[id]?.c[15]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('serie1')}
+                          >
+                            Q1
+                          </button>
+                        )}
+                        {context[id]?.c[16]?.v !== null && context[id]?.c[16]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('serie2')}
+                          >
+                            Q2
+                          </button>
+                        )}
+                        {context[id]?.c[17]?.v !== null && context[id]?.c[17]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('serie3')}
+                          >
+                            Q3
+                          </button>
+                        )}
+                        {context[id]?.c[18]?.v !== null && context[id]?.c[18]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('final')}
+                          >
+                            Final
+                          </button>
+                        )}
+                      </div>
+
+                    </div>
+                  )}
+                  {categoria !== 'moto-gp' && categoria !== 'indicar-series' && categoria !== 'nascar' && (
                     <div className="menu">
                       {Object.entries(buttonData).map(([day, buttons], index) => (
                         <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
@@ -1093,7 +1205,7 @@ const DetailFecha = ({ rowData }) => {
                               key={buttonIndex}
                               className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
                               data-name={button}
-                              onClick={() => handleMenuButtonClick2(button)}
+                              onClick={() => handleMenuButtonClick(button)}
                               style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
                             >
                               {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
