@@ -16,6 +16,7 @@ import DetailNoticiasCat from './Components/DetailNoticiasCat/DetailNoticiasCat'
 import CarrerasAnuales from './Components/CarrerasAnuales/CarrerasAnuales';
 import ResultadoEnVivo from './ResultadoEnVivo/ResultadoEnVivo';
 import VivoF1 from './Components/VivoF1/VivoF1';
+import Radio from './Routes/RadioRoute';
 
 
 const router = createHashRouter([
@@ -47,6 +48,13 @@ const router = createHashRouter([
     path: "/vivo/:categoria/:tanda/:ip/:indice",
     element: (
       <ResultadoEnVivo />
+    ),
+  },
+
+  {
+    path: "/radio",
+    element: (
+      <Radio/>
     ),
   },
   {

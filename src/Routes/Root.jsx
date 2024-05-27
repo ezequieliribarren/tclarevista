@@ -24,9 +24,6 @@ const Root = () => {
             </div>
           </div>
           <div className="container-fluid">
-            <div className="row">
-              {/* VINCULAR */}
-            </div>
             <Principales />
             <div className="row">
               <div className="col-lg-8">

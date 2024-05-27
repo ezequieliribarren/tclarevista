@@ -472,8 +472,7 @@ const DetailFecha = ({ rowData }) => {
                   <h3>Fecha {context[id]?.c[0]?.v}</h3>
                 </div>
                 <div>
-                  <img src={context[id]?.c[4]?.v} alt="Circuito" />
-                </div>
+                  <img style={{ maxWidth: '19rem' }} className='img-fluid' src={context[id]?.c[4]?.v} alt="Circuito" />                </div>
               </div>
               <div className="col-12 select-tandas-carreras rally-argentino">
                 <div className="buttons-up-carreras"  >                  <div>
@@ -775,8 +774,7 @@ const DetailFecha = ({ rowData }) => {
                   <h3>Fecha {context[id]?.c[0]?.v}</h3>
                 </div>
                 <div>
-                  <img src={context[id]?.c[4]?.v} alt="Circuito" />
-                </div>
+                  <img style={{ maxWidth: '19rem' }} className='img-fluid' src={context[id]?.c[4]?.v} alt="Circuito" />                </div>
               </div>
               <div className="col-12 select-tandas-carreras">
                 <div className={`buttons-up-carreras  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>                  <div>
@@ -970,7 +968,7 @@ const DetailFecha = ({ rowData }) => {
                     <h3>Fecha {context[id]?.c[0]?.v}</h3>
                   </div>
                   <div>
-                    <img src={context[id]?.c[4]?.v} alt="Circuito" />
+                    <img style={{ maxWidth: '19rem' }} className='img-fluid' src={context[id]?.c[4]?.v} alt="Circuito" />
                   </div>
                 </div>
                 <div className="col-12 select-tandas-carreras">

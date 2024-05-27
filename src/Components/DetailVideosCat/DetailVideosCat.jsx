@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { HashLink as Link } from 'react-router-hash-link';
 import Layout from '../../LayoutCategoria/LayoutCategoria';
 import { useParams } from 'react-router-dom';
 

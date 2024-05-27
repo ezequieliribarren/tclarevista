@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-const Radio = ({ url }) => {
+const Radio = ({ url, route }) => {
   const [userInteracted, setUserInteracted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
