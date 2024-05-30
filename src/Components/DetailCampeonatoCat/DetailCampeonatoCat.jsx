@@ -347,7 +347,7 @@ const DetailCampeonatoCat = () => {
               <ClipLoader color="#FE0" size={80} />
             </div>
           )} <h2>{campeonatoData.length > 0 && campeonatoData[0].disputadas}</h2>           <div className="col-lg-10">
-{!loading && (categoria === 'tp' || categoria === 'tp1' || categoria === 'tp2') && <TableTp campeonatoData={campeonatoData} />}
+            {!loading && (categoria === 'tp' || categoria === 'tp1' || categoria === 'tp2') && <TableTp campeonatoData={campeonatoData} />}
             {!loading && categoria === 'tn' && <TableTn campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} />}
             {!loading && categoria === 'rally-argentino' && <TableRallyArgentino campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} />}
             {!loading && categoria === 'f1' && <TableF1 campeonatoData={campeonatoData} getMarcaImageUrl={getMarcaImageUrl} getNacionalidadImgUrl={getNacionalidadImgUrl} />}

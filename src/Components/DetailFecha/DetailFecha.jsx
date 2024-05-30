@@ -276,6 +276,32 @@ const DetailFecha = ({ rowData }) => {
       return 'yamaha.png';
     } else if (marcaMinuscula.includes('ktm')) {
       return 'ktm.png';
+    } else if (marcaMinuscula.includes('focus')) {
+      return 'ford.png';
+    } else if (marcaMinuscula.includes('cruze')) {
+      return 'chevrolet.png';
+    } else if (marcaMinuscula.includes('corolla')) {
+      return 'toyota.png';
+    } else if (marcaMinuscula.includes('tipo')) {
+      return 'fiat.png';
+    } else if (marcaMinuscula.includes('c-')) {
+      return 'citroen.png';
+    } else if (marcaMinuscula.includes('civic')) {
+      return 'honda.png';
+    } else if (marcaMinuscula.includes('408')) {
+      return 'peugeot.png';
+    } else if (marcaMinuscula.includes('lexus')) {
+      return 'lexus.png';
+    } else if (marcaMinuscula.includes('mercedes')) {
+      return 'mercedes.png';
+    } else if (marcaMinuscula.includes('benz')) {
+      return 'mercedes.png';
+    } else if (marcaMinuscula.includes('penske')) {
+      return 'penske.png';
+    } else if (marcaMinuscula.includes('mclaren')) {
+      return 'mclaren.png';
+    } else if (marcaMinuscula.includes('andretti')) {
+      return 'andretti.png';
     } else {
       // Si la marca no coincide con ninguna, puedes devolver una imagen por defecto
       return 'default.png';
@@ -422,15 +448,30 @@ const DetailFecha = ({ rowData }) => {
       "SIXTH PRACTICE SESSION": "6° Entrenamiento",
       "QUALIFYING SESSION": "Clasificación",
       "GRAND PRIX": "Final",
+      "1\u00BA Pruebas Libres": "Libres",
+      "Clasificación Todos Juntos TRV6 2024" : "Clasificacion",
+      "Clasificación 1\u00BA al 10\u00BA TRV6 2024" : "Clas. 1 al 10",
+      "Clasificación 1\u00BA al 5\u00BA TRV6 2024" : "Clas. 1 al 5",
       "1° ENTRENAMIENTO C2": "1° Entrenamiento",
       "2° ENTRENAMIENTO C2": "2° Entrenamiento",
+      "1° ENTRENAMIENTO C3": "1° Entrenamiento",
+      "2° ENTRENAMIENTO C3": "2° Entrenamiento",
       "PRIMERA SERIE C2": "1° Serie",
       "SEGUNDA SERIE C2": "2° Serie",
       "TERCERA SERIE C2": "3° Serie",
+      "PRIMERA SERIE C3": "1° Serie",
+      "SEGUNDA SERIE C3": "2° Serie",
+      "TERCERA SERIE C3": "3° Serie",
       "1° CLASIFICACIÓN C2": "1° Clas",
       "2° CLASIFICACIÓN C2": "2° Clas",
+      "1° CLASIFICACIÓN C3": "1° Clas",
+      "2° CLASIFICACIÓN C3": "2° Clas",
       "GENERAL CLASIFICACIÓN": "Clasificación",
+      "GENERAL ENTRENAMIENTO C2": "3° Entrenamiento",
+      "GENERAL ENTRENAMIENTO C3": "3 Entrenamiento",
       "FINAL C2": "Final",
+      "FINAL C3": "Final",
+
 
       // Agrega aquí más mapeos según sea necesario
     };

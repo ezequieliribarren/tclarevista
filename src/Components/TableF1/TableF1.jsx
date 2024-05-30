@@ -33,7 +33,7 @@ const TableF1 = ({ campeonatoData, getMarcaImageUrl, getNacionalidadImgUrl }) =>
                             <h4 className='h4-pos-tabla'>{item.posicion}</h4>
                         </td>
                         <td className="col-2 marca-carreras-td">
-                            <img src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" />
+                            <img style={{width: "4.5rem"}} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" />
                         </td>
                         <td className="col-5 piloto-carreras-td">
                             <h4 className='h4-piloto'>{item.piloto}</h4>
