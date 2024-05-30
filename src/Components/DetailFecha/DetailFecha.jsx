@@ -28,6 +28,7 @@ const DetailFecha = ({ rowData }) => {
   const [showShakeTable, setShowShakeTable] = useState(false);
   const [buttonData, setButtonData] = useState({});
   const location = useLocation();
+  const backUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
   // Extraer el parámetro 'vivo' de la URL
   const esFechaEnVivo = new URLSearchParams(location.search).get('vivo') === 'true';
@@ -156,7 +157,7 @@ const DetailFecha = ({ rowData }) => {
     if (categoria !== 'rally-mundial') {
       setLoading(true); // Iniciar la carga
       try {
-        const response = await fetch(`http://localhost:5000/${categoria}/${endpoint}/${id}`);
+        const response = await fetch(`${backUrl}/${categoria}/${endpoint}/${id}`);
         if (response.ok) {
           const jsonData = await response.json();
           // Actualizar el estado solo con los datos de la tabla clickeada
