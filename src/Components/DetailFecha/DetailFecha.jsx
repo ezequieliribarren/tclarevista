@@ -233,6 +233,7 @@ const DetailFecha = ({ rowData }) => {
       setLoading(false); // Finalizar la carga
     }
   };
+
   const toggleMostrarTabla = () => {
     setMostrarTablaTramo(!mostrarTablaTramo);
   };
@@ -308,7 +309,6 @@ const DetailFecha = ({ rowData }) => {
     }
   };
 
-
   // FUNCION PARA IMAGEN DE LA MARCA
   const getBrandFromImageUrl = (imageUrl) => {
     // Check if imageUrl is not null or undefined
@@ -360,7 +360,6 @@ const DetailFecha = ({ rowData }) => {
     setShowTramoTable(false); // Asegúrate de ocultar la tabla de tramo si estaba mostrada
   };
 
-
   const fetchDataMenu = async () => {
     try {
       const response = await fetch(`http://localhost:5000/${categoria}/menu/${id}`);
@@ -395,7 +394,6 @@ const DetailFecha = ({ rowData }) => {
     fetchDataMenu();
   }, [categoria, id]);
 
-
   // Función para manejar el clic en un botón del menú
   const handleMenuButtonClick = (buttonName) => {
     localStorage.setItem('lastButton', buttonName);
@@ -415,7 +413,6 @@ const DetailFecha = ({ rowData }) => {
     }
   };
 
-
   const actcButtons = [
     { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2", "1\u00BA ENTRENAMIENTO C3", "E1"], endpoint: "en1" },
     { tanda: "FIRST PRACTICE SESSION", endpoint: "en1" },
@@ -434,7 +431,6 @@ const DetailFecha = ({ rowData }) => {
     { tanda: ["Final", "Final 2024", "GRAND PRIX", "Final Especial 2024", "FINAL C2", "FINAL C3"], endpoint: "final" },
   ];
 
-
   function mapTandaToSpanish(tanda) {
     const tandaMappings = {
       "FIRST PRACTICE SESSION": "1° Entrenamiento",
@@ -449,9 +445,9 @@ const DetailFecha = ({ rowData }) => {
       "QUALIFYING SESSION": "Clasificación",
       "GRAND PRIX": "Final",
       "1\u00BA Pruebas Libres": "Libres",
-      "Clasificación Todos Juntos TRV6 2024" : "Clasificacion",
-      "Clasificación 1\u00BA al 10\u00BA TRV6 2024" : "Clas. 1 al 10",
-      "Clasificación 1\u00BA al 5\u00BA TRV6 2024" : "Clas. 1 al 5",
+      "Clasificación Todos Juntos TRV6 2024": "Clasificacion",
+      "Clasificación 1\u00BA al 10\u00BA TRV6 2024": "Clas. 1 al 10",
+      "Clasificación 1\u00BA al 5\u00BA TRV6 2024": "Clas. 1 al 5",
       "1° ENTRENAMIENTO C2": "1° Entrenamiento",
       "2° ENTRENAMIENTO C2": "2° Entrenamiento",
       "1° ENTRENAMIENTO C3": "1° Entrenamiento",
@@ -501,6 +497,7 @@ const DetailFecha = ({ rowData }) => {
     }
     return date.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', '');
   };
+  
   return (
     <Layout>
       {/* RALLY ARGENTINO */}
@@ -1106,6 +1103,52 @@ const DetailFecha = ({ rowData }) => {
 
                     </div>
                   )}
+                  {categoria === 'formula-e' && (
+                    <div className="menu2">
+                      <div className='d-flex'>
+                        <div className="day-carreras">
+                          <h4>{getDayOfWeek(context[id]?.c[2]?.v)}</h4>
+                        </div>
+                        {context[id]?.c[8]?.v !== null && context[id]?.c[8]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en1')}
+                          >
+                            1° Entrenamiento
+                          </button>
+                        )}
+                      </div>
+                      <div className='d-flex'>
+                        <div className="day-carreras">
+                          <h4>{getDayOfWeek(context[id]?.c[2]?.v, true)}</h4>
+                        </div>
+                        {context[id]?.c[9]?.v !== null && context[id]?.c[9]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'en2' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('en2')}
+                          >
+                            2° Entrenamiento
+                          </button>
+                        )}
+                        {context[id]?.c[14]?.v !== null && context[id]?.c[14]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('clasificacion')}
+                          >
+                            Clasificación
+                          </button>
+                        )}
+                        {context[id]?.c[18]?.v !== null && context[id]?.c[18]?.v !== '-' && (
+                          <button
+                            className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`}
+                            onClick={() => fetchSpecificData('final')}
+                          >
+                            Final
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
                   {categoria === 'indycar-series' && (
                     <div className="menu2">
                       <div className='d-flex' style={{ flexWrap: "wrap" }}>
@@ -1235,7 +1278,7 @@ const DetailFecha = ({ rowData }) => {
 
                     </div>
                   )}
-                  {categoria !== 'moto-gp' && categoria !== 'indicar-series' && categoria !== 'nascar' && (
+                  {categoria !== 'moto-gp' && categoria !== 'indicar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (
                     <div className="menu">
                       {Object.entries(buttonData).map(([day, buttons], index) => (
                         <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
