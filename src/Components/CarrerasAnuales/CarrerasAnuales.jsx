@@ -27,34 +27,34 @@ const CarrerasAnuales = () => {
                 <div className='title-table-carreras'><h2>Proximas Carreras</h2></div>
                 {carrerasFiltradas.map((carrera, index) => (
                     <div key={index} className='table-carrera'>
-                        <Link to={carrera.c[13]?.v}>
-                            {carrera && carrera.c && (
-                                <div className='container-fluid'>
-                                    <div className='description-table-left row'>
-                                        <div className='col-md-2'>
-                                            {carrera.c[8]?.v && (
-                                                <h4 className='h4-fecha'>{new Date(carrera.c[8].v).getDate()}/{new Date(carrera.c[6].v).getMonth() + 1}</h4>
-                                            )}
-                                        </div>
-                                        <div className='col-md-2'>
-                                            {carrera.c[7]?.v && <img src={carrera.c[11]?.v} alt="" />}
-                                        </div>
-                                        <div className='col-md-4'>
-                                            {carrera.c[9]?.v && <h4 className='h4-circuito'>{carrera.c[9]?.v}</h4>}
-                                        </div>
-                                        <div className='col-md-3'>
-                                            {carrera.c[10]?.v && <img src={carrera.c[10]?.v} alt="" />}
-                                        </div>
-                                        <div className='col-md-1'>
-                                            {carrera.c[8]?.v && carrera.c[3]?.v && carrera.c[10]?.v && (
-                                                <img className='play-carreras' src="images/little-play.png" alt="" />
-                                            )}
-                                        </div>
-                                        
+                        {carrera && carrera.c && (
+                            <div className='container-fluid'>
+                                <div className='description-table-left row'>
+                                    <div className='col-md-1'>
+                                        {carrera.c[8]?.v && (
+                                            <h4 className='h4-fecha'>
+                                                {new Date(carrera.c[8].v).getDate()}/{new Date(carrera.c[8].v).getMonth() + 1}
+                                            </h4>
+                                        )}
+
+                                    </div>
+                                    <div className="col-md-1">
+                                        <h4 className='h4-fecha'>
+                                            {carrera.c[12]?.v && <h4 className='h4-circuito'>{carrera.c[12]?.v}</h4>}
+                                        </h4>
+                                    </div>
+                                    <div className='col-md-3'>
+                                        {carrera.c[7]?.v && <img src={carrera.c[11]?.v} alt="" />}
+                                    </div>
+                                    <div className='col-md-4'>
+                                        {carrera.c[9]?.v && <h4 className='h4-circuito'>{carrera.c[9]?.v}</h4>}
+                                    </div>
+                                    <div className='col-md-3'>
+                                        {carrera.c[10]?.v && <img style={{ width: '12rem' }} className='img-fluid' src={carrera.c[10]?.v} alt="" />}
                                     </div>
                                 </div>
-                            )}
-                        </Link>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

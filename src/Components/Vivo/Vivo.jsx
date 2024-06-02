@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sabado from '../Sabado/Sabado';
 import Domingo from '../Domingo/Domingo';
 import Viernes from '../Viernes/Viernes';
-import { useRally, useTr, useTrSeries } from '../../../Context/Context';
+import { useRally, useTablaCampeonato, useTr, useTrSeries } from '../../../Context/Context';
 import { HashLink as Link } from 'react-router-hash-link';
 
 const Vivo = () => {
@@ -25,6 +25,7 @@ const Vivo = () => {
   const contextRally = useRally();
   const contextTr = useTr();
   const contextTrSeries = useTrSeries();
+  const tablaCampeonato = useTablaCampeonato();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -111,23 +112,32 @@ const Vivo = () => {
 
 
 
-  const renderComponente = () => {
-    switch (diaActual) {
-      case 'sábado':
-        return <Sabado />;
-      case 'domingo':
-        return <Domingo />;
-      case 'viernes':
-        return <Viernes />;
-      default:
-        return <div style={{ display: 'none', height: "0px" }} />;
-    }
+  const hayContenido = () => {
+    // Verificar si hay contenido en la fila 1 y columna 3
+    const valorCelda = tablaCampeonato.find(item => item.c[0]?.v === 'tc')?.c[3]?.v;
+    console.log(valorCelda)
+    return valorCelda !== undefined && valorCelda !== '-';
   };
   
-
+  const renderComponente = () => {
+    if (hayContenido()) {
+      switch (diaActual) {
+        case 'sábado':
+          return <Sabado />;
+        case 'domingo':
+          return <Domingo />;
+        case 'viernes':
+          return <Viernes />;
+        default:
+          return <div style={{ display: 'none', height: "0px" }} />;
+      }
+    } else {
+      return null; // No renderizar nada si no hay contenido
+    }
+  };
   return (
     <div>
-      {mostrarBotonTC && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(false)}>NACIONALES</button>}
+      {mostrarBotonTC &&  hayContenido() && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(false)}>NACIONALES</button>}
       {mostrarBotonF1 && 
         <Link to={`http://localhost:5173/f1live/?vivo=true`} style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}>
           <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(true)}>F1</button>

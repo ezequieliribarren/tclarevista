@@ -107,13 +107,13 @@ const DetailFecha = ({ rowData }) => {
       context = [];
   }
 
-  useEffect(() => {
-    // Verificar si la categoría es "rally-mundial"
-    if (categoria === 'rally-mundial') {
-      // Si la categoría es "rally-mundial", cargar los datos para el botón "Final"
-      handleButtonClickRally('final');
-    }
-  }, [categoria]); // Asegúrate de agregar "categoria" como una dependencia para que useEffect se ejecute cuando cambie
+  // useEffect(() => {
+  //   // Verificar si la categoría es "rally-mundial"
+  //   if (categoria === 'rally-mundial') {
+  //     // Si la categoría es "rally-mundial", cargar los datos para el botón "Final"
+  //     handleButtonClickRally('final');
+  //   }
+  // }, [categoria]); // Asegúrate de agregar "categoria" como una dependencia para que useEffect se ejecute cuando cambie
 
 
   const handleButtonClick = (endpoint, buttonText) => {
@@ -139,43 +139,42 @@ const DetailFecha = ({ rowData }) => {
     return availableButtons[availableButtons.length - 1];
   };
 
-  const getLastButton = () => {
-    const buttons = [
-      'en1', 'en2', 'en3', 'en4', 'en5', 'en6', 'clasificacion',
-      'serie1', 'serie2', 'serie3', 'final'
-    ];
+  // // const getLastButton = () => {
+  // //   const buttons = [
+  // //     'en1', 'en2', 'en3', 'en4', 'en5', 'en6', 'clasificacion',
+  // //     'serie1', 'serie2', 'serie3', 'final'
+  // //   ];
 
-    // Filtrar los botones disponibles según el contexto
-    const availableButtons = buttons.filter(button => context[id]?.c[buttons.indexOf(button) + 8]?.v);
+  //   // Filtrar los botones disponibles según el contexto
+  //   const availableButtons = buttons.filter(button => context[id]?.c[buttons.indexOf(button) + 8]?.v);
 
-    // Devolver el último botón disponible
-    return availableButtons[availableButtons.length - 1];
-  };
+  //   // Devolver el último botón disponible
+  //   return availableButtons[availableButtons.length - 1];
+  // };
+
+
 
   // FUNCION DEL FETCH
   const fetchSpecificData = async (endpoint) => {
-    if (categoria !== 'rally-mundial') {
-      setLoading(true); // Iniciar la carga
-      try {
-        const response = await fetch(`${backUrl}/${categoria}/${endpoint}/${id}`);
-        if (response.ok) {
-          const jsonData = await response.json();
-          // Actualizar el estado solo con los datos de la tabla clickeada
-          setRaceData([{ url: endpoint, results: jsonData }]);
-          setSelectedButton(endpoint); // Siempre actualiza el botón seleccionado cuando se hace clic en cualquier botón
-        } else {
-          console.error(`Error al obtener los datos de ${endpoint}`);
-          setRaceData([]);
-        }
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
+    setLoading(true); // Iniciar la carga
+    try {
+      const response = await fetch(`${backUrl}/${categoria}/${endpoint}/${id}`);
+      if (response.ok) {
+        const jsonData = await response.json();
+        // Actualizar el estado solo con los datos de la tabla clickeada
+        setRaceData([{ url: endpoint, results: jsonData }]);
+        setSelectedButton(endpoint); // Siempre actualiza el botón seleccionado cuando se hace clic en cualquier botón
+      } else {
+        console.error(`Error al obtener los datos de ${endpoint}`);
         setRaceData([]);
-      } finally {
-        setLoading(false); // Finalizar la carga
       }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+      setRaceData([]);
+    } finally {
+      setLoading(false); // Finalizar la carga
     }
   };
-
   useEffect(() => {
     const fetchLastButtonData = async () => {
       setLoading(true);
@@ -203,8 +202,66 @@ const DetailFecha = ({ rowData }) => {
     fetchLastButtonData();
   }, []); // Sin dependencias, se ejecuta solo una vez al montar el componente
 
+  const fetchDataMenu = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/${categoria}/menu/${id}`);
+      const data = await response.json();
+      setButtonData(data);
+
+      // Obtener el último botón del menú
+      const lastButton = Object.values(data).flat().slice(-1)[0];
+      console.log('Último botón:', lastButton);
+
+      // Obtener la información del botón desde actcButtons
+      const buttonInfo = actcButtons.find(button => {
+        if (Array.isArray(button.tanda)) {
+          return button.tanda.includes(lastButton);
+        } else {
+          return button.tanda === lastButton;
+        }
+      });
+
+      // Realizar el fetch con el endpoint del último botón
+      if (buttonInfo) {
+        fetchSpecificData(buttonInfo.endpoint);
+      } else {
+        console.error(`No se encontró el endpoint para el botón ${lastButton}`);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+
+  };
+
+  useEffect(() => {
+    fetchDataMenu();
+  }, [categoria, id]);
+
+  // Función para manejar el clic en un botón del menú
+  const handleMenuButtonClick = (buttonName) => {
+    localStorage.setItem('lastButton', buttonName);
+    const buttonInfo = actcButtons.find(button => {
+      if (Array.isArray(button.tanda)) {
+        // Si la tanda es un array, busca en cada opción
+        return button.tanda.includes(buttonName);
+      } else {
+        // Si la tanda no es un array, busca la coincidencia directamente
+        return button.tanda === buttonName;
+      }
+    });
+    if (buttonInfo) {
+      fetchSpecificData(buttonInfo.endpoint);
+    } else {
+      fetchSpecificData(buttonInfo.endpoint);
+    }
+  };
+
+
+
+
   // RALLY MUNDIAL
   const handleButtonClickRally = async (selectedButton) => {
+    setSelectedButton(selectedButton); // Actualizar el botón seleccionado
     await fetchSpecificDataRally(selectedButton, id, setRaceData2, setLoading);
   };
 
@@ -233,7 +290,6 @@ const DetailFecha = ({ rowData }) => {
       setLoading(false); // Finalizar la carga
     }
   };
-
   const toggleMostrarTabla = () => {
     setMostrarTablaTramo(!mostrarTablaTramo);
   };
@@ -360,58 +416,8 @@ const DetailFecha = ({ rowData }) => {
     setShowTramoTable(false); // Asegúrate de ocultar la tabla de tramo si estaba mostrada
   };
 
-  const fetchDataMenu = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/${categoria}/menu/${id}`);
-      const data = await response.json();
-      setButtonData(data);
 
-      // Obtener el último botón del menú
-      const lastButton = Object.values(data).flat().slice(-1)[0];
-      console.log('Último botón:', lastButton);
 
-      // Obtener la información del botón desde actcButtons
-      const buttonInfo = actcButtons.find(button => {
-        if (Array.isArray(button.tanda)) {
-          return button.tanda.includes(lastButton);
-        } else {
-          return button.tanda === lastButton;
-        }
-      });
-
-      // Realizar el fetch con el endpoint del último botón
-      if (buttonInfo) {
-        fetchSpecificData(buttonInfo.endpoint);
-      } else {
-        console.error(`No se encontró el endpoint para el botón ${lastButton}`);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDataMenu();
-  }, [categoria, id]);
-
-  // Función para manejar el clic en un botón del menú
-  const handleMenuButtonClick = (buttonName) => {
-    localStorage.setItem('lastButton', buttonName);
-    const buttonInfo = actcButtons.find(button => {
-      if (Array.isArray(button.tanda)) {
-        // Si la tanda es un array, busca en cada opción
-        return button.tanda.includes(buttonName);
-      } else {
-        // Si la tanda no es un array, busca la coincidencia directamente
-        return button.tanda === buttonName;
-      }
-    });
-    if (buttonInfo) {
-      fetchSpecificData(buttonInfo.endpoint);
-    } else {
-      console.error(`No se encontró el endpoint para el botón ${buttonName}`);
-    }
-  };
 
   const actcButtons = [
     { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2", "1\u00BA ENTRENAMIENTO C3", "E1"], endpoint: "en1" },
@@ -493,11 +499,39 @@ const DetailFecha = ({ rowData }) => {
     const [year, month, day] = dateString.split('-');
     const date = new Date(year, month - 1, day); // Mes en JavaScript es 0-indexed, por eso month - 1
     if (addDay) {
-      date.setDate(date.getDate() + 1); // Sumar un día si se especifica
+      date.setDate(date.getDate() - 1); // Sumar un día si se especifica
     }
     return date.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', '');
   };
+
+
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      setLoading(true);
+      try {
+        if (['moto-gp', 'indycar-series', 'formula-e', 'nascar', 'rally-argentino'].includes(categoria)) {
+          if (context[id]?.c[18]?.v !== null && context[id]?.c[18]?.v !== '-') {
+            await fetchSpecificData('final');
+          }
+        } else if (categoria === 'rally-mundial') {
+          const retryFetch = async (retries) => {
+            if (context[id]?.c[60]?.v !== null && context[id]?.c[60]?.v !== '-') {
+              await handleButtonClickRally('final');
+            } else if (retries > 0) {
+              setTimeout(() => retryFetch(retries - 1), 1000); // Esperar 1 segundo antes de reintentar
+            }
+          };
+          retryFetch(5); // Intentar hasta 5 veces
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
   
+    fetchInitialData();
+  }, [id, categoria, context]);
+  
+
   return (
     <Layout>
       {/* RALLY ARGENTINO */}
@@ -515,7 +549,7 @@ const DetailFecha = ({ rowData }) => {
               </div>
               <div className="col-12 select-tandas-carreras rally-argentino">
                 <div className="buttons-up-carreras"  >                  <div>
-                  <div className="day-carreras"><h4>{getDayOfWeek(context[id]?.c[2]?.v)}</h4></div>
+                  <div className="day-carreras"><h4>{getDayOfWeek(context[id]?.c[2]?.v, true)}</h4></div>
                   {context[id]?.c[8]?.v && context[id]?.c[8]?.v !== '-' && (
                     <button
                       value={context[id]?.c[8]?.v}
@@ -573,7 +607,7 @@ const DetailFecha = ({ rowData }) => {
                 </div>
                 </div>
                 <div className="buttons-up-carreras">
-                  <div className="day-carreras"><h4>{getDayOfWeek(context[id]?.c[2]?.v, true)}</h4></div>
+                  <div className="day-carreras"><h4>{getDayOfWeek(context[id]?.c[2]?.v)}</h4></div>
                   {context[id]?.c[14]?.v && context[id]?.c[14]?.v !== '-' && (
                     <button
                       value={context[id]?.c[14]?.v}
@@ -668,7 +702,7 @@ const DetailFecha = ({ rowData }) => {
                     <button
                       value={context[id]?.c[24]?.v}
                       className={`button-tanda ${selectedButton === 'p16' ? 'selected-button' : ''}`}
-                      onClick={() => handleButtonClick('p16', 'Especial 16')}
+                      onClick={() => handleButtonClick('final', 'Especial 16')}
                     >
                       Especial 16
                     </button>
@@ -688,14 +722,13 @@ const DetailFecha = ({ rowData }) => {
                 </div>
               </div>
             </div>
-            <div className={`buttons-up-carreras  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>
+            <div className={`buttons-up-carreras`}>
               {selectedButton !== "shake" && ( // Mostrar los botones solo si no es "shake"
-                <div className='buttons-up-carreras'>
+                <div className='buttons-up-carreras d-flex'>
                   <button className={`button-tanda ${showTramoTable ? 'selected-button' : ''} ${showTramoTable ? 'clicked-button' : ''}`} onClick={handleShowTramoTable}>Tramo</button>
                   <button className={`button-tanda ${showClasificacionTable ? 'selected-button' : ''} ${showClasificacionTable ? 'clicked-button' : ''}`} onClick={handleShowClasificacionTable}>Clasificación</button>
                 </div>
               )}
-
               {selectedButton === "shake" && (
 
                 <table className={`table-carreras ${showShakeTable ? '' : ''}`}>
@@ -729,7 +762,7 @@ const DetailFecha = ({ rowData }) => {
           </div>
           <div className="row">
 
-            <div className={`contenedor-table-carreras col-lg-9 ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>
+            <div className={`contenedor-table-carreras col-lg-9`}>
               <div>
               </div>
 
@@ -817,84 +850,85 @@ const DetailFecha = ({ rowData }) => {
               </div>
               <div className="col-12 select-tandas-carreras">
                 <div className='d-flex' style={{ flexWrap: "wrap" }}>
-                  {context[id]?.c[9]?.v && (
+                  {context[id]?.c[9]?.v && context[id]?.c[9]?.v !== ' ' && context[id]?.c[9]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'shake' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('shake', 'Shake')}>Shake</button>
                   )}
-                  {context[id]?.c[10]?.v && (
+                  {context[id]?.c[10]?.v && context[id]?.c[10]?.v !== ' ' && context[id]?.c[10]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p1' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p1', 'Especial 1')}>Especial 1</button>
                   )}
-                  {context[id]?.c[12]?.v && (
+                  {context[id]?.c[12]?.v && context[id]?.c[12]?.v !== ' ' && context[id]?.c[12]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p2' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p2', 'Especial 2')}>Especial 2</button>
                   )}
-                  {context[id]?.c[14]?.v && (
+                  {context[id]?.c[14]?.v && context[id]?.c[14]?.v !== ' ' && context[id]?.c[14]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p3' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p3', 'Especial 3')}>Especial 3</button>
                   )}
-                  {context[id]?.c[16]?.v && (
+                  {context[id]?.c[16]?.v && context[id]?.c[16]?.v !== ' ' && context[id]?.c[16]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p4' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p4', 'Especial 4')}>Especial 4</button>
                   )}
-                  {context[id]?.c[20]?.v && (
+                  {context[id]?.c[20]?.v && context[id]?.c[20]?.v !== ' ' && context[id]?.c[20]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p6' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p6', 'Especial 6')}>Especial 6</button>
                   )}
-                  {context[id]?.c[22]?.v && (
+                  {context[id]?.c[22]?.v && context[id]?.c[22]?.v !== ' ' && context[id]?.c[22]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p7' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p7', 'Especial 7')}>Especial 7</button>
                   )}
-                  {context[id]?.c[24]?.v && (
+                  {context[id]?.c[24]?.v && context[id]?.c[24]?.v !== ' ' && context[id]?.c[24]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p8' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p8', 'Especial 8')}>Especial 8</button>
                   )}
-                  {context[id]?.c[26]?.v && (
+                  {context[id]?.c[26]?.v && context[id]?.c[26]?.v !== ' ' && context[id]?.c[26]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p9' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p9', 'Especial 9')}>Especial 9</button>
                   )}
-                  {context[id]?.c[28]?.v && (
+                  {context[id]?.c[28]?.v && context[id]?.c[28]?.v !== ' ' && context[id]?.c[28]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p10' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p10', 'Especial 10')}>Especial 10</button>
                   )}
-                  {context[id]?.c[30]?.v && (
+                  {context[id]?.c[30]?.v && context[id]?.c[30]?.v !== ' ' && context[id]?.c[30]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p11' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p11', 'Especial 11')}>Especial 11</button>
                   )}
-                  {context[id]?.c[32]?.v && (
+                  {context[id]?.c[32]?.v && context[id]?.c[32]?.v !== ' ' && context[id]?.c[32]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p12' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p12', 'Especial 12')}>Especial 12</button>
                   )}
-                  {context[id]?.c[34]?.v && (
+                  {context[id]?.c[34]?.v && context[id]?.c[34]?.v !== ' ' && context[id]?.c[34]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p13' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p13', 'Especial 13')}>Especial 13</button>
                   )}
-                  {context[id]?.c[36]?.v && (
+                  {context[id]?.c[36]?.v && context[id]?.c[36]?.v !== ' ' && context[id]?.c[36]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p14' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p14', 'Especial 14')}>Especial 14</button>
                   )}
-                  {context[id]?.c[38]?.v && (
+                  {context[id]?.c[38]?.v && context[id]?.c[38]?.v !== ' ' && context[id]?.c[38]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p15' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p15', 'Especial 15')}>Especial 15</button>
                   )}
-                  {context[id]?.c[40]?.v && (
+                  {context[id]?.c[40]?.v && context[id]?.c[40]?.v !== ' ' && context[id]?.c[40]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p16' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p16', 'Especial 16')}>Especial 16</button>
                   )}
-                  {context[id]?.c[42]?.v && (
+                  {context[id]?.c[42]?.v && context[id]?.c[42]?.v !== ' ' && context[id]?.c[42]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p17' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p17', 'Especial 17')}>Especial 17</button>
                   )}
-                  {context[id]?.c[44]?.v && (
+                  {context[id]?.c[44]?.v && context[id]?.c[44]?.v !== ' ' && context[id]?.c[44]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p18' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p18', 'Especial 18')}>Especial 18</button>
                   )}
-                  {context[id]?.c[46]?.v && (
+                  {context[id]?.c[46]?.v && context[id]?.c[46]?.v !== ' ' && context[id]?.c[46]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p19' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p19', 'Especial 19')}>Especial 19</button>
                   )}
-                  {context[id]?.c[48]?.v && (
+                  {context[id]?.c[48]?.v && context[id]?.c[48]?.v !== ' ' && context[id]?.c[48]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p20' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p20', 'Especial 20')}>Especial 20</button>
                   )}
-                  {context[id]?.c[50]?.v && (
+                  {context[id]?.c[50]?.v && context[id]?.c[50]?.v !== ' ' && context[id]?.c[50]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p21' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p21', 'Especial 21')}>Especial 21</button>
                   )}
-                  {context[id]?.c[52]?.v && (
+                  {context[id]?.c[52]?.v && context[id]?.c[52]?.v !== ' ' && context[id]?.c[52]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p22' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p22', 'Especial 22')}>Especial 22</button>
                   )}
-                  {context[id]?.c[54]?.v && (
+                  {context[id]?.c[54]?.v && context[id]?.c[54]?.v !== ' ' && context[id]?.c[54]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p23' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p23', 'Especial 23')}>Especial 23</button>
                   )}
-                  {context[id]?.c[56]?.v && (
+                  {context[id]?.c[56]?.v && context[id]?.c[56]?.v !== ' ' && context[id]?.c[56]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p24' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p24', 'Especial 24')}>Especial 24</button>
                   )}
-                  {context[id]?.c[58]?.v && (
+                  {context[id]?.c[58]?.v && context[id]?.c[58]?.v !== ' ' && context[id]?.c[58]?.v !== '-' && (
                     <button className={`button-tanda ${selectedButton === 'p25' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p25', 'Especial 25')}>Especial 25</button>
                   )}
-                  {context[id]?.c[60]?.v && (
-                    <button className={`button-tanda ${selectedButton === 'p26' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('p26', 'Especial 26')}>Especial 26</button>
+                  {context[id]?.c[60]?.v && context[id]?.c[60]?.v !== ' ' && context[id]?.c[60]?.v !== '-' && (
+                    <button className={`button-tanda ${selectedButton === 'final' ? 'selected-button' : ''}`} onClick={() => handleButtonClickRally('final', 'Final')}>Final</button>
                   )}
+
                 </div>
               </div>
             </div>
@@ -1107,7 +1141,7 @@ const DetailFecha = ({ rowData }) => {
                     <div className="menu2">
                       <div className='d-flex'>
                         <div className="day-carreras">
-                          <h4>{getDayOfWeek(context[id]?.c[2]?.v)}</h4>
+                          <h4>{getDayOfWeek(context[id]?.c[2]?.v, true)}</h4>
                         </div>
                         {context[id]?.c[8]?.v !== null && context[id]?.c[8]?.v !== '-' && (
                           <button
@@ -1120,7 +1154,7 @@ const DetailFecha = ({ rowData }) => {
                       </div>
                       <div className='d-flex'>
                         <div className="day-carreras">
-                          <h4>{getDayOfWeek(context[id]?.c[2]?.v, true)}</h4>
+                          <h4>{getDayOfWeek(context[id]?.c[2]?.v)}</h4>
                         </div>
                         {context[id]?.c[9]?.v !== null && context[id]?.c[9]?.v !== '-' && (
                           <button
@@ -1152,6 +1186,9 @@ const DetailFecha = ({ rowData }) => {
                   {categoria === 'indycar-series' && (
                     <div className="menu2">
                       <div className='d-flex' style={{ flexWrap: "wrap" }}>
+                        <div className="day-carreras">
+                          <h4>Vie</h4>
+                        </div>
                         {context[id]?.c[8]?.v !== null && context[id]?.c[8]?.v !== '-' && (
                           <button
                             className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`}
@@ -1160,6 +1197,12 @@ const DetailFecha = ({ rowData }) => {
                             1° Entrenamiento
                           </button>
                         )}
+                      </div>
+
+                      <div className="d-flex">
+                        <div className="day-carreras">
+                          <h4>Sab</h4>
+                        </div>
                         {context[id]?.c[9]?.v !== null && context[id]?.c[9]?.v !== '-' && (
                           <button
                             className={`button-tanda ${selectedButton === 'en2' ? 'selected-button' : ''}`}
@@ -1200,6 +1243,11 @@ const DetailFecha = ({ rowData }) => {
                             Q3
                           </button>
                         )}
+                      </div>
+                      <div className="d-flex">
+                        <div className="day-carreras">
+                          <h4>Dom</h4>
+                        </div>
                         {context[id]?.c[17]?.v !== null && context[id]?.c[17]?.v !== '-' && (
                           <button
                             className={`button-tanda ${selectedButton === 'serie3' ? 'selected-button' : ''}`}
@@ -1216,16 +1264,16 @@ const DetailFecha = ({ rowData }) => {
                             Final
                           </button>
                         )}
-
-
-
                       </div>
-
                     </div>
                   )}
                   {categoria === 'nascar' && (
                     <div className="menu2">
                       <div className='d-flex' style={{ flexWrap: "wrap" }}>
+                        <div className="day-carreras">
+                          <h4>{getDayOfWeek(context[id]?.c[2]?.v, true)}</h4>
+                        </div>
+
                         {context[id]?.c[8]?.v !== null && context[id]?.c[8]?.v !== '-' && (
                           <button
                             className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`}
@@ -1242,6 +1290,12 @@ const DetailFecha = ({ rowData }) => {
                             2° Entrenamiento
                           </button>
                         )}
+
+                      </div>
+                      <div className="d-flex">
+                        <div className="day-carreras">
+                          <h4>{getDayOfWeek(context[id]?.c[2]?.v)}</h4>
+                        </div>
                         {context[id]?.c[15]?.v !== null && context[id]?.c[15]?.v !== '-' && (
                           <button
                             className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
@@ -1275,7 +1329,6 @@ const DetailFecha = ({ rowData }) => {
                           </button>
                         )}
                       </div>
-
                     </div>
                   )}
                   {categoria !== 'moto-gp' && categoria !== 'indicar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (

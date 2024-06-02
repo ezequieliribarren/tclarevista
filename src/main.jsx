@@ -28,7 +28,9 @@ const router = createHashRouter([
           <RallyProvider>
             <TrSeriesProvider>
               <TrProvider>
-                <Root />
+                <TablaCampeonatoProvider>
+                  <Root />
+                </TablaCampeonatoProvider>
               </TrProvider>
             </TrSeriesProvider>
           </RallyProvider>
