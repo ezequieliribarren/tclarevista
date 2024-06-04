@@ -6,7 +6,6 @@ import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
 import { ClipLoader } from 'react-spinners';
 import GeneralesCategoria from '../GeneralesCategoria/GeneralesCategoria';
-import Semaforo from '../Semaforo/Semaforo';
 import { useLocation } from 'react-router-dom';
 import Semaforo2 from '../Semaforo2/Semaforo2';
 import Finalizado from '../Finalizado/Finalizado';
@@ -107,25 +106,12 @@ const DetailFecha = ({ rowData }) => {
       context = [];
   }
 
-  // useEffect(() => {
-  //   // Verificar si la categoría es "rally-mundial"
-  //   if (categoria === 'rally-mundial') {
-  //     // Si la categoría es "rally-mundial", cargar los datos para el botón "Final"
-  //     handleButtonClickRally('final');
-  //   }
-  // }, [categoria]); // Asegúrate de agregar "categoria" como una dependencia para que useEffect se ejecute cuando cambie
-
 
   const handleButtonClick = (endpoint, buttonText) => {
     setSelectedButton(endpoint);
     setSelectedButtonText(buttonText);
     fetchSpecificData(endpoint); // Realizar el fetch cuando se hace clic en un botón específico
   };
-
-  // const handleMenuButtonClick2 = (button) => {
-  //   setSelectedButton(button);
-  //   // Aquí puedes agregar cualquier otra lógica que necesites al hacer clic en un botón
-  // };
 
   const getLastButtonRallyArgentino = (contextData) => {
     const buttons = [
@@ -138,19 +124,6 @@ const DetailFecha = ({ rowData }) => {
     // Devolver el último botón disponible
     return availableButtons[availableButtons.length - 1];
   };
-
-  // // const getLastButton = () => {
-  // //   const buttons = [
-  // //     'en1', 'en2', 'en3', 'en4', 'en5', 'en6', 'clasificacion',
-  // //     'serie1', 'serie2', 'serie3', 'final'
-  // //   ];
-
-  //   // Filtrar los botones disponibles según el contexto
-  //   const availableButtons = buttons.filter(button => context[id]?.c[buttons.indexOf(button) + 8]?.v);
-
-  //   // Devolver el último botón disponible
-  //   return availableButtons[availableButtons.length - 1];
-  // };
 
 
 
@@ -255,7 +228,6 @@ const DetailFecha = ({ rowData }) => {
       fetchSpecificData(buttonInfo.endpoint);
     }
   };
-
 
 
 
@@ -365,6 +337,169 @@ const DetailFecha = ({ rowData }) => {
     }
   };
 
+  const getNacionalidadImgUrl = (nacionalidad) => {
+    if (nacionalidad && nacionalidad.includes('NED')) {
+      return 'holanda.png';
+    } else if (nacionalidad && nacionalidad.includes('AUS')) {
+      return 'austria.png';
+    } else if (nacionalidad && nacionalidad.includes('Verstappen')) {
+      return 'holanda.png';
+    } else if (nacionalidad && nacionalidad.includes('Leclerc')) {
+      return 'monaco.png';
+    } else if (nacionalidad && nacionalidad.includes('Norris')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Sainz')) {
+      return 'españa.png';
+    } else if (nacionalidad && nacionalidad.includes('Perez')) {
+      return 'mexico.png';
+    } else if (nacionalidad && nacionalidad.includes('Piastri')) {
+      return 'australia.png';
+    } else if (nacionalidad && nacionalidad.includes('Russell')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Hamilton')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('ITA')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('RSA')) {
+      return 'rusia.png';
+    } else if (nacionalidad && nacionalidad.includes('Alonso')) {
+      return 'españa.png';
+    } else if (nacionalidad && nacionalidad.includes('Tsunoda')) {
+      return 'japon.png';
+    } else if (nacionalidad && nacionalidad.includes('Stroll')) {
+      return 'canada.png';
+    } else if (nacionalidad && nacionalidad.includes('Bearman')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Hulkenberg')) {
+      return 'alemania.png';
+    } else if (nacionalidad && nacionalidad.includes('Ricciardo')) {
+      return 'australia.png';
+    } else if (nacionalidad && nacionalidad.includes('Albon')) {
+      return 'tailandia.png';
+    } else if (nacionalidad && nacionalidad.includes('ESP')) {
+      return 'españa.png';
+    } else if (nacionalidad && nacionalidad.includes('Ocon')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Magnussen')) {
+      return 'dinamarca.png';
+    } else if (nacionalidad && nacionalidad.includes('Gasly')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Zhou')) {
+      return 'china.png';
+    } else if (nacionalidad && nacionalidad.includes('Dixon')) {
+      return 'australia.png';
+    } else if (nacionalidad && nacionalidad.includes('Palou')) {
+      return 'españa.png';
+    } else if (nacionalidad && nacionalidad.includes('Power')) {
+      return 'australia.png';
+    } else if (nacionalidad && nacionalidad.includes('Ward')) {
+      return 'mexico.png';
+    } else if (nacionalidad && nacionalidad.includes('Rossi')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Daly')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Larson')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Carpenter')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Sato')) {
+      return 'japon.png';
+    } else if (nacionalidad && nacionalidad.includes('Castroneves')) {
+      return 'brasil.png';
+    } else if (nacionalidad && nacionalidad.includes('Ghiotto')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Kirkwood')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Braun')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Siegel')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Reay')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Legge')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Andretti')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Rahal')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Herta')) {
+      return 'australia.png';
+    } else if (nacionalidad && nacionalidad.includes('Armstrong')) {
+      return 'australia.png';
+    }else if (nacionalidad && nacionalidad.includes('Simpson')) {
+      return 'barbados.png';
+    } else if (nacionalidad && nacionalidad.includes('Grosjean')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Purchaire')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Vautier')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Canapino')) {
+      return 'argentina.png';
+    } else if (nacionalidad && nacionalidad.includes('Fittipaldi')) {
+      return 'brasil.png';
+    } else if (nacionalidad && nacionalidad.includes('Harvey')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Blomvquist')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Ilott')) {
+      return 'reino-unido.png';
+    }else if (nacionalidad && nacionalidad.includes('Rosenqvist')) {
+      return 'suecia.png';
+    }else if (nacionalidad && nacionalidad.includes('Lundqvist')) {
+      return 'suecia.png';
+    }else if (nacionalidad && nacionalidad.includes('Ericsson')) {
+      return 'suecia.png';
+    }else if (nacionalidad && nacionalidad.includes('Veekay')) {
+      return 'holanda.png';
+    } else if (nacionalidad && nacionalidad.includes('Mclaughlin')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Robb')) {
+      return 'estados-unidos.png';
+    }else if (nacionalidad && nacionalidad.includes('Bottas')) {
+      return 'finlandia.png';
+    }else if (nacionalidad && nacionalidad.includes('Newgarden')) {
+      return 'estados-unidos.png';
+    }else if (nacionalidad && nacionalidad.includes('Ferruci')) {
+      return 'estados-unidos.png';
+    }else if (nacionalidad && nacionalidad.includes('Lundgaard')) {
+      return 'dinamarca.png';
+    }else if (nacionalidad && nacionalidad.includes('Rasmussen')) {
+      return 'dinamarca.png';
+    } else if (nacionalidad && nacionalidad.includes('Sargeant')) {
+      return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('MEX')) {
+      return 'mexico.png';
+    } else if (nacionalidad && nacionalidad.includes('MON')) {
+      return 'monaco.png';
+    } else if (nacionalidad && nacionalidad.includes('CAN')) {
+      return 'canada.png';
+    } else if (nacionalidad && nacionalidad.includes('DEN')) {
+      return 'dinamarca.png';
+    } else if (nacionalidad && nacionalidad.includes('GBR')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('CAN')) {
+      return 'canada.png';
+    } else if (nacionalidad && nacionalidad.includes('GER')) {
+      return 'alemania.png';
+    } else if (nacionalidad && nacionalidad.includes('JPN')) {
+      return 'japon.png';
+    } else if (nacionalidad && nacionalidad.includes('THA')) {
+      return 'tailandia.png';
+    } else if (nacionalidad && nacionalidad.includes('CHN')) {
+      return 'china.png';
+    } else if (nacionalidad && nacionalidad.includes('FRA')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('FIN')) {
+      return 'finlandia.png';
+    } else if (nacionalidad && nacionalidad.includes('USA')) {
+      return 'estados-unidos.png';
+    } else {
+      return 'default.png';
+    }
+  };
+
+
   // FUNCION PARA IMAGEN DE LA MARCA
   const getBrandFromImageUrl = (imageUrl) => {
     // Check if imageUrl is not null or undefined
@@ -430,7 +565,7 @@ const DetailFecha = ({ rowData }) => {
     { tanda: ["5\u00BA Entrenamiento", "1° CLASIFICACIÓN C2", "1° CLASIFICACIÓN C3", "C1"], endpoint: "en5" },
     { tanda: ["6\u00BA Entrenamiento", "2° CLASIFICACIÓN C2", "2° CLASIFICACIÓN C3", "C2"], endpoint: "en6" },
     { tanda: "1\u00BA Pruebas Libres", endpoint: "en4" },
-    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024 ", "QUALIFYING SESSION", "CLASIFICACION C2", "CG"], endpoint: "clasificacion" },
+    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024", "QUALIFYING SESSION", "CLASIFICACION C2", "CG"], endpoint: "clasificacion" },
     { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024", "PRIMERA SERIE C2", "PRIMERA SERIE C3", "Serie 1"], endpoint: "serie1" },
     { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6", "SEGUNDA SERIE C2", "SEGUNDA SERIE C3", "Serie 2"], endpoint: "serie2" },
     { tanda: ["3\u00BA Serie", "Sprint 2024", "TERCERA SERIE C2", "TERCERA SERIE C3", "Serie 3"], endpoint: "serie3" },
@@ -527,10 +662,10 @@ const DetailFecha = ({ rowData }) => {
         setLoading(false);
       }
     };
-  
+
     fetchInitialData();
   }, [id, categoria, context]);
-  
+
 
   return (
     <Layout>
@@ -712,10 +847,10 @@ const DetailFecha = ({ rowData }) => {
                   <div className="buttons-pilotos-horarios">
                     <>
                       {context[id]?.c[7]?.v && (
-                        <a href={context[id]?.c[7]?.v} className={`button-pilotos ${selectedButton === 'pilotos' ? 'selected-button' : ''}`}>Pilotos</a>
+                        <a href={context[id]?.c[7]?.v} className={` ${selectedButton === 'pilotos' ? 'selected-button' : ''}`}> <button className='button-pilotos' >Pilotos</button> </a>
                       )}
                       {context[id]?.c[6]?.v && (
-                        <a href={context[id]?.c[6]?.v} className={`button-horarios ${selectedButton === 'horarios' ? 'selected-button' : ''}`}>Horarios</a>
+                        <a href={context[id]?.c[6]?.v} className={` ${selectedButton === 'horarios' ? 'selected-button' : ''}`}> <button className='button-horarios'>Horarios</button> </a>
                       )}
                     </>
                   </div>
@@ -1356,13 +1491,22 @@ const DetailFecha = ({ rowData }) => {
 
                   )}
                   <div className="buttons-pilotos-horarios">
-                    {context[id]?.c[7]?.v && (
+                    {context[id]?.c[7]?.v && context[id]?.c[7]?.v.trim() !== "-" && (
                       <button value={context[id]?.c[7]?.v} className={`button-pilotos ${selectedButton === 'pilotos' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('pilotos', 'Pilotos')}>Pilotos</button>
                     )}
-                    {context[id]?.c[6]?.v && (
-                      <button value={context[id]?.c[6]?.v} className={`button-horarios ${selectedButton === 'horarios' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('horarios', 'Horarios')}>Horarios</button>
+                    {context[id]?.c[6]?.v && context[id]?.c[6]?.v.trim() !== "-" && (
+                      <>
+                        {categoria === 'tr' || categoria === 'tr-series' ? (
+                          <a href={context[id]?.c[6]?.v} className={`${selectedButton === 'horarios' ? 'selected-button' : ''}`} target="_blank" rel="noopener noreferrer">
+                            <button className='button-horarios'>Horarios</button>
+                          </a>
+                        ) : (
+                          <button value={context[id]?.c[6]?.v} className={`button-horarios ${selectedButton === 'horarios' ? 'selected-button' : ''}`} onClick={() => handleButtonClick('horarios', 'Horarios')}>Horarios</button>
+                        )}
+                      </>
                     )}
                   </div>
+
                 </div>
               </div>
             </div>
@@ -1380,9 +1524,13 @@ const DetailFecha = ({ rowData }) => {
                         <table className="table-carreras container-fluid">
                           <thead>
                             <tr className='row title-pilotos-carreras'>
-                              <th className='pos-carreras col-2'><h4>Número</h4></th>
-                              <th className='piloto-carreras col-8'><h4>Piloto</h4></th>
-                              <th className='piloto-carreras col-2'><h4>Marca</h4></th>
+                              {categoria !== "moto-gp" && (
+                                <th className='pos-carreras col-2'>
+                                  <h4>Número</h4>
+                                </th>
+                              )}                              <th className='vueltas-carreras col-2'><h4>Nac.</h4></th>
+                              <th className='piloto-carreras col-5'><h4>Piloto</h4></th>
+                              <th className='piloto-carreras col-3'><h4>Marca</h4></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1391,17 +1539,28 @@ const DetailFecha = ({ rowData }) => {
                                 {item.title && (
                                   <th className='title-carreras-th'><h4>{item.title}</h4></th>
                                 )}
-                                {item.numero && (
-                                  <td className='pos-carreras-td col-2'><h4>{item.numero}</h4></td>
-                                )}
-                                {item.piloto && (
-                                  <td className='piloto-carreras-td col-8'><h4>{item.piloto}</h4></td>
-                                )}
-                                {item.img && (
-                                  <td className='img-carreras-td col-2'>
-                                    {item.marca && <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt="" />}
+                                {categoria !== "moto-gp" && item.numero && (
+                                  <td className='pos-carreras-td col-2'>
+                                    <h4>{item.numero}</h4>
                                   </td>
                                 )}
+                                {item.nacionalidad && (
+                                  <td className='vueltas-carreras-td col-2'>  <img style={{ width: "4rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" /></td>
+                                )}
+                                {item.piloto && (
+                                  <td className='piloto-carreras-td col-5'><h4>{item.piloto}</h4></td>
+                                )}
+                                {item.marca && (
+                                  <td className='vueltas-carreras-td col-3'>
+                                    {categoria === 'tn' || categoria === 'tn3' ? (
+                                      <h4>{item.marca}</h4>
+                                    ) : (
+                                      <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt="" />
+                                    )}
+                                  </td>
+                                )}
+
+
                               </tr>
                             ))}
                           </tbody>
@@ -1410,7 +1569,7 @@ const DetailFecha = ({ rowData }) => {
                         <table className="table-carreras">
                           {data.results && Array.isArray(data.results) && data.results.map((item, idx) => (
                             <React.Fragment key={idx}>
-                              {item.title && ( // Verificar si item.title tiene contenido
+                              {item.title && (
                                 <tr className='row'>
                                   <td className='evento-carreras-td col-12'><h4>{item.title}</h4></td>
                                 </tr>
@@ -1451,7 +1610,7 @@ const DetailFecha = ({ rowData }) => {
                           {data.results && Array.isArray(data.results) && data.results.map((item, idx) => (
                             <tr className='row' key={idx}>
                               <td className='pos-carreras-td col-1'><h4>{item.pos}</h4></td>
-                              <td className='piloto-carreras-td col-4'><h4 >{item.piloto}</h4></td>
+                              <td className='piloto-carreras-td col-4'><span><img style={{ width: "4rem", marginRight: "1rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" /></span><h4>{item.piloto}</h4></td>
                               <td className='img-carreras-td col-2'>
                                 {["tp", "tp1", "tp2"].includes(categoria) ? (
                                   <h4 style={{ color: "white" }}>{item.marca}</h4>
