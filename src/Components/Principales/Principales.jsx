@@ -7,11 +7,12 @@ const Principales = () => {
     const [vincular, setVincular] = useState([]);
     const [mostRecentIsPrimaria, setMostRecentIsPrimaria] = useState(true);
     const [mostRecentVincular, setMostRecentVincular] = useState(null);
+    const backUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
     useEffect(() => {
         const fetchVincular = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api-vincular');
+                const response = await fetch(`${backUrl}/api-vincular`);
                 if (response.ok) {
                     const data = await response.json();
                     // Encontrar la noticia más reciente
