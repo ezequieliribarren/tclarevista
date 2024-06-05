@@ -66,7 +66,7 @@ const Principales = () => {
                             className="card-primarias mb-3"
                             key={index}
                             style={{
-                                backgroundImage: `url(http://localhost:5000/${noticia.image})`,
+                                backgroundImage: `url(${backUrl}/${noticia.image})`,
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: "top",
@@ -101,7 +101,7 @@ const Principales = () => {
                             )}<div
                             className="card-primarias mb-3"
                             style={{
-                                backgroundImage: `url(http://localhost:5000/${mostRecentVincular.image})`,
+                                backgroundImage: `url(${backUrl}/${mostRecentVincular.image})`,
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: "top",
@@ -139,7 +139,7 @@ const Principales = () => {
                                 className="card-secundarias mb-3"
                                 key={index}
                                 style={{
-                                    backgroundImage: `url(http://localhost:5000/${noticia.image})`,
+                                    backgroundImage: `url(${backUrl}/${noticia.image})`,
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundPosition: "center",
@@ -172,7 +172,7 @@ const Principales = () => {
                                 className="card-terciarias mb-3"
                                 key={index}
                                 style={{
-                                    backgroundImage: `url(http://localhost:5000/${noticia.image})`,
+                                    backgroundImage: `url(${backUrl}/${noticia.image})`,
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundPosition: "center",
