@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Layout from '../../Layout/Layout';
 import { useParams } from 'react-router-dom';
 import { useTc, useTcp, useTcm, useTcpm, useTcpk, useTcppk, useRally, useF1, useMgp, useIndy, useNas, useRmun, useFe, useTr, useTrSeries, useTp, useTc2000, useTn, useTn3, useTp2, useTp1 } from '../../../Context/Context';
 import CallActionNoticias from '../CallActionNoticias/CallActionNoticias';
 import PublicidadVertical from '../PublicidadVertical/PublicidadVertical';
-import { ClipLoader } from 'react-spinners';
+import { ClipLoader, PropagateLoader } from 'react-spinners';
 import GeneralesCategoria from '../GeneralesCategoria/GeneralesCategoria';
 import { useLocation } from 'react-router-dom';
 import Semaforo2 from '../Semaforo2/Semaforo2';
@@ -113,30 +113,23 @@ const DetailFecha = ({ rowData }) => {
     fetchSpecificData(endpoint); // Realizar el fetch cuando se hace clic en un botón específico
   };
 
-  const getLastButtonRallyArgentino = (contextData) => {
-    const buttons = [
-      'shake', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15', 'p16', 'final'
-    ];
-
-    // Filtrar los botones disponibles según el contexto
-    const availableButtons = buttons.filter(button => contextData?.c[buttons.indexOf(button) + 8]?.v);
-
-    // Devolver el último botón disponible
-    return availableButtons[availableButtons.length - 1];
-  };
-
-
 
   // FUNCION DEL FETCH
   const fetchSpecificData = async (endpoint) => {
-    setLoading(true); // Iniciar la carga
+    setLoading(true);
     try {
       const response = await fetch(`${backUrl}/${categoria}/${endpoint}/${id}`);
       if (response.ok) {
         const jsonData = await response.json();
-        // Actualizar el estado solo con los datos de la tabla clickeada
         setRaceData([{ url: endpoint, results: jsonData }]);
-        setSelectedButton(endpoint); // Siempre actualiza el botón seleccionado cuando se hace clic en cualquier botón
+        setSelectedButton(endpoint); // Aquí aseguramos que el botón seleccionado se actualice correctamente
+
+        // Realizar el scroll después de cargar los datos y actualizar el botón seleccionado
+        setTimeout(() => {
+          if (tableRef.current) {
+            tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 1000); // Espera 5 segundos antes de desplazarte
       } else {
         console.error(`Error al obtener los datos de ${endpoint}`);
         setRaceData([]);
@@ -145,20 +138,22 @@ const DetailFecha = ({ rowData }) => {
       console.error('Error al realizar la solicitud:', error);
       setRaceData([]);
     } finally {
-      setLoading(false); // Finalizar la carga
+      setLoading(false);
     }
   };
+
+
   useEffect(() => {
     const fetchLastButtonData = async () => {
       setLoading(true);
       try {
         const lastButton = localStorage.getItem('lastButton');
         if (lastButton) {
-          const response = await fetch(`http://localhost:5000/${categoria}/${lastButton}/${id}`);
+          const response = await fetch(`${backUrl}/${categoria}/${lastButton}/${id}`);
           if (response.ok) {
             const jsonData = await response.json();
             setRaceData([{ url: lastButton, results: jsonData }]);
-            setSelectedButton(lastButton);
+            setSelectedButton(lastButton); // Aquí también aseguramos que el botón seleccionado se actualice correctamente
           } else {
             console.error(`Error al obtener los datos de ${categoria}/${lastButton}/${id}`);
             setRaceData([]);
@@ -174,6 +169,7 @@ const DetailFecha = ({ rowData }) => {
 
     fetchLastButtonData();
   }, []); // Sin dependencias, se ejecuta solo una vez al montar el componente
+
 
   const fetchDataMenu = async () => {
     try {
@@ -215,19 +211,20 @@ const DetailFecha = ({ rowData }) => {
     localStorage.setItem('lastButton', buttonName);
     const buttonInfo = actcButtons.find(button => {
       if (Array.isArray(button.tanda)) {
-        // Si la tanda es un array, busca en cada opción
         return button.tanda.includes(buttonName);
       } else {
-        // Si la tanda no es un array, busca la coincidencia directamente
         return button.tanda === buttonName;
       }
     });
     if (buttonInfo) {
       fetchSpecificData(buttonInfo.endpoint);
     } else {
-      fetchSpecificData(buttonInfo.endpoint);
+      fetchSpecificData(buttonName); // Asegúrate de usar buttonName aquí si no se encuentra buttonInfo
     }
+    setSelectedButton2(buttonName); // Actualizar selectedButton2 con el nombre del botón como una cadena
   };
+
+
 
 
 
@@ -346,20 +343,86 @@ const DetailFecha = ({ rowData }) => {
       return 'holanda.png';
     } else if (nacionalidad && nacionalidad.includes('Leclerc')) {
       return 'monaco.png';
+    } else if (nacionalidad && nacionalidad.includes('Tanak')) {
+      return 'estonia.png';
+    } else if (nacionalidad && nacionalidad.includes('Linnamäe')) {
+      return 'estonia.png';
+    } else if (nacionalidad && nacionalidad.includes('Evans')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('M. Evans')) {
+      return 'nueva-zelanda.png';
+    } else if (nacionalidad && nacionalidad.includes('Ogier')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Fourmaux')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Katsuta')) {
+      return 'japon.png';
     } else if (nacionalidad && nacionalidad.includes('Norris')) {
       return 'reino-unido.png';
     } else if (nacionalidad && nacionalidad.includes('Sainz')) {
       return 'españa.png';
+    } else if (nacionalidad && nacionalidad.includes('Sordo')) {
+      return 'españa.png';
+    } else if (nacionalidad && nacionalidad.includes('Solans')) {
+      return 'españa.png';
+    } else if (nacionalidad && nacionalidad.includes('López')) {
+      return 'españa.png';
     } else if (nacionalidad && nacionalidad.includes('Perez')) {
       return 'mexico.png';
+    } else if (nacionalidad && nacionalidad.includes('Neuville')) {
+      return 'belgica.png';
+    } else if (nacionalidad && nacionalidad.includes('Vandoorne')) {
+      return 'belgica.png';
+    } else if (nacionalidad && nacionalidad.includes('Fumal')) {
+      return 'belgica.png';
+    } else if (nacionalidad && nacionalidad.includes('Lefebvre')) {
+      return 'belgica.png';
     } else if (nacionalidad && nacionalidad.includes('Piastri')) {
       return 'australia.png';
     } else if (nacionalidad && nacionalidad.includes('Russell')) {
       return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('J. Hughes')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('S. Bird')) {
+      return 'reino-unido.png';
     } else if (nacionalidad && nacionalidad.includes('Hamilton')) {
       return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Legge')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('J. Dennis')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Rowland')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Mikkelsen')) {
+      return 'noruega.png';
+    } else if (nacionalidad && nacionalidad.includes('Laurencich')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Morato')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Fontana')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Oldani')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Locatelli')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Zavaleta')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Solberg')) {
+      return 'italia.png';
     } else if (nacionalidad && nacionalidad.includes('ITA')) {
       return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Bertelli')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Scattolin')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Burri')) {
+      return 'suiza.png';
+    } else if (nacionalidad && nacionalidad.includes('Mortala')) {
+      return 'suiza.png';
+    } else if (nacionalidad && nacionalidad.includes('N. Muller')) {
+      return 'suiza.png';
+    } else if (nacionalidad && nacionalidad.includes('Buemi')) {
+      return 'suiza.png';
     } else if (nacionalidad && nacionalidad.includes('RSA')) {
       return 'rusia.png';
     } else if (nacionalidad && nacionalidad.includes('Alonso')) {
@@ -369,6 +432,8 @@ const DetailFecha = ({ rowData }) => {
     } else if (nacionalidad && nacionalidad.includes('Stroll')) {
       return 'canada.png';
     } else if (nacionalidad && nacionalidad.includes('Bearman')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Ticktum')) {
       return 'reino-unido.png';
     } else if (nacionalidad && nacionalidad.includes('Hulkenberg')) {
       return 'alemania.png';
@@ -380,20 +445,52 @@ const DetailFecha = ({ rowData }) => {
       return 'españa.png';
     } else if (nacionalidad && nacionalidad.includes('Ocon')) {
       return 'francia.png';
-    } else if (nacionalidad && nacionalidad.includes('Magnussen')) {
-      return 'dinamarca.png';
+    } else if (nacionalidad && nacionalidad.includes('Vergne')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Prat')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Berfa')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Nato')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Fenestraz')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Bouffier')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Ciamin')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Royere')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Oberti')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Jamet')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Lafay')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Baffoun')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Boisseranc')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Charnay')) {
+      return 'francia.png';
     } else if (nacionalidad && nacionalidad.includes('Gasly')) {
       return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Magnussen')) {
+      return 'dinamarca.png';
     } else if (nacionalidad && nacionalidad.includes('Zhou')) {
       return 'china.png';
     } else if (nacionalidad && nacionalidad.includes('Dixon')) {
       return 'australia.png';
-    } else if (nacionalidad && nacionalidad.includes('Palou')) {
-      return 'españa.png';
     } else if (nacionalidad && nacionalidad.includes('Power')) {
       return 'australia.png';
+    } else if (nacionalidad && nacionalidad.includes('Cassidy')) {
+      return 'nueva-zelanda.png';
+    } else if (nacionalidad && nacionalidad.includes('Palou')) {
+      return 'españa.png';
     } else if (nacionalidad && nacionalidad.includes('Ward')) {
       return 'mexico.png';
+    } else if (nacionalidad && nacionalidad.includes('nascar')) {
+      return 'estados-unidos.png';
     } else if (nacionalidad && nacionalidad.includes('Rossi')) {
       return 'estados-unidos.png';
     } else if (nacionalidad && nacionalidad.includes('Daly')) {
@@ -406,7 +503,21 @@ const DetailFecha = ({ rowData }) => {
       return 'japon.png';
     } else if (nacionalidad && nacionalidad.includes('Castroneves')) {
       return 'brasil.png';
+    } else if (nacionalidad && nacionalidad.includes('Sette-Camara')) {
+      return 'brasil.png';
+    } else if (nacionalidad && nacionalidad.includes('di Grassi')) {
+      return 'brasil.png';
+    } else if (nacionalidad && nacionalidad.includes('da Costa')) {
+      return 'portugal.png';
     } else if (nacionalidad && nacionalidad.includes('Ghiotto')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Chiarani')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Marchino')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Miele')) {
+      return 'italia.png';
+    } else if (nacionalidad && nacionalidad.includes('Daprà')) {
       return 'italia.png';
     } else if (nacionalidad && nacionalidad.includes('Kirkwood')) {
       return 'estados-unidos.png';
@@ -416,8 +527,6 @@ const DetailFecha = ({ rowData }) => {
       return 'estados-unidos.png';
     } else if (nacionalidad && nacionalidad.includes('Reay')) {
       return 'estados-unidos.png';
-    } else if (nacionalidad && nacionalidad.includes('Legge')) {
-      return 'reino-unido.png';
     } else if (nacionalidad && nacionalidad.includes('Andretti')) {
       return 'estados-unidos.png';
     } else if (nacionalidad && nacionalidad.includes('Rahal')) {
@@ -426,48 +535,98 @@ const DetailFecha = ({ rowData }) => {
       return 'australia.png';
     } else if (nacionalidad && nacionalidad.includes('Armstrong')) {
       return 'australia.png';
-    }else if (nacionalidad && nacionalidad.includes('Simpson')) {
+    } else if (nacionalidad && nacionalidad.includes('Simpson')) {
       return 'barbados.png';
     } else if (nacionalidad && nacionalidad.includes('Grosjean')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Cartier')) {
       return 'francia.png';
     } else if (nacionalidad && nacionalidad.includes('Purchaire')) {
       return 'francia.png';
     } else if (nacionalidad && nacionalidad.includes('Vautier')) {
       return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Ganguet')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Chatillon')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Latil')) {
+      return 'francia.png';
+    } else if (nacionalidad && nacionalidad.includes('Rossel')) {
+      return 'francia.png';
     } else if (nacionalidad && nacionalidad.includes('Canapino')) {
-      return 'argentina.png';
+      return 'arg.png';
     } else if (nacionalidad && nacionalidad.includes('Fittipaldi')) {
       return 'brasil.png';
     } else if (nacionalidad && nacionalidad.includes('Harvey')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('J. King')) {
       return 'reino-unido.png';
     } else if (nacionalidad && nacionalidad.includes('Blomvquist')) {
       return 'reino-unido.png';
     } else if (nacionalidad && nacionalidad.includes('Ilott')) {
       return 'reino-unido.png';
-    }else if (nacionalidad && nacionalidad.includes('Rosenqvist')) {
+    } else if (nacionalidad && nacionalidad.includes('GBR')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Greensmith')) {
+      return 'reino-unido.png';
+    } else if (nacionalidad && nacionalidad.includes('Rosenqvist')) {
       return 'suecia.png';
-    }else if (nacionalidad && nacionalidad.includes('Lundqvist')) {
+    } else if (nacionalidad && nacionalidad.includes('Lundqvist')) {
       return 'suecia.png';
-    }else if (nacionalidad && nacionalidad.includes('Ericsson')) {
+    } else if (nacionalidad && nacionalidad.includes('Ericsson')) {
       return 'suecia.png';
-    }else if (nacionalidad && nacionalidad.includes('Veekay')) {
+    } else if (nacionalidad && nacionalidad.includes('Eriksson')) {
+      return 'suecia.png';
+    } else if (nacionalidad && nacionalidad.includes('Veekay')) {
+      return 'holanda.png';
+    } else if (nacionalidad && nacionalidad.includes('de Vries')) {
+      return 'holanda.png';
+    } else if (nacionalidad && nacionalidad.includes('Frijns')) {
       return 'holanda.png';
     } else if (nacionalidad && nacionalidad.includes('Mclaughlin')) {
       return 'estados-unidos.png';
     } else if (nacionalidad && nacionalidad.includes('Robb')) {
       return 'estados-unidos.png';
-    }else if (nacionalidad && nacionalidad.includes('Bottas')) {
+    } else if (nacionalidad && nacionalidad.includes('Munster')) {
+      return 'luxemburgo.png';
+    } else if (nacionalidad && nacionalidad.includes('Bottas')) {
       return 'finlandia.png';
-    }else if (nacionalidad && nacionalidad.includes('Newgarden')) {
+    } else if (nacionalidad && nacionalidad.includes('Pajari')) {
+      return 'finlandia.png';
+    } else if (nacionalidad && nacionalidad.includes('Lappi')) {
+      return 'finlandia.png';
+    } else if (nacionalidad && nacionalidad.includes('Rovanperä')) {
+      return 'finlandia.png';
+    } else if (nacionalidad && nacionalidad.includes('Korhonen')) {
+      return 'finlandia.png';
+    } else if (nacionalidad && nacionalidad.includes('Heikkilä')) {
+      return 'finlandia.png';
+    } else if (nacionalidad && nacionalidad.includes('Kajetanowics')) {
+      return 'polonia.png';
+    } else if (nacionalidad && nacionalidad.includes('McErlean')) {
+      return 'irlanda.png';
+    } else if (nacionalidad && nacionalidad.includes('Boland')) {
+      return 'irlanda.png';
+    } else if (nacionalidad && nacionalidad.includes('Daruvala')) {
+      return 'india.png';
+    } else if (nacionalidad && nacionalidad.includes('Newgarden')) {
       return 'estados-unidos.png';
-    }else if (nacionalidad && nacionalidad.includes('Ferruci')) {
+    } else if (nacionalidad && nacionalidad.includes('Ferruci')) {
       return 'estados-unidos.png';
-    }else if (nacionalidad && nacionalidad.includes('Lundgaard')) {
-      return 'dinamarca.png';
-    }else if (nacionalidad && nacionalidad.includes('Rasmussen')) {
-      return 'dinamarca.png';
     } else if (nacionalidad && nacionalidad.includes('Sargeant')) {
       return 'estados-unidos.png';
+    } else if (nacionalidad && nacionalidad.includes('Lundgaard')) {
+      return 'dinamarca.png';
+    } else if (nacionalidad && nacionalidad.includes('Rasmussen')) {
+      return 'dinamarca.png';
+    } else if (nacionalidad && nacionalidad.includes('Serderidis')) {
+      return 'grecia.png';
+    } else if (nacionalidad && nacionalidad.includes('van der Linde')) {
+      return 'sudafrica.png';
+    } else if (nacionalidad && nacionalidad.includes('Černý')) {
+      return 'checa.png';
+    } else if (nacionalidad && nacionalidad.includes('Gryazin')) {
+      return 'bulgaria.png';
     } else if (nacionalidad && nacionalidad.includes('MEX')) {
       return 'mexico.png';
     } else if (nacionalidad && nacionalidad.includes('MON')) {
@@ -476,11 +635,13 @@ const DetailFecha = ({ rowData }) => {
       return 'canada.png';
     } else if (nacionalidad && nacionalidad.includes('DEN')) {
       return 'dinamarca.png';
-    } else if (nacionalidad && nacionalidad.includes('GBR')) {
-      return 'reino-unido.png';
     } else if (nacionalidad && nacionalidad.includes('CAN')) {
       return 'canada.png';
     } else if (nacionalidad && nacionalidad.includes('GER')) {
+      return 'alemania.png';
+    } else if (nacionalidad && nacionalidad.includes('Wehrlein')) {
+      return 'alemania.png';
+    } else if (nacionalidad && nacionalidad.includes('Gunther')) {
       return 'alemania.png';
     } else if (nacionalidad && nacionalidad.includes('JPN')) {
       return 'japon.png';
@@ -550,9 +711,6 @@ const DetailFecha = ({ rowData }) => {
     setShowClasificacionTable(false); // Asegúrate de ocultar la tabla de clasificación si estaba mostrada
     setShowTramoTable(false); // Asegúrate de ocultar la tabla de tramo si estaba mostrada
   };
-
-
-
 
   const actcButtons = [
     { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2", "1\u00BA ENTRENAMIENTO C3", "E1"], endpoint: "en1" },
@@ -652,11 +810,8 @@ const DetailFecha = ({ rowData }) => {
           const retryFetch = async (retries) => {
             if (context[id]?.c[60]?.v !== null && context[id]?.c[60]?.v !== '-') {
               await handleButtonClickRally('final');
-            } else if (retries > 0) {
-              setTimeout(() => retryFetch(retries - 1), 1000); // Esperar 1 segundo antes de reintentar
             }
           };
-          retryFetch(5); // Intentar hasta 5 veces
         }
       } finally {
         setLoading(false);
@@ -666,6 +821,18 @@ const DetailFecha = ({ rowData }) => {
     fetchInitialData();
   }, [id, categoria, context]);
 
+  const tableRef = useRef(null);
+
+  useEffect(() => {
+    const scrollTimeout = setTimeout(() => {
+      if (tableRef.current) {
+        tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 1000); // Espera 3 segundos antes de desplazarte
+
+    // Limpia el timeout en la limpieza del efecto para evitar fugas de memoria
+    return () => clearTimeout(scrollTimeout);
+  }, []);
 
   return (
     <Layout>
@@ -866,7 +1033,7 @@ const DetailFecha = ({ rowData }) => {
               )}
               {selectedButton === "shake" && (
 
-                <table className={`table-carreras ${showShakeTable ? '' : ''}`}>
+                <table ref={tableRef} className={`table-carreras ${showShakeTable ? '' : ''}`}>
                   <thead className='container-fluid'>
                     <tr className='row'>
                       <td className='evento-carreras-td col-12'><h4>Shake</h4></td>
@@ -897,7 +1064,7 @@ const DetailFecha = ({ rowData }) => {
           </div>
           <div className="row">
 
-            <div className={`contenedor-table-carreras col-lg-9`}>
+            <div ref={tableRef} className={`contenedor-table-carreras col-lg-9`}>
               <div>
               </div>
 
@@ -907,7 +1074,7 @@ const DetailFecha = ({ rowData }) => {
                 </div>
               ) : (
                 <div className="contenedor-table-carreras">
-                  <table className={`table-carreras ${showTramoTable ? '' : 'none'}`}>
+                  <table ref={tableRef} className={`table-carreras ${showTramoTable ? '' : 'none'}`}>
                     <thead className='container-fluid'>
                       <tr className='row'>
                         <td className='evento-carreras-td col-md-12'><h4>Posiciones en el tramo</h4></td>
@@ -932,7 +1099,7 @@ const DetailFecha = ({ rowData }) => {
                     </tbody>
                   </table>
 
-                  <table className={`table-carreras ${showClasificacionTable ? '' : 'none'}`}>
+                  <table ref={tableRef} className={`table-carreras ${showClasificacionTable ? '' : 'none'}`}>
                     <thead className='container-fluid'>
                       <tr className='row'>
                         <td className='evento-carreras-td col-md-12'><h4>Clasificacion General</h4></td>
@@ -1080,7 +1247,7 @@ const DetailFecha = ({ rowData }) => {
                     <ClipLoader color="#FE0" size={80} />
                   </div>
                 ) : (
-                  <table className='table-carreras'>
+                  <table ref={tableRef} className='table-carreras'>
                     <thead>
                       <tr className='row'>
                         <th className='col-1 pos-carreras'><h4>Pos</h4></th>
@@ -1096,7 +1263,7 @@ const DetailFecha = ({ rowData }) => {
                         <tr className='row' key={index}>
                           <td className='col-1 pos-carreras-td'><h4>{row.posicion}</h4></td>
                           <td className='col-1 vueltas-carreras-td'><h4>{row.numero}</h4></td>
-                          <td className='col-4 piloto-carreras-td'><h4>{row.piloto}</h4></td>
+                          <td className='col-4 piloto-carreras-td'><span><img style={{ width: "4rem", marginRight: "1.5rem" }} src={`images/banderas/${getNacionalidadImgUrl(row.nacionalidad)}`} alt="" /></span><h4>{row.piloto}</h4></td>
                           <td className='col-3 marca-carreras-td'>     {row.marca && <img src={`images/marcas/${getMarcaImageUrl(row.marca)}`} alt="" />}</td>
                           <td className='col-2 tiempo-carreras-td'><h4>{row.tiempo}</h4></td>
                           <td className='col-1 dif-carreras-td'> <h4>{row.dif}</h4></td>
@@ -1114,7 +1281,7 @@ const DetailFecha = ({ rowData }) => {
                     <ClipLoader color="#FE0" size={80} />
                   </div>
                 ) : (
-                  <table className='table-carreras'>
+                  <table ref={tableRef} className='table-carreras'>
                     <thead>
                       <tr className='row'>
                         <th className='col-1 pos-carreras'><h4>Pos</h4></th>
@@ -1466,29 +1633,39 @@ const DetailFecha = ({ rowData }) => {
                       </div>
                     </div>
                   )}
-                  {categoria !== 'moto-gp' && categoria !== 'indicar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (
+                  {categoria !== 'moto-gp' && categoria !== 'indycar-series' && categoria !== 'nascar' && categoria !== 'formula-e' && (
                     <div className="menu">
-                      {Object.entries(buttonData).map(([day, buttons], index) => (
-                        <div key={day} className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}>
-                          <div className='day-carreras'>
-                            <h4>{day}</h4>
-                          </div>
-                          {buttons.map((button, buttonIndex) => (
-                            <button
-                              key={buttonIndex}
-                              className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
-                              data-name={button}
-                              onClick={() => handleMenuButtonClick(button)}
-                              style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
-                            >
-                              {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
-                              {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
-                            </button>
-                          ))}
+                      {buttonData === null || Object.keys(buttonData).length === 0 ? (
+                        <div className="spinner-menu-container">
+                          <PropagateLoader color="#FE0" size={20} />
                         </div>
-                      ))}
-                    </div>
 
+                      ) : (
+                        // Renderiza el menú cuando buttonData está disponible
+                        Object.entries(buttonData).map(([day, buttons], index) => (
+                          <div
+                            key={day}
+                            className={`buttons-up-carreras ${day.toLowerCase()}-buttons-container ${buttons.length === 0 && day === 'Vie' ? 'none' : ''}`}
+                          >
+                            <div className='day-carreras'>
+                              <h4>{day}</h4>
+                            </div>
+                            {buttons.map((button, buttonIndex) => (
+                              <button
+                                key={buttonIndex}
+                                className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
+                                data-name={button}
+                                onClick={() => handleMenuButtonClick(button)}
+                                style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}
+                              >
+                                {Array.isArray(button) ? button.map(tanda => mapTandaToSpanish(tanda)) : mapTandaToSpanish(button)}
+                                {esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? <Semaforo2 /> : <Finalizado />}
+                              </button>
+                            ))}
+                          </div>
+                        ))
+                      )}
+                    </div>
                   )}
                   <div className="buttons-pilotos-horarios">
                     {context[id]?.c[7]?.v && context[id]?.c[7]?.v.trim() !== "-" && (
@@ -1506,7 +1683,6 @@ const DetailFecha = ({ rowData }) => {
                       </>
                     )}
                   </div>
-
                 </div>
               </div>
             </div>
@@ -1521,14 +1697,15 @@ const DetailFecha = ({ rowData }) => {
                     <div key={idx}>
                       <h3>{selectedButtonText}</h3>
                       {selectedButton === 'pilotos' ? (
-                        <table className="table-carreras container-fluid">
+                        <table ref={tableRef} className="table-carreras container-fluid">
                           <thead>
                             <tr className='row title-pilotos-carreras'>
                               {categoria !== "moto-gp" && (
                                 <th className='pos-carreras col-2'>
                                   <h4>Número</h4>
                                 </th>
-                              )}                              <th className='vueltas-carreras col-2'><h4>Nac.</h4></th>
+                              )}
+                              <th className='vueltas-carreras col-2'><h4>Nac.</h4></th>
                               <th className='piloto-carreras col-5'><h4>Piloto</h4></th>
                               <th className='piloto-carreras col-3'><h4>Marca</h4></th>
                             </tr>
@@ -1566,7 +1743,7 @@ const DetailFecha = ({ rowData }) => {
                           </tbody>
                         </table>
                       ) : selectedButton === 'horarios' ? (
-                        <table className="table-carreras">
+                        <table ref={tableRef} className="table-carreras">
                           {data.results && Array.isArray(data.results) && data.results.map((item, idx) => (
                             <React.Fragment key={idx}>
                               {item.title && (
@@ -1590,7 +1767,7 @@ const DetailFecha = ({ rowData }) => {
                             </React.Fragment>
                           ))}
                         </table>
-                      ) : (<table className="table-carreras">
+                      ) : (<table ref={tableRef} className="table-carreras">
                         <thead className='container-fluid'>
                           <tr className='row'>
                             <th className='pos-carreras col-1'><h4>Pos</h4></th>
@@ -1610,7 +1787,15 @@ const DetailFecha = ({ rowData }) => {
                           {data.results && Array.isArray(data.results) && data.results.map((item, idx) => (
                             <tr className='row' key={idx}>
                               <td className='pos-carreras-td col-1'><h4>{item.pos}</h4></td>
-                              <td className='piloto-carreras-td col-4'><span><img style={{ width: "4rem", marginRight: "1rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" /></span><h4>{item.piloto}</h4></td>
+                              <td className='piloto-carreras-td col-4'>
+                                {['moto-gp', 'nascar', 'f1', 'formula-e', 'rally-mundial', 'indycar-series'].includes(categoria) && (
+                                  <span>
+                                    <img style={{ width: "4rem", marginRight: "1rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" />
+                                  </span>
+                                )}
+                                <h4>{item.piloto}</h4>
+                              </td>
+
                               <td className='img-carreras-td col-2'>
                                 {["tp", "tp1", "tp2"].includes(categoria) ? (
                                   <h4 style={{ color: "white" }}>{item.marca}</h4>
@@ -1650,7 +1835,8 @@ const DetailFecha = ({ rowData }) => {
                 <GeneralesCategoria filterDate={new Date(context[id]?.c[2]?.v)} cat={categoria} />
               </div>
 
-              <div className={`col-lg-4  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>                <PublicidadVertical />
+              <div className={`col-lg-4`}>                
+              <PublicidadVertical />
               </div>
             </div>
           </div>

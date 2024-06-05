@@ -109,8 +109,14 @@
 }
 
 // VIDEOS CAROUSEL
+.videos-carousel{
+    margin-top: 4rem !important;
+    h2{
+        color: #FE0;
+    }
+}
 .slider-videos{
-    margin: 4rem 0 !important;
+    margin: 2rem 0 !important;
 }
 .contenedor-videos-carousel{
     height: 38rem !important;

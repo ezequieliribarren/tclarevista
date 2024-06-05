@@ -53,7 +53,8 @@ const VideosCarousel = () => {
     };
 
     return (
-        <div className="row">
+        <div className="row videos-carousel">
+            <h2>Videos</h2>
             <Slider className='slider-videos' {...settings}>
                 {videosToShow.map((video, index) => (
                     <div key={index}>
