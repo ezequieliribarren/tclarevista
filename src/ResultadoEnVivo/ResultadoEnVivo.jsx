@@ -120,6 +120,9 @@ const ResultadoEnVivo = () => {
     }
   };
 
+  const cleanedCircuito = menu[0].circuito.split('\n').filter(line => line.trim().length > 0)[1];
+
+
   return (
     <Layout>
       <section>
@@ -132,7 +135,7 @@ const ResultadoEnVivo = () => {
             <div className='contenedor-botonera'>
               {menu.length > 0 && (
                 <div className="up-botonera">
-                  <h2 className='pl2'>{menu[menu.length - 1].circuito}</h2>
+                  <h2 className='pl2'>{cleanedCircuito}</h2>
                 </div>
               )}
               <div className='botonera'>

@@ -122,6 +122,12 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 2rem;
+
+    h3{
+        margin: 0 !important;
+        font-style: italic;
+    }
   }
   
   .preloader {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Sabado from '../Sabado/Sabado';
 import Domingo from '../Domingo/Domingo';
 import Viernes from '../Viernes/Viernes';
+import Finalizado from '../Finalizado/Finalizado';
+import Semaforo2 from '../Semaforo2/Semaforo2';
 import { useRally, useTablaCampeonato, useTr, useTrSeries } from '../../../Context/Context';
 import { HashLink as Link } from 'react-router-hash-link';
 
@@ -21,6 +23,7 @@ const Vivo = () => {
   const [mostrarBotonTRSeries, setMostrarBotonTRSeries] = useState(false); // Estado para mostrar el botón de TR Series
   const [cargandoF1, setCargandoF1] = useState(false);
   const [idCarrera, setIdCarrera] = useState(null); // Estado para almacenar el ID de la carrera de rally
+  const [situacionF1, setSituacionF1] = useState('');
 
   const contextRally = useRally();
   const contextTr = useTr();
@@ -40,7 +43,7 @@ const Vivo = () => {
         const response = await fetch('http://localhost:5000/f1/live');
         if (response.ok) {
           const data = await response.json();
-          const { headerData } = data;
+          const { headerData, statusData } = data;
   
           // Convertir las fechas al formato ISO 8601 (YYYY-MM-DD)
           const startDateParts = headerData.fechaInicio.split('/');
@@ -56,6 +59,7 @@ const Vivo = () => {
           // Verificar si la fecha actual está dentro del rango de fechas del evento
           if (currentDate >= startDate && currentDate <= endDate) {
             setMostrarBotonF1(true);
+            setSituacionF1(statusData.situacion);
           } else {
             setMostrarBotonF1(false);
           }
@@ -71,8 +75,6 @@ const Vivo = () => {
   
     fetchF1Data();
   }, []);
-  
-  
 
   useEffect(() => {
     if (diaActual === 'viernes' || diaActual === 'sábado' || diaActual === 'domingo') {
@@ -110,15 +112,13 @@ const Vivo = () => {
     setMostrarBotonTRSeries(showTRSeriesButton);
   }, [contextRally, contextTr, contextTrSeries]);
 
-
-
   const hayContenido = () => {
     // Verificar si hay contenido en la fila 1 y columna 3
     const valorCelda = tablaCampeonato.find(item => item.c[0]?.v === 'tc')?.c[3]?.v;
-    console.log(valorCelda)
+    console.log(valorCelda);
     return valorCelda !== undefined && valorCelda !== '-';
   };
-  
+
   const renderComponente = () => {
     if (hayContenido()) {
       switch (diaActual) {
@@ -129,42 +129,48 @@ const Vivo = () => {
         case 'viernes':
           return <Viernes />;
         default:
-          return <div style={{ display: 'none', height: "0px" }} />;
+          return <div style={{ display: 'none', height: '0px' }} />;
       }
     } else {
       return null; // No renderizar nada si no hay contenido
     }
   };
+
   return (
-    <div>
-      {mostrarBotonTC &&  hayContenido() && <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(false)}>NACIONALES</button>}
-      {mostrarBotonF1 && 
-        <Link to={`http://localhost:5173/f1live/?vivo=true`} style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}>
-          <button className='button-tanda' style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }} onClick={() => setMostrarF1(true)}>F1</button>
-        </Link>
-      
-      }
-      {mostrarBotonRally && idCarrera &&
-        <Link to={`http://localhost:5173/rally-argentino/carreras/${idCarrera - 1}?vivo=true`} style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}>
-          <button className='button-tanda'>Rally Argentino</button>
-        </Link>
-      }
-      {mostrarBotonTR && idCarrera && (
-        <Link
-          to={`http://localhost:5173/tr/carreras/${idCarrera - 1}?vivo=true`}
-          style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}
-        >
-          <button className='button-tanda'>Top Race</button>
-        </Link>
-      )}
-      {mostrarBotonTRSeries && idCarrera && (
-        <Link
-          to={`http://localhost:5173/tr-series/carreras/${idCarrera - 1}?vivo=true`}
-          style={{ marginBottom: "2.5rem", marginTop: "1.5rem" }}
-        >
-          <button className='button-tanda'>Top Race Series</button>
-        </Link>
-      )}
+    <div className='contenedor-buttons-vivo'>
+      <div className='buttons-vivo'>
+        {mostrarBotonTC && hayContenido() && (
+          <button className='button-tanda' style={{ marginBottom: '2.5rem', marginTop: '1.5rem' }} onClick={() => setMostrarF1(false)}>
+            NACIONALES
+          </button>
+        )}
+        {mostrarBotonF1 && (
+          <>
+            <Link to={`http://localhost:5173/f1live/?vivo=true`} style={{ marginBottom: '2.5rem', marginTop: '1.5rem' }}>
+              <button className='button-tanda' style={{ marginBottom: '2.5rem', marginTop: '1.5rem' }} onClick={() => setMostrarF1(true)}>
+                F1   {situacionF1 === 'Bandera a cuadros' && <Finalizado />}  {situacionF1 === 'Bandera verde' && <Semaforo2 />}
+              </button>
+            </Link>
+         
+          
+          </>
+        )}
+        {mostrarBotonRally && idCarrera && (
+          <Link to={`http://localhost:5173/rally-argentino/carreras/${idCarrera - 1}?vivo=true`} style={{ marginBottom: '2.5rem', marginTop: '1.5rem' }}>
+            <button className='button-tanda'>Rally Argentino</button>
+          </Link>
+        )}
+        {mostrarBotonTR && idCarrera && (
+          <Link to={`http://localhost:5173/tr/carreras/${idCarrera - 1}?vivo=true`} style={{ marginBottom: '2.5rem', marginTop: '1.5rem' }}>
+            <button className='button-tanda'>Top Race</button>
+          </Link>
+        )}
+        {mostrarBotonTRSeries && idCarrera && (
+          <Link to={`http://localhost:5173/tr-series/carreras/${idCarrera - 1}?vivo=true`} style={{ marginBottom: '2.5rem', marginTop: '1.5rem' }}>
+            <button className='button-tanda'>Top Race Series</button>
+          </Link>
+        )}
+      </div>
 
       {renderComponente()}
     </div>

@@ -2,7 +2,22 @@
     display: flex;
     overflow: hidden !important;
 }
+.contenedor-buttons-vivo{
+    background-color: rgba(0, 0, 0, 0.353);
+    border-radius: 10px;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #FE0;
+}
+.buttons-vivo{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
 
+    button{
+        margin-bottom: 0 !important;
+        margin: 0 1.5rem;
+    }
+}
 .slick-prev {
     left: 0.5% !important;
     z-index: 11111;
