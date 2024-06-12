@@ -710,9 +710,9 @@ const DetailFecha = ({ rowData }) => {
   };
 
   const actcButtons = [
-    { tanda: ["1\u00BA Entrenamiento", "1\u00BA ENTRENAMIENTO C2", "1\u00BA ENTRENAMIENTO C3", "E1"], endpoint: "en1" },
+    { tanda: ["1\u00BA Entrenamiento", "1° ENTRENAMIENTO C2", "1° ENTRENAMIENTO C3", , "E1"], endpoint: "en1" },
     { tanda: "FIRST PRACTICE SESSION", endpoint: "en1" },
-    { tanda: ["2\u00BA Entrenamiento", "2\u00BA ENTRENAMIENTO C2", "2\u00BA ENTRENAMIENTO C3", "E2"], endpoint: "en2" },
+    { tanda: ["2\u00BA Entrenamiento", "2° ENTRENAMIENTO C2", "2° ENTRENAMIENTO C3", "E2"], endpoint: "en2" },
     { tanda: "SECOND PRACTICE SESSION", endpoint: "en2" },
     { tanda: ["3\u00BA Entrenamiento", "GENERAL ENTRENAMIENTO C2", "GENERAL ENTRENAMIENTO C3", "EG"], endpoint: "en3" },
     { tanda: "THIRD PRACTICE SESSION", endpoint: "en3" },
@@ -720,7 +720,7 @@ const DetailFecha = ({ rowData }) => {
     { tanda: ["5\u00BA Entrenamiento", "1° CLASIFICACIÓN C2", "1° CLASIFICACIÓN C3", "C1"], endpoint: "en5" },
     { tanda: ["6\u00BA Entrenamiento", "2° CLASIFICACIÓN C2", "2° CLASIFICACIÓN C3", "C2"], endpoint: "en6" },
     { tanda: "1\u00BA Pruebas Libres", endpoint: "en4" },
-    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024", "QUALIFYING SESSION", "CLASIFICACION C2", "CG"], endpoint: "clasificacion" },
+    { tanda: ["Clasificación", "Clasificación Todos Juntos", "Clasificación Todos Juntos TRV6 2024", "Clasificación General", "QUALIFYING SESSION", "CLASIFICACION C2", "CG"], endpoint: "clasificacion" },
     { tanda: ["1\u00BA Serie", "Clasificación 1\u00BA al 10\u00BA TRV6 2024", "PRIMERA SERIE C2", "PRIMERA SERIE C3", "Serie 1"], endpoint: "serie1" },
     { tanda: ["2\u00BA Serie", "Clasificación 1\u00BA al 5\u00BA TRV6 2024", "Clasificación Especial Top Race V6", "SEGUNDA SERIE C2", "SEGUNDA SERIE C3", "Serie 2"], endpoint: "serie2" },
     { tanda: ["3\u00BA Serie", "Sprint 2024", "TERCERA SERIE C2", "TERCERA SERIE C3", "Serie 3", "3° Serie"], endpoint: "serie3" },
@@ -740,6 +740,7 @@ const DetailFecha = ({ rowData }) => {
       "SIXTH PRACTICE SESSION": "6° Entrenamiento",
       "QUALIFYING SESSION": "Clasificación",
       "GRAND PRIX": "Final",
+      "Clasificación General": "Clasificación",
       "1\u00BA Pruebas Libres": "Libres",
       "Clasificación Todos Juntos TRV6 2024": "Clasificacion",
       "Clasificación 1\u00BA al 10\u00BA TRV6 2024": "Clas. 1 al 10",
@@ -1060,7 +1061,6 @@ const DetailFecha = ({ rowData }) => {
             </div>
           </div>
           <div className="row">
-
             <div ref={tableRef} className={`contenedor-table-carreras col-lg-9`}>
               <div>
               </div>
@@ -1070,66 +1070,81 @@ const DetailFecha = ({ rowData }) => {
                   <ClipLoader color="#FE0" size={80} />
                 </div>
               ) : (
-                <div className="contenedor-table-carreras">
-                  <table ref={tableRef} className={`table-carreras ${showTramoTable ? '' : 'none'}`}>
-                    <thead className='container-fluid'>
-                      <tr className='row'>
-                        <td className='evento-carreras-td col-md-12'><h4>Posiciones en el tramo</h4></td>
-                      </tr>
-                      <tr className='row'>
-                        <th className='pos-carreras col-md-1'><h4>Pos.</h4></th>
-                        <th className='piloto-carreras col-md-7'><h4>Piloto / Navegante</h4></th>
-                        <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
-                        <th className='dif-carreras col-md-2'><h4>Dif</h4></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {raceData[0]?.results && Array.isArray(raceData[0].results) && raceData[0].results.slice(2).map((item, idx) => (
-                        idx % 2 === 0 && // Check for even indices
-                        <tr className='row' key={idx}>
-                          <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
-                          <td className='piloto-carreras-td col-md-7'><h4>{item.piloto}</h4></td>
-                          <td className='tiempo-carreras-td col-md-2'><h4>{item.tiempo}</h4></td>
-                          <td className='dif-carreras-td col-md-2'><h4>{item.dif}</h4></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="row">
+                  <div ref={tableRef} className={`contenedor-table-carreras col-lg-9`}>
+                    <div>
+                    </div>
 
-                  <table ref={tableRef} className={`table-carreras ${showClasificacionTable ? '' : 'none'}`}>
-                    <thead className='container-fluid'>
-                      <tr className='row'>
-                        <td className='evento-carreras-td col-md-12'><h4>Clasificacion General</h4></td>
-                      </tr>
-                      <tr className='row'>
-                        <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
-                        <th className='piloto-carreras col-md-5'><h4>Piloto / Navegante</h4></th>
-                        <th className='tiempo-carreras col-md-2'><h4>Marca</h4></th>
-                        <th className='dif-carreras col-md-2'><h4>Tiempo</h4></th>
-                        <th className='dif-carreras col-md-2'><h4>Dif</h4></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {raceData[0]?.results && Array.isArray(raceData[0].results) && raceData[0].results.slice(2).map((item, idx) => (
-                        idx % 2 !== 0 && // Check for odd indices
-                        <tr className='row' key={idx}>
-                          <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
-                          <td className='piloto-carreras-td col-md-5'><h4>{item.piloto}</h4></td>
-                          <td className='img-carreras-td col-md-2'>
-                            {getBrandFromImageUrl(item.tiempo) && ( // Verifica si se encontró una marca en la imagen
-                              <img src={`images/marcas/${getBrandFromImageUrl(item.tiempo)}.png`} alt={getBrandFromImageUrl(item.tiempo)} />
-                            )}
-                          </td>
-                          <td className='tiempo-carreras-td col-md-2'><h4>{item.dif}</h4></td>
-                          <td className='dif-carreras-td col-md-2'><h4>{item.dif2}</h4></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                    {loading ? (
+                      <div className="col-md-9 spinner-container">
+                        <ClipLoader color="#FE0" size={80} />
+                      </div>
+                    ) : (
+                      raceData?.map((data, dataIndex) => (
+                        <div key={dataIndex} className="contenedor-table-carreras">
+                          <table ref={tableRef} className={`table-carreras ${showTramoTable ? '' : 'none'}`}>
+                            <thead className='container-fluid'>
+                              <tr className='row'>
+                                <td className='evento-carreras-td col-md-12'><h4>Posiciones en el tramo</h4></td>
+                              </tr>
+                              <tr className='row'>
+                                <th className='pos-carreras col-md-1'><h4>Pos.</h4></th>
+                                <th className='piloto-carreras col-md-7'><h4>Piloto / Navegante</h4></th>
+                                <th className='tiempo-carreras col-md-2'><h4>Tiempo</h4></th>
+                                <th className='dif-carreras col-md-2'><h4>Dif</h4></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {data.results?.resultado && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
+                                idx % 2 === 0 && // Check for even indices
+                                <tr className='row' key={idx}>
+                                  <td className='pos-carreras-td col-md-1'><h4>{item.posicion}</h4></td>
+                                  <td className='piloto-carreras-td col-md-7'><h4>{item.piloto}</h4></td>
+                                  <td className='tiempo-carreras-td col-md-2'><h4>{item.tiempo}</h4></td>
+                                  <td className='dif-carreras-td col-md-2'><h4>{item.dif}</h4></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+
+                          <table ref={tableRef} className={`table-carreras ${showClasificacionTable ? '' : 'none'}`}>
+                            <thead className='container-fluid'>
+                              <tr className='row'>
+                                <td className='evento-carreras-td col-md-12'><h4>Clasificacion General</h4></td>
+                              </tr>
+                              <tr className='row'>
+                                <th className='pos-carreras col-md-1'><h4>Pos</h4></th>
+                                <th className='tempo-carreras col-md-1'><h4>Nro</h4></th>
+                                <th className='piloto-carreras col-md-5'><h4>Piloto / Navegante</h4></th>
+                                <th className='tiempo-carreras col-md-1'><h4>Marca</h4></th>
+                                <th className='dif-carreras col-md-2'><h4>Tiempo</h4></th>
+                                <th className='dif-carreras col-md-2'><h4>Dif</h4></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {data.results?.resultado && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
+                                idx % 2 !== 0 && // Check for odd indices
+                                <tr className='row' key={idx}>
+                                  <td className='pos-carreras-td col-1'><h4>{item.posicion}</h4></td>
+                                  <td className='tiempo-carreras-td col-1'><h4>{item.numero}</h4></td>
+                                  <td className='piloto-carreras-td col-5'><h4>{item.piloto}</h4></td>
+                                  <td className='tiempo-carreras-td col-1'><h4>{item.tiempo}</h4></td>
+                                  <td className='tiempo-carreras-td col-2'><h4>{item.dif}</h4></td>
+                                  <td className='dif-carreras-td col-2'><h4>{item.dif2}</h4></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+
+
+                      ))
+                    )}
+                  </div>
                 </div>
               )}
             </div>
-            <div className={`col-lg-3  ${context[id]?.c[3]?.v === "A confirmar" ? 'none' : ''}`}>
+            <div className={`col-lg-3`}>
               <CallActionNoticias filterDate={new Date(context[id]?.c[2]?.v)} category={categoria} />
             </div>
           </div>
@@ -1337,7 +1352,7 @@ const DetailFecha = ({ rowData }) => {
                             className={`button-tanda ${selectedButton === 'en1' ? 'selected-button' : ''}`}
                             onClick={() => fetchSpecificData('en1')}
                           >
-                            1° Entrenamiento
+                            Libres 1
                           </button>
                         )}
                         {context[id]?.c[9]?.v !== null && context[id]?.c[9]?.v !== '-' && (
@@ -1345,7 +1360,7 @@ const DetailFecha = ({ rowData }) => {
                             className={`button-tanda ${selectedButton === 'en2' ? 'selected-button' : ''}`}
                             onClick={() => fetchSpecificData('en2')}
                           >
-                            2° Entrenamiento
+                            Libres 2
                           </button>
                         )}
                         {context[id]?.c[10]?.v !== null && context[id]?.c[10]?.v !== '-' && (
@@ -1353,7 +1368,7 @@ const DetailFecha = ({ rowData }) => {
                             className={`button-tanda ${selectedButton === 'en3' ? 'selected-button' : ''}`}
                             onClick={() => fetchSpecificData('en3')}
                           >
-                            Práctica
+                            Libres 3
                           </button>
                         )}
                       </div>
@@ -1367,7 +1382,7 @@ const DetailFecha = ({ rowData }) => {
                             className={`button-tanda ${selectedButton === 'en4' ? 'selected-button' : ''}`}
                             onClick={() => fetchSpecificData('en4')}
                           >
-                            4° Entrenamiento
+                            Práctica
                           </button>
                         )}
                         {context[id]?.c[12]?.v !== null && context[id]?.c[12]?.v !== '-' && (
@@ -1375,39 +1390,16 @@ const DetailFecha = ({ rowData }) => {
                             className={`button-tanda ${selectedButton === 'en5' ? 'selected-button' : ''}`}
                             onClick={() => fetchSpecificData('en5')}
                           >
-                            5° Entrenamiento
+                            Práctica 2
                           </button>
                         )}
-                        {context[id]?.c[13]?.v !== null && context[id]?.c[13]?.v !== '-' && (
-                          <button
-                            className={`button-tanda ${selectedButton === 'en6' ? 'selected-button' : ''}`}
-                            onClick={() => fetchSpecificData('en6')}
-                          >
-                            PR
-                          </button>
-                        )}
+
                         {context[id]?.c[14]?.v !== null && context[id]?.c[14]?.v !== '-' && (
                           <button
                             className={`button-tanda ${selectedButton === 'clasificacion' ? 'selected-button' : ''}`}
                             onClick={() => fetchSpecificData('clasificacion')}
                           >
                             Clasificación
-                          </button>
-                        )}
-                        {context[id]?.c[15]?.v !== null && context[id]?.c[15]?.v !== '-' && (
-                          <button
-                            className={`button-tanda ${selectedButton === 'serie1' ? 'selected-button' : ''}`}
-                            onClick={() => fetchSpecificData('serie1')}
-                          >
-                            Q2
-                          </button>
-                        )}
-                        {context[id]?.c[16]?.v !== null && context[id]?.c[16]?.v !== '-' && (
-                          <button
-                            className={`button-tanda ${selectedButton === 'serie2' ? 'selected-button' : ''}`}
-                            onClick={() => fetchSpecificData('serie2')}
-                          >
-                            SPRINT
                           </button>
                         )}
                         {context[id]?.c[17]?.v !== null && context[id]?.c[17]?.v !== '-' && (
@@ -1689,132 +1681,142 @@ const DetailFecha = ({ rowData }) => {
                   <ClipLoader color="#FE0" size={80} />
                 </div>
               ) : (
-<div className={`col-lg-9`}>
-  {raceData && raceData.map((data, idx) => (
-    <div key={idx}>
-      <h3>{selectedButtonText}</h3>
-      {selectedButton === 'pilotos' ? (
-        <table ref={tableRef} className="table-carreras container-fluid">
-          <thead>
-            <tr className='row title-pilotos-carreras'>
-              {categoria !== "moto-gp" && (
-                <th className='pos-carreras col-2'>
-                  <h4>Número</h4>
-                </th>
-              )}
-              <th className='vueltas-carreras col-2'><h4>Nac.</h4></th>
-              <th className='piloto-carreras col-5'><h4>Piloto</h4></th>
-              <th className='piloto-carreras col-3'><h4>Marca</h4></th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.results && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
-              <tr className='row description-pilotos-carreras' key={idx}>
-                {categoria !== "moto-gp" && item.nro && (
-                  <td className='pos-carreras-td col-2'>
-                    <h4>{item.nro}</h4>
-                  </td>
-                )}
-                {item.nacionalidad && (
-                  <td className='vueltas-carreras-td col-2'>
-                    <img style={{ width: "4rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" />
-                  </td>
-                )}
-                {item.piloto && (
-                  <td className='piloto-carreras-td col-5'><h4>{item.piloto}</h4></td>
-                )}
-                {item.marca && (
-                  <td className='vueltas-carreras-td col-3'>
-                    {categoria === 'tn' || categoria === 'tn3' ? (
-                      <h4>{item.marca}</h4>
-                    ) : (
-                      <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt="" />
-                    )}
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : selectedButton === 'horarios' ? (
-        <table ref={tableRef} className="table-carreras">
-          {data.results && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
-            <React.Fragment key={idx}>
-              {item.title && (
-                <tr className='row'>
-                  <td className='evento-carreras-td col-12'><h4>{item.title}</h4></td>
-                </tr>
-              )}
-              <tbody>
-                {((item.horario && item.horario.trim() !== '') ||
-                  (item.circuito && item.circuito.trim() !== '') ||
-                  (item.tipo && item.tipo.trim() !== '') ||
-                  (item.grupo && item.grupo.trim() !== '')) && (
-                  <tr className='row'>
-                    {item.horario && item.horario.trim() !== '' && <td className='horario-carreras-td col-3'><h4>{item.horario}</h4></td>}
-                    {item.categoria && item.categoria.trim() !== '' && <td className='categoria-carreras-td col-2'><h4>{item.categoria}</h4></td>}
-                    {item.tipo && item.tipo.trim() !== '' && <td className='tipo-carreras-td col-3'><h4>{item.tipo}</h4></td>}
-                    {item.grupo && item.grupo.trim() !== '' && <td className='grupo-carreras-td col-4'><h4>{item.grupo}</h4></td>}
-                  </tr>
-                )}
-              </tbody>
-            </React.Fragment>
-          ))}
-        </table>
-      ) : (
-        <table ref={tableRef} className="table-carreras">
-          <thead className='container-fluid'>
-            <tr className='row'>
-              <th className='pos-carreras col-1'><h4>Pos</h4></th>
-              <th className='piloto-carreras col-4'><h4>Piloto</h4></th>
-              <th className='img-carreras col-2'><h4>Marca</h4></th>
-              <th className='vueltas-carreras col-1'><h4>Vtas</h4></th>
-              <th className='tiempo-carreras col-2'><h4>Tiempo</h4></th>
-              {categoria !== 'moto-gp' && (
-                <>
-                  <th className='dif-carreras col-2'><h4>Dif</h4></th>
-                </>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {data.results && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
-              <tr className='row' key={idx}>
-                <td className='pos-carreras-td col-1'><h4>{item.pos}</h4></td>
-                <td className='piloto-carreras-td col-4'>
-                  {['moto-gp', 'nascar', 'f1', 'formula-e', 'rally-mundial', 'indycar-series'].includes(categoria) && (
-                    <span>
-                      <img style={{ width: "4rem", marginRight: "1rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" />
-                    </span>
-                  )}
-                  <h4>{item.piloto}</h4>
-                </td>
-                <td className='img-carreras-td col-2'>
-                  {["tp", "tp1", "tp2"].includes(categoria) ? (
-                    <h4 style={{ color: "white" }}>{item.marca}</h4>
-                  ) : (
-                    getMarcaImageUrl(item.marca) ? (
-                      <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt={item.marca} />
-                    ) : (
-                      <h4>{item.marca}</h4>
-                    )
-                  )}
-                </td>
-                <td className='vueltas-carreras-td col-1'><h4>{item.vueltas}</h4></td>
-                <td className='tiempo-carreras-td col-2'><h4>{item.tiempo}</h4></td>
-                {categoria !== 'moto-gp' && (
-                  <>
-                    <td className='dif-carreras-td col-2'><h4>{item.diferencia}</h4></td>
-                  </>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  ))}
-</div>
+                <div className={`col-lg-9`}>
+                  {raceData && raceData.map((data, idx) => (
+                    <div key={idx}>
+                      {selectedButton === 'pilotos' ? (
+                        <table ref={tableRef} className="table-carreras container-fluid">
+                          <thead>
+                            <tr className='row title-pilotos-carreras'>
+                              <th className='vueltas-carreras col-2'><h4>Número</h4></th>  
+                              {/* <th className='pos-carreras col-1'>Nac</th> */}
+                              <th className='piloto-carreras col-6'><h4>Piloto</h4></th>
+                              <th className='piloto-carreras col-4'><h4>Marca</h4></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {data.results && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
+                              <tr className='row description-pilotos-carreras' key={idx}>
+                                {categoria !== "moto-gp" && item.numero && (
+                                  <td className='pos-carreras-td col-2'>
+                                    <h4>{item.numero}</h4>
+                                  </td>
+                                )}
+                                {item.piloto && (
+                                  <td className='piloto-carreras-td col-6'><h4>{item.piloto}</h4></td>
+                                )}
+                                {/* {(categoria === "moto-gp" ||
+                                  categoria === "formula-e" ||
+                                  categoria === "f1" ||
+                                  categoria === "rally-mundial" ||
+                                  categoria === "indycar-series" ||
+                                  categoria === "nascar") && item.nacionalidad && (
+                                    <td className='vueltas-carreras-td col-1'>
+                                      <img style={{ width: "4rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" />
+                                    </td>
+                                  )} */}
+
+
+                                {item.marca && (
+                                  <td className='vueltas-carreras-td col-4'>
+                                    {categoria === 'tn' || categoria === 'tn3' ? (
+                                      <h4>{item.marca}</h4>
+                                    ) : (
+                                      <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt="" />
+                                    )}
+                                  </td>
+                                )}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      ) : selectedButton === 'horarios' ? (
+                        <table ref={tableRef} className="table-carreras">
+                           <tr className='row title-pilotos-carreras'>
+                              <th className='vueltas-carreras col-3'><h4>Horario</h4></th>  
+                              <th className='piloto-carreras col-3'><h4>Tanda</h4></th>
+                              <th className='piloto-carreras col-2'><h4>Categoria</h4></th>
+                              <th className='grupo-carreras col-4'><h4>Grupo</h4></th>
+                            </tr>
+                          {data.results && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
+                            <React.Fragment key={idx}>
+                              {item.title && (
+                                <tr className='row'>
+                                  <td className='evento-carreras-td col-12'><h4>{item.title}</h4></td>
+                                </tr>
+                              )}
+                       
+                              <tbody>
+                                {((item.horario && item.horario.trim() !== '') ||
+                                  (item.circuito && item.circuito.trim() !== '') ||
+                                  (item.tanda && item.tanda.trim() !== '')
+                                  (item.grupo && item.grupo.trim() !== '')) && (
+                                    <tr className='row'>
+                                      {item.horario && item.horario.trim() !== '' && <td className='horario-carreras-td col-3'><h4>{item.horario}</h4></td>}
+                                      {item.tanda && item.tanda.trim() !== '' && <td className='categoria-carreras-td col-3'><h4>{item.tanda}</h4></td>}
+                                      {item.categoria && item.categoria.trim() !== '' && <td className='categoria-carreras-td col-2'><h4>{item.categoria}</h4></td>}
+                                      {item.grupo && item.grupo.trim() !== '' && <td className='grupo-carreras-td col-4'><h4>{item.grupo}</h4></td>}
+                                  
+                                    </tr>
+                                  )}
+                              </tbody>
+                            </React.Fragment>
+                          ))}
+                        </table>
+                      ) : (
+                        <table ref={tableRef} className="table-carreras">
+                          <thead className='container-fluid'>
+                            <tr className='row'>
+                              <th className='pos-carreras col-1'><h4>Pos</h4></th>
+                              <th className='piloto-carreras col-4'><h4>Piloto</h4></th>
+                              <th className='img-carreras col-2'><h4>Marca</h4></th>
+                              <th className='vueltas-carreras col-1'><h4>Vtas</h4></th>
+                              <th className='tiempo-carreras col-2'><h4>Tiempo</h4></th>
+                              {categoria !== 'moto-gp' && (
+                                <>
+                                  <th className='dif-carreras col-2'><h4>Dif</h4></th>
+                                </>
+                              )}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {data.results && Array.isArray(data.results.resultado) && data.results.resultado.map((item, idx) => (
+                              <tr className='row' key={idx}>
+                                <td className='pos-carreras-td col-1'><h4>{item.pos}</h4></td>
+                                <td className='piloto-carreras-td col-4'>
+                                  {['moto-gp', 'nascar', 'f1', 'formula-e', 'rally-mundial', 'indycar-series'].includes(categoria) && (
+                                    <span>
+                                      <img style={{ width: "4rem", marginRight: "1rem" }} src={`images/banderas/${getNacionalidadImgUrl(item.nacionalidad)}`} alt="" />
+                                    </span>
+                                  )}
+                                  <h4>{item.piloto}</h4>
+                                </td>
+                                <td className='img-carreras-td col-2'>
+                                  {["tp", "tp1", "tp2"].includes(categoria) ? (
+                                    <h4 style={{ color: "white" }}>{item.marca}</h4>
+                                  ) : (
+                                    getMarcaImageUrl(item.marca) ? (
+                                      <img src={`images/marcas/${getMarcaImageUrl(item.marca)}`} alt={item.marca} />
+                                    ) : (
+                                      <h4>{item.marca}</h4>
+                                    )
+                                  )}
+                                </td>
+                                <td className='vueltas-carreras-td col-1'><h4>{item.vueltas}</h4></td>
+                                <td className='tiempo-carreras-td col-2'><h4>{item.tiempo}</h4></td>
+                                {categoria !== 'moto-gp' && (
+                                  <>
+                                    <td className='dif-carreras-td col-2'><h4>{item.diferencia}</h4></td>
+                                  </>
+                                )}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  ))}
+                </div>
 
               )}
               <div className={`col-lg-3 none-lg `}>
