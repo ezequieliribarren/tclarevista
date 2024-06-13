@@ -122,15 +122,36 @@ const DetailFecha = ({ rowData }) => {
       const response = await fetch(`${backUrl}/${categoria}/${endpoint}/${id}`);
       if (response.ok) {
         const jsonData = await response.json();
-        setRaceData([{ url: endpoint, results: jsonData }]);
-        setSelectedButton(endpoint); // Aquí aseguramos que el botón seleccionado se actualice correctamente
-        console.log(jsonData)
+        
+        if (Array.isArray(jsonData.resultado) && jsonData.resultado.length === 0) {
+          // Si el array resultado está vacío
+          const responseVivo = await fetch(`${backUrl}/${categoria}/${endpoint}/vivo/${id}`);
+          if (responseVivo.ok) {
+            const jsonDataVivo = await responseVivo.json();
+            setRaceData([{ url: endpoint, results: jsonDataVivo }]);
+            setSelectedButton(endpoint);
+            console.log(jsonDataVivo);
+          } else {
+            console.error(`Error al obtener los datos de ${endpoint}/vivo`);
+            setRaceData([]);
+          }
+        } else {
+          setRaceData([{ url: endpoint, results: jsonData }]);
+          setSelectedButton(endpoint);
+          console.log(jsonData);
+        }
+  
         // Realizar el scroll después de cargar los datos y actualizar el botón seleccionado
         setTimeout(() => {
           if (tableRef.current) {
-            tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const elementPosition = tableRef.current.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - 100; // Ajusta el valor (en píxeles) para desplazarte más arriba
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
           }
-        }, 1000); // Espera 5 segundos antes de desplazarte
+        }, 1000); // Espera 1 segundo antes de desplazarte
       } else {
         console.error(`Error al obtener los datos de ${endpoint}`);
         setRaceData([]);
@@ -142,7 +163,8 @@ const DetailFecha = ({ rowData }) => {
       setLoading(false);
     }
   };
-
+  
+  
   useEffect(() => {
     const fetchLastButtonData = async () => {
       setLoading(true);
@@ -152,8 +174,22 @@ const DetailFecha = ({ rowData }) => {
           const response = await fetch(`${backUrl}/${categoria}/${lastButton}/${id}`);
           if (response.ok) {
             const jsonData = await response.json();
-            setRaceData([{ url: lastButton, results: jsonData }]);
-            setSelectedButton(lastButton); // Aquí también aseguramos que el botón seleccionado se actualice correctamente
+  
+            if (Array.isArray(jsonData.resultado) && jsonData.resultado.length === 0) {
+              // Si el array resultado está vacío
+              const responseVivo = await fetch(`${backUrl}/${categoria}/${lastButton}/vivo/${id}`);
+              if (responseVivo.ok) {
+                const jsonDataVivo = await responseVivo.json();
+                setRaceData([{ url: lastButton, results: jsonDataVivo }]);
+                setSelectedButton(lastButton);
+              } else {
+                console.error(`Error al obtener los datos de ${categoria}/${lastButton}/vivo/${id}`);
+                setRaceData([]);
+              }
+            } else {
+              setRaceData([{ url: lastButton, results: jsonData }]);
+              setSelectedButton(lastButton);
+            }
           } else {
             console.error(`Error al obtener los datos de ${categoria}/${lastButton}/${id}`);
             setRaceData([]);
@@ -166,9 +202,11 @@ const DetailFecha = ({ rowData }) => {
         setLoading(false);
       }
     };
-
+  
     fetchLastButtonData();
   }, []); // Sin dependencias, se ejecuta solo una vez al montar el componente
+  
+  
 
 
   const fetchDataMenu = async () => {
@@ -1004,9 +1042,9 @@ const DetailFecha = ({ rowData }) => {
                     <button
                       value={context[id]?.c[24]?.v}
                       className={`button-tanda ${selectedButton === 'p16' ? 'selected-button' : ''}`}
-                      onClick={() => handleButtonClick('final', 'Especial 16')}
+                      onClick={() => handleButtonClick('p16', 'p16')}
                     >
-                      Especial 16
+                      Final
                     </button>
                   )}
                 </div>
