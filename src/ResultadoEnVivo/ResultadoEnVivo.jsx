@@ -120,18 +120,17 @@ const ResultadoEnVivo = () => {
     }
   };
 
-  const cleanedCircuito = menu[0].circuito.split('\n').filter(line => line.trim().length > 0)[1];
-
+  const cleanedCircuito = menu.length > 0 ? menu[0].circuito.split('\n').filter(line => line.trim().length > 0)[1] : '';
 
   return (
     <Layout>
-      <section>
+      <section style={{width: "100%"}}>
         {loading && (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
             <ClipLoader color="#FE0" size={90} />          </div>
         )}
         {!loading && (
-          <div>
+          <div className='container-fluid'>
             <div className='contenedor-botonera'>
               {menu.length > 0 && (
                 <div className="up-botonera">
@@ -166,7 +165,7 @@ const ResultadoEnVivo = () => {
                   ))}
               </div>
             </div>
-            <div>
+            <div className='tabla-resultados-vivo'>
               {tandas && tandas.DatosTabla ? (
                 <div>
                   <div className='d-flex align-items-center'>
@@ -193,10 +192,10 @@ const ResultadoEnVivo = () => {
                         <tr key={index} className='row'>
                           <td className='pos-carreras-td col-1'><h4>{item.Pos}</h4></td>
                           <td className='vueltas-carreras-td col-1'><h4>{item.Numero}</h4></td>
-                          <td className='piloto-carreras-td col-3'>
+                          <td className='piloto-carreras-td col-3'>    
+                            {item.Flag && <img className='flag-vivo' src="images/flag.png" alt="Flag" style={{ width: '20px', height: 'auto', marginLeft: '10px' }} />}
                             <h4>
                               {item.Piloto}
-                              {item.Flag && <img src="images/flag.png" alt="Flag" style={{ width: '20px', height: 'auto', marginLeft: '10px' }} />}
                             </h4>
                           </td>
                           <td className='img-carreras-td col-2'>

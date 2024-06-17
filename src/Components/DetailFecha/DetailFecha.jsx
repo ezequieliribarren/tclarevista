@@ -18,7 +18,7 @@ const DetailFecha = ({ rowData }) => {
   const [mostrarTablaTramo, setMostrarTablaTramo] = useState(true);
   const [loading, setLoading] = useState(true);
   const [selectedButton, setSelectedButton] = useState(null);
-  const [selectedButton2, setSelectedButton2] = useState(null);
+  const [selectedButton2, setSelectedButton2] = useState(localStorage.getItem('lastButton') || '');
   const [selectedButtonText, setSelectedButtonText] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [buttonVisibility, setButtonVisibility] = useState([]);
@@ -164,7 +164,6 @@ const DetailFecha = ({ rowData }) => {
     }
   };
   
-  
   useEffect(() => {
     const fetchLastButtonData = async () => {
       setLoading(true);
@@ -206,9 +205,6 @@ const DetailFecha = ({ rowData }) => {
     fetchLastButtonData();
   }, []); // Sin dependencias, se ejecuta solo una vez al montar el componente
   
-  
-
-
   const fetchDataMenu = async () => {
     try {
       const response = await fetch(`http://localhost:5000/${categoria}/menu/${id}`);
@@ -1682,7 +1678,7 @@ const DetailFecha = ({ rowData }) => {
                             {buttons.map((button, buttonIndex) => (
                               <button
                                 key={buttonIndex}
-                                className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
+                                className={`button ${esFechaEnVivo ? 'button-finalizado' : 'button-tanda'} ${selectedButton2 === button ? 'selected-button' : ''} ${esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? 'last-button' : ''}`}
                                 data-name={button}
                                 onClick={() => handleMenuButtonClick(button)}
                                 style={{ width: esFechaEnVivo && index === Object.entries(buttonData).length - 1 && buttons.length - 1 === buttonIndex ? '24rem' : '24rem' }}

@@ -48,7 +48,11 @@ main {
 }
 
 .pl2{
-    padding-left: 2%;
+    margin-left: 2%;
+    padding: 0 2rem;
+    font-size: 3.2rem;
+    background-color: black;
+    border-radius: 10px;
 }
 
 
@@ -143,6 +147,9 @@ a {
 
   .semaforo{
     margin-left: 1.5rem;
+    img{
+        width: 2.6rem;
+    }
   }
 
   .contador {

@@ -68,6 +68,42 @@ const NoticiaDetail = () => {
     // URL para compartir en WhatsApp
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(url)}`;
 
+    const obtenerRutaImagen = (numeroMarca) => {
+        switch (numeroMarca) {
+          case '1':
+            return 'images/marcas/ford.png';
+          case '2':
+            return 'images/marcas/chevrolet.png';
+          case '46':
+            return 'images/marcas/mustang.png';
+          case '4':
+          case '52':
+            return 'images/marcas/torino.png';
+          case '3':
+          case '50':
+            return 'images/marcas/dodge.png';
+          case '48':
+            return 'images/marcas/camaro.png';
+          case '54':
+            return 'images/marcas/toyota.png';
+          case '21':
+            return 'images/marcas/nissan.png';
+          default:
+            return null;
+        }
+      };
+    
+      const obtenerNumeroMarca = (rutaImagen) => {
+        if (!rutaImagen) return null; // Return null if rutaImagen is null or undefined
+        const regex = /\/(\d+)\.jpg$/;  // Regex to match the number in the image path
+        const match = rutaImagen.match(regex);
+        if (match) {
+          return match[1];
+        } else {
+          return null;
+        }
+      };
+      
     return (
         <Layout background={categoria} logo={categoria} param={categoria} hideHuella={hideHuella}>
             <main>
