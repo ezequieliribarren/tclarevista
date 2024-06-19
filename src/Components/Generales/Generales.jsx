@@ -8,6 +8,8 @@ const Generales = () => {
     const [loading, setLoading] = useState(false);
     const observer = useRef();
     const lastNewsElementRef = useRef();
+    const backUrl = "http://195.200.5.59/"; // Ver como agregar la url
+
 
     // Verificar si 'news' está definido y si 'general' está presente
     const generales = news && news.general ? news.general.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, shownNewsCount) : [];

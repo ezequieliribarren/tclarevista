@@ -207,7 +207,7 @@ const DetailFecha = ({ rowData }) => {
   
   const fetchDataMenu = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/${categoria}/menu/${id}`);
+      const response = await fetch(`http://${backUrl}/${categoria}/menu/${id}`);
       const data = await response.json();
       setButtonData(data);
 
