@@ -32,7 +32,7 @@ const Generales = () => {
                             {noticia.video ? (
                                 <img className='img-fluid' src={noticia.miniatura} alt="Video" />
                             ) : (
-                                <img className='img-fluid' src={`http://localhost:5000/${noticia.image}`} alt={noticia.title} />
+                                <img className='img-fluid' src={`http://${backUrl}/${noticia.image}`} alt={noticia.title} />
                             )}
                         </div>
                         <div className='description'>

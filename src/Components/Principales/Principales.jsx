@@ -7,7 +7,7 @@ const Principales = () => {
     const [vincular, setVincular] = useState([]);
     const [mostRecentIsPrimaria, setMostRecentIsPrimaria] = useState(true);
     const [mostRecentVincular, setMostRecentVincular] = useState(null);
-    const backUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+    const backUrl = import.meta.env.VITE_BACKEND_URL || "http://195.200.5.59/";
 
     useEffect(() => {
         const fetchVincular = async () => {
