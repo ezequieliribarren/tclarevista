@@ -11,7 +11,6 @@ import Vivo from '../Components/Vivo/Vivo'
 import VideosCarousel from '../Components/VideosCarousel/VideosCarousel'
 
 const Root = () => {
-
   return (
       <Layout>
         <main className='p-3'>

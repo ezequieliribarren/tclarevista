@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { HashLink as Link } from 'react-router-hash-link';
 import { useNewsContext } from '../../../Context/Context';
+import playButton from '../../../public/images/play.png'; // Importa la imagen del botón de reproducción
 
 const VideosCarousel = () => {
     const { news } = useNewsContext();
@@ -27,6 +28,8 @@ const VideosCarousel = () => {
         infinite: true,
         dots: false,
         arrows: false,
+        preventMovementUntilSwipeScrollTolerance: true,
+        swipeScrollTolerance: 50,
         responsive: [
             {
                 breakpoint: 768,
@@ -60,16 +63,17 @@ const VideosCarousel = () => {
                     <div key={index}>
                         <Link to={`/noticia/${video.id}`}>
                             <div className='contenedor-videos-carousel'>
-                                 <div className='videos-carousel-img'>
-                                <img src={video.miniatura} alt={`Video ${index + 1}`} />
+                                <div className='videos-carousel-img'>
+                                    <img src={video.miniatura} alt={`Video ${index + 1}`} />
+                                    <div className="play-button-overlay">
+                                        <img src={playButton} alt="Play button" />
+                                    </div>
+                                </div>
+                                <div className="videos-carousel-description">
+                                    <h3>{video.title}</h3>
+                                    <h4>{formatDate(video.date)}</h4>
+                                </div>
                             </div>
-                            <div className="videos-carousel-description">
-                                <h3>{video.title}</h3>
-                                <h4>{formatDate(video.date)}</h4>
-                            </div>
-                            </div>
-                           
-                            
                         </Link>
                     </div>
                 ))}

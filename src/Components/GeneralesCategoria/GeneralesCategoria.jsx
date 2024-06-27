@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
+import playButton from '../../../public/images/play.png'; // Import the play button image
 
 const GeneralesCategoria = ({ cat, filterDate }) => {
     const [noticias, setNoticias] = useState([]);
@@ -73,10 +74,15 @@ const GeneralesCategoria = ({ cat, filterDate }) => {
                 <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index}>
                     <div className="card-general mb-3" ref={index === noticias.length - 4 ? handleObserver : null}>
                         <div className='card-general-img'>
-                            {noticia.video ? (
-                                 <img className='img-fluid' src={noticia.miniatura} alt="Video" />
-                            ) : (
-                                <img className='img-fluid' src={`http://localhost:5000/${noticia.image}`} alt={noticia.title} />
+                            <img
+                                className='img-fluid'
+                                src={noticia.video ? noticia.miniatura : `http://localhost:5000/${noticia.image}`}
+                                alt={noticia.title}
+                            />
+                            {noticia.video && (
+                                <div className="play-button-overlay">
+                                    <img src={playButton} alt="Play button" />
+                                </div>
                             )}
                         </div>
                         <div className='description'>

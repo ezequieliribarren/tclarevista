@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import Radio from '../Radio/Radio';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -6,12 +6,27 @@ import { HashLink as Link } from 'react-router-hash-link';
 import RadioMobile from '../RadioMobile/RadioMobile';
 
 
-
-
 const Navbar = () => {
   const radioUrl = 'http://01.solumedia.com.ar:8420/;stream.nsv'
   const audioRef = React.createRef();
 
+  useEffect(() => {
+    // Habilitar scroll cuando se monte el componente
+    enableScroll();
+
+    // Limpiar al desmontar el componente
+    return () => {
+      disableScroll();
+    };
+  }, []);
+
+  const enableScroll = () => {
+    document.body.style.overflow = 'auto';
+  };
+
+  const disableScroll = () => {
+    document.body.style.overflow = 'hidden';
+  };
 
   return (
     <>
@@ -246,14 +261,14 @@ const Navbar = () => {
           </ul>
         </div>
       </nav>
-      <nav class=" navbar-mobile navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-          <div class="navbar-brand"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-            <span class="navbar-toggler-icon"></span>
+      <nav className=" navbar-mobile navbar navbar-dark bg-dark">
+        <div className="container-fluid">
+          <div className="navbar-brand"></div>
+          <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-            <div class="offcanvas-header">
+          <div className="offcanvas offcanvas-end text-bg-dark" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div className="offcanvas-header">
               <button type="button" className='cerrar' data-bs-dismiss="offcanvas" aria-label="Close">
                 <img src="images/x.png" alt="Cerrar" />
               </button>
@@ -266,13 +281,13 @@ const Navbar = () => {
                 <div><a href=""><img src="images/redes/mail.png" alt="Mail de Tc La Revista" /></a></div>
               </div>
             </div>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div className="offcanvas-body">
+              <ul className="navbar-nav">
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Nacionales
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-dark">
+                  <ul className="dropdown-menu dropdown-menu-dark">
                     <Link to='/tc' className='dropdown-item link-navbar-responsive'>
                       <div><h2>Turismo Carretera</h2></div>
                       <div><img src="images/mayor.png" alt="" /></div>
@@ -326,11 +341,11 @@ const Navbar = () => {
 
                   </ul>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Internacionales
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-dark">
+                  <ul className="dropdown-menu dropdown-menu-dark">
                     <Link to='/f1' className='dropdown-item link-navbar-responsive'>
                       <div><h2>Fórmula 1</h2></div>
                       <div><img src="images/mayor.png" alt="" /></div>

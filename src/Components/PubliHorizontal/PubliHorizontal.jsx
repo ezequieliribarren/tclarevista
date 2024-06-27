@@ -33,6 +33,8 @@ const PubliHorizontal = () => {
     autoplay: true,
     slidesToShow: 8,
     slidesToScroll: 1,
+    preventMovementUntilSwipeScrollTolerance: true,
+    swipeScrollTolerance: 50,
     responsive: [
       {
         breakpoint: 768, // Tamaño md

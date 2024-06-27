@@ -34,6 +34,8 @@ const PublicidadVertical = ({none}) => {
         autoplay: true,
         slidesToShow: 5,
         slidesToScroll: 1,
+        preventMovementUntilSwipeScrollTolerance: true,
+        swipeScrollTolerance: 50,
 
     };
 

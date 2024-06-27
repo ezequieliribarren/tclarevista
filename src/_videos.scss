@@ -121,6 +121,22 @@
 .contenedor-videos-carousel{
     height: 38rem !important;
     margin: 0 0.5rem;
+        position: relative;
+        overflow: hidden;
+    
+    .play-button-overlay {
+        position: absolute;
+        top: 5px; /* Ajusta según sea necesario */
+        left: 5px; /* Ajusta según sea necesario */
+        z-index: 1; /* Ajusta el índice z si es necesario */
+        pointer-events: none;
+    }
+    
+    .play-button-overlay img {
+        width: 50px; /* Ajusta el tamaño del botón de reproducción */
+        height: 50px; /* Ajusta el tamaño del botón de reproducción */
+    }
+    
 }
 .videos-carousel-img{
     height: 22rem !important;

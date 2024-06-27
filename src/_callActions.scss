@@ -230,6 +230,33 @@ h4{
 
 
 } 
+@media (max-width: 585px) {
+    .title-table-carreras{
+        h2{
+            font-size: 2rem ; 
+        }
+       
+    }
+.tabla-carreras{
+    .h4-circuito{
+        font-size: 1.5rem !important;
+    }
+
+    .h4-fecha{
+        font-size: 1.5rem !important;
+    }
+
+    img{
+        width: 3rem;
+    }
+
+    .img-fluid{
+        width: 8rem !important;
+    }
+
+
+}
+}
 
 @media (max-width: 470px) {
     .card-call-action-campeonato{

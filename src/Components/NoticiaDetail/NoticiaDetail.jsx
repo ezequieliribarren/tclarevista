@@ -161,9 +161,24 @@ const NoticiaDetail = () => {
                                     <div>
                                         <p dangerouslySetInnerHTML={{ __html: noticia.cuerpo }}></p>
                                     </div>
-                                    {/* <div className='img-cuerpo-noticia-detail img-fluid'>
-                                        <img src={`http://localhost:5000/${noticia.image}`} alt="" />
-                                    </div> */}
+                                    <div className='img-cuerpo-noticia-detail img-fluid'>
+                                        <img src={`http://localhost:5000/${noticia.imageCuerpo[0]}`} alt="" />
+                                    </div>
+                                    <div className='img-cuerpo-noticia-detail img-fluid'>
+                                        <img src={`http://localhost:5000/${noticia.imageCuerpo[1]}`} alt="" />
+                                    </div>
+                                    <div className='img-cuerpo-noticia-detail img-fluid'>
+                                        <img src={`http://localhost:5000/${noticia.imageCuerpo[2]}`} alt="" />
+                                    </div>
+                                    <div className='img-cuerpo-noticia-detail img-fluid'>
+                                        <img src={`http://localhost:5000/${noticia.imageCuerpo[3]}`} alt="" />
+                                    </div>
+                                    <div className='img-cuerpo-noticia-detail img-fluid'>
+                                        <img src={`http://localhost:5000/${noticia.imageCuerpo[4]}`} alt="" />
+                                    </div>
+                                    <div className='img-cuerpo-noticia-detail img-fluid'>
+                                        <img src={`http://localhost:5000/${noticia.imageCuerpo[5]}`} alt="" />
+                                    </div>
                                 </div>
                             </div>
                         </section>

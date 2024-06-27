@@ -123,11 +123,11 @@ const Vivo = () => {
     if (hayContenido()) {
       switch (diaActual) {
         case 'sábado':
-          return <Sabado />;
+          // return <Sabado />;
         case 'domingo':
-          return <Domingo />;
+          // return <Domingo />;
         case 'viernes':
-          return <Viernes />;
+          // return <Viernes />;
         default:
           return <div style={{ display: 'none', height: '0px' }} />;
       }

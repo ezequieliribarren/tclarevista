@@ -1,6 +1,7 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNewsContext } from '../../../Context/Context';
 import { HashLink as Link } from 'react-router-hash-link';
+import playButton from '../../../public/images/play.png'; // Import the play button image
 
 const Generales = () => {
     const { news } = useNewsContext();
@@ -8,13 +9,10 @@ const Generales = () => {
     const [loading, setLoading] = useState(false);
     const observer = useRef();
     const lastNewsElementRef = useRef();
-    const backUrl = "http://195.200.5.59/"; // Ver como agregar la url
+    const backUrl = "http://localhost:5000/"; // Ver como agregar la url
 
-
-    // Verificar si 'news' está definido y si 'general' está presente
     const generales = news && news.general ? news.general.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, shownNewsCount) : [];
 
-    // Función para formatear la fecha
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = date.getDate();
@@ -29,15 +27,20 @@ const Generales = () => {
                 <Link to={`/noticia/${noticia.id}/${noticia.param}`} key={index}>
                     <div className="card-general mb-3">
                         <div className='card-general-img'>
-                            {noticia.video ? (
-                                <img className='img-fluid' src={noticia.miniatura} alt="Video" />
-                            ) : (
-                                <img className='img-fluid' src={`http://${backUrl}/${noticia.image}`} alt={noticia.title} />
+                            <img
+                                className='img-fluid'
+                                src={noticia.video ? noticia.miniatura : `${backUrl}/${noticia.image}`}
+                                alt={noticia.title}
+                            />
+                            {noticia.video && (
+                                <div className="play-button-overlay">
+                                    <img src={playButton} alt="Play button" />
+                                </div>
                             )}
                         </div>
                         <div className='description'>
                             <div className='category'>
-                                <div className='h4-category'> <h4>{noticia.categoria}</h4></div>
+                                <div className='h4-category'><h4>{noticia.categoria}</h4></div>
                             </div>
                             <div className='title-subtitle'>
                                 <h2>{noticia.title}</h2>

@@ -27,7 +27,7 @@ const DetailFecha = ({ rowData }) => {
   const [showShakeTable, setShowShakeTable] = useState(false);
   const [buttonData, setButtonData] = useState({});
   const location = useLocation();
-  const backUrl = "http://195.200.5.59/"; // Ver como agregar la url
+  const backUrl = "http://localhost:5000/"; // Ver como agregar la url
   console.log(raceData)
 
   // Extraer el parámetro 'vivo' de la URL
